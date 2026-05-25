@@ -1,0 +1,46 @@
+.admin-logs-tab {
+  padding: 0;
+}
+
+.admin-logs-toolbar {
+  margin-bottom: 1rem;
+}
+
+.admin-logs-list {
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md, 8px);
+  background: var(--surface2);
+}
+
+.admin-logs-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+
+.admin-logs-table th,
+.admin-logs-table td {
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid var(--line);
+}
+
+.admin-logs-table th {
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.admin-logs-table code {
+  font-size: 0.8rem;
+  background: var(--surface);
+  padding: 0.15rem 0.4rem;
+  border-radius: var(--radius-sm, 4px);
+}
+
+.admin-logs-empty,
+.admin-logs-loading {
+  color: var(--muted);
+  padding: 1.5rem;
+  margin: 0;
+}

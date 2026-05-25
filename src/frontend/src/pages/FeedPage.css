@@ -1,0 +1,78 @@
+.feed-page {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Filters — как в турнирах (btn-ghost), прижаты к левому краю */
+.feed-filters {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  --feed-pull: max(0px, (100vw - var(--sidebar-width) - 1160px) / 2);
+  margin-left: calc(-1 * var(--feed-pull));
+  width: calc(100% + var(--feed-pull));
+  box-sizing: border-box;
+}
+
+.feed-filters .btn-ghost.active {
+  background: var(--surface2);
+  color: var(--text);
+  border: 1px solid var(--line);
+  box-shadow: var(--ring-accent);
+}
+
+.feed-filter-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  margin-left: 4px;
+  border-radius: 10px;
+  background: var(--line);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.feed-filters .btn-ghost.active .feed-filter-count {
+  background: color-mix(in srgb, var(--accent) 25%, transparent);
+  color: var(--accent);
+}
+
+/* Skeleton: single column, full width, hero-like heights */
+.feed-skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  max-width: 1150px;
+  margin: 0 auto;
+}
+
+.feed-skeleton .skeleton {
+  width: 100%;
+  height: 240px;
+  border-radius: var(--radius-card);
+}
+
+.feed-skeleton .skeleton:nth-child(1) {
+  height: 300px;
+}
+
+@media (max-width: 768px) {
+  .feed-skeleton {
+    gap: 16px;
+  }
+
+  .feed-skeleton .skeleton {
+    height: 200px;
+  }
+
+  .feed-skeleton .skeleton:nth-child(1) {
+    height: 260px;
+  }
+
+}

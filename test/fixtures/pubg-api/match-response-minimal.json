@@ -1,0 +1,127 @@
+{
+  "data": {
+    "type": "match",
+    "id": "b00cee06-a828-4aab-8a29-0ab6ddcc20b2",
+    "attributes": {
+      "duration": 1633,
+      "stats": null,
+      "gameMode": "duo-fpp",
+      "tags": null,
+      "mapName": "Baltic_Main",
+      "isCustomMatch": false,
+      "matchType": "official",
+      "createdAt": "2026-01-23T18:21:10Z",
+      "titleId": "bluehole-pubg",
+      "shardId": "steam",
+      "seasonState": "progress"
+    },
+    "relationships": {
+      "rosters": {
+        "data": [{ "type": "roster", "id": "4779deae-e087-4f27-ba0e-2265fe616869" }]
+      },
+      "assets": {
+        "data": [{ "type": "asset", "id": "46279a53-f88c-11f0-ad33-7673b1ed6c57" }]
+      }
+    },
+    "links": {
+      "self": "https://api.pubg.com/shards/steam/matches/b00cee06-a828-4aab-8a29-0ab6ddcc20b2",
+      "schema": ""
+    }
+  },
+  "included": [
+    {
+      "type": "roster",
+      "id": "4779deae-e087-4f27-ba0e-2265fe616869",
+      "attributes": {
+        "stats": { "rank": 23, "teamId": 38 },
+        "won": "false",
+        "shardId": "steam"
+      },
+      "relationships": {
+        "team": { "data": null },
+        "participants": {
+          "data": [
+            { "type": "participant", "id": "01341aad-b9e9-48e2-935e-1ad60be799d4" },
+            { "type": "participant", "id": "2d15fd6d-825f-4f8f-9db6-6be6a4c22df8" }
+          ]
+        }
+      }
+    },
+    {
+      "type": "participant",
+      "id": "01341aad-b9e9-48e2-935e-1ad60be799d4",
+      "attributes": {
+        "shardId": "steam",
+        "stats": {
+          "DBNOs": 1,
+          "assists": 0,
+          "boosts": 2,
+          "damageDealt": 75,
+          "deathType": "byplayer",
+          "headshotKills": 0,
+          "heals": 4,
+          "killPlace": 56,
+          "killStreaks": 0,
+          "kills": 0,
+          "longestKill": 0,
+          "name": "IVANCHK",
+          "playerId": "account.4920d2d8ce45415fb828afe4a500a2ec",
+          "revives": 0,
+          "rideDistance": 0,
+          "roadKills": 0,
+          "swimDistance": 0,
+          "teamKills": 0,
+          "timeSurvived": 400,
+          "vehicleDestroys": 0,
+          "walkDistance": 878.86145,
+          "weaponsAcquired": 3,
+          "winPlace": 23
+        },
+        "actor": ""
+      }
+    },
+    {
+      "type": "participant",
+      "id": "2d15fd6d-825f-4f8f-9db6-6be6a4c22df8",
+      "attributes": {
+        "shardId": "steam",
+        "stats": {
+          "DBNOs": 0,
+          "assists": 0,
+          "boosts": 1,
+          "damageDealt": 185,
+          "deathType": "byplayer",
+          "headshotKills": 1,
+          "heals": 1,
+          "killPlace": 21,
+          "killStreaks": 2,
+          "kills": 2,
+          "longestKill": 9.431111,
+          "name": "Matey1995",
+          "playerId": "account.43ef509dc45f4a94ba316fdf97e2487e",
+          "revives": 0,
+          "rideDistance": 0,
+          "roadKills": 0,
+          "swimDistance": 0,
+          "teamKills": 0,
+          "timeSurvived": 599,
+          "vehicleDestroys": 0,
+          "walkDistance": 1416.3811,
+          "weaponsAcquired": 6,
+          "winPlace": 18
+        },
+        "actor": ""
+      }
+    },
+    {
+      "type": "asset",
+      "id": "46279a53-f88c-11f0-ad33-7673b1ed6c57",
+      "attributes": {
+        "name": "telemetry",
+        "description": "",
+        "createdAt": "2026-01-23T18:49:40Z",
+        "URL": "https://telemetry-cdn.pubg.com/bluehole-pubg/steam/2026/01/23/18/49/46279a53-f88c-11f0-ad33-7673b1ed6c57-telemetry.json"
+      }
+    }
+  ]
+}

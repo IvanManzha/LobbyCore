@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Профиль игрока</title>
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 0; padding: 2rem;
+      max-width: 800px; margin: auto;
+      background: #f5f5f5; color: #333;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    /* Общие заголовки */
+    h1, h2 {
+      margin-bottom: 1rem;
+      font-weight: 500;
+      color: #222;
+      transition: color 0.3s ease;
+    }
+
+    /* Flex-контейнер для имени и рейтинга */
+    .profile-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    #player-name-btn {
+      background: none;
+      border: none;
+      padding: 0;
+      font-size: 1.75rem;
+      font-weight: 500;
+      color: #1976d2;
+      cursor: default;
+      transition: color 0.3s ease;
+    }
+
+    #player-rating {
+      font-size: 1.1rem;
+      color: #555;
+    }
+
+    /* Таблица истории */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      margin-top: 1rem;
+    }
+    th, td {
+      padding: 0.75rem;
+      border-bottom: 1px solid #e0e0e0;
+      text-align: left;
+    }
+    thead {
+      background: #fafafa;
+    }
+
+    /* Кнопки управления */
+    #theme-toggle, #profile-btn {
+      position: fixed; right: 10px;
+      padding: 8px 16px; font-size: 0.9rem;
+      border: none; border-radius: 20px;
+      cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    #theme-toggle { top: 10px; background: #1976d2; color: white; }
+    #profile-btn  { top: 50px; background: #d3cbb8; color: #333; border:1px solid #b5ab97; display: none !important;}
+    #theme-toggle:hover { background: #1565c0; }
+    #profile-btn:hover  { background: #bfb6a5; }
+
+    /* Тёмная тема */
+    body.dark-theme {
+      background-color: #0d1117;
+      color: #c9d1d9;
+    }
+    body.dark-theme h1, body.dark-theme h2,
+    body.dark-theme td, body.dark-theme th {
+      color: #c9d1d9;
+    }
+    body.dark-theme a { color: #58a6ff; }
+    body.dark-theme table { background-color: #161b22; }
+    body.dark-theme thead { background-color: #1f2937; }
+    body.dark-theme tbody tr:hover { background-color: #21262d; }
+    body.dark-theme #player-rating { color: #bbb; }
+    body.dark-theme #player-name-btn { color: #58a6ff; }
+    body.dark-theme #theme-toggle { background: #58a6ff; color: #0d1117; }
+    body.dark-theme #theme-toggle:hover { background: #4ea0ff; }
+    body.dark-theme #profile-btn { background: #a69f8c; color: #f5f5f5; border-color: #8f8773; }
+    body.dark-theme #profile-btn:hover { background: #8d8674; }
+
+    /* Кнопка «Расписание» */
+/* Приклеиваем «Расписание» */
+#schedule-btn {
+  position: fixed;
+  top: 50px;    /* сместить ниже кнопки «Тема» */
+  right: 10px;
+  background: #1976d2;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  border-radius: 20px;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  z-index: 1000;
+}
+
+#schedule-btn:hover {
+  background: #1565c0;
+}
+
+/* Тёмная тема */
+body.dark-theme #schedule-btn {
+  background: #58a6ff;
+  color: #0d1117;
+}
+body.dark-theme #schedule-btn:hover {
+  background: #4ea0ff;
+}
+/* кнопка Актуальный турнир */
+#active-tournament-btn {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  background: #1976d2;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  border-radius: 20px;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+  z-index: 1000;
+}
+#active-tournament-btn:hover {
+  background: #1565c0;
+}
+/* тёмная тема */
+body.dark-theme #active-tournament-btn {
+  background: #58a6ff;
+  color: #0d1117;
+}
+body.dark-theme #active-tournament-btn:hover {
+  background: #4ea0ff;
+}
+/* KPI-панель: карточки в сетке */
+.kpi-panel {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+  background: white;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  margin-bottom: 1rem;
+}
+.kpi-item {
+  text-align: center;
+  font-size: 1.1rem;
+}
+
+/* История турниров: таблица всегда видна */
+#history-container {
+  margin-bottom: 2rem;
+}
+
+/* Полная статистика */
+#full-stats {
+  margin-top: 1rem;
+}
+
+#chart-kpi-radar {
+  display: block;
+  margin: 0 auto;
+  margin-right: 100px;
+}
+
+/* === Базовые стили, аналогичные основной таблице === */
+#kpi-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  margin-top: 1rem;
+}
+#kpi-table th,
+#kpi-table td {
+  padding: 0.75rem;
+  border-bottom: 1px solid #e0e0e0;
+  text-align: left;
+}
+#kpi-table thead {
+  background: #fafafa;
+}
+
+/* === Тёмная тема для KPI-таблицы === */
+body.dark-theme #kpi-table {
+  background-color: #161b22;
+  box-shadow: none; /* можно убрать тень или подсветить светлой тенью */
+}
+body.dark-theme #kpi-table thead {
+  background-color: #1f2937;
+}
+body.dark-theme #kpi-table th,
+body.dark-theme #kpi-table td {
+  border-bottom: 1px solid #30363d;
+  color: #c9d1d9;
+}
+
+
+/* Контейнер радар-чарта */
+body.dark-theme .radar-container {
+  background-color: #161b22;
+  border: 1px solid #444c56;
+}
+
+/* === Стили, аналогичные #schedule-btn === */
+#toggle-history-btn,
+#show-full-stats {
+  background: #1976d2;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  border-radius: 20px;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  z-index: 1000;
+}
+
+#toggle-history-btn:hover,
+#show-full-stats:hover {
+  background: #1565c0;
+}
+
+/* Тёмная тема */
+body.dark-theme #toggle-history-btn,
+body.dark-theme #show-full-stats {
+  background: #58a6ff;
+  color: #0d1117;
+}
+
+body.dark-theme #toggle-history-btn:hover,
+body.dark-theme #show-full-stats:hover {
+  background: #4ea0ff;
+}
+
+
+
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <button id="active-tournament-btn" style="display:none;">Сегодняшний турнир</button>
+  <button id="theme-toggle">🌙 Тема</button>
+  <button id="profile-btn" style="display:none;">Профиль</button>
+  <button id="schedule-btn">Расписание</button>
+
+
+  <h2>История турниров</h2>
+
+  <div class="profile-header">
+    <button id="player-name-btn">Загрузка...</button>
+    <div id="player-rating">Рейтинг: …</div>
+    <div id="player-rating-v2">Рейтинг v2: …</div>
+  </div>
+
+  <!-- Обёртка для истории -->
+  <div id="history-container">
+    <table>
+      <thead>
+        <tr>
+          <th>Турнир</th>
+          <th>Дата</th>
+          <th>Место</th>
+          <th>Очки</th>
+          <th>Личные киллы</th>
+        </tr>
+      </thead>
+      <tbody id="history-body"></tbody>
+    </table>
+    <button id="toggle-history-btn" style="margin-top:0.5rem; display:none;">
+      Показать все турниры
+    </button>
+  </div>
+
+<!-- Отдельный блок Статистики -->
+<h2>Статистика игрока</h2>
+
+<!-- 1) KPI-панель -->
+<div id="stats-kpi" class="kpi-panel">
+  <div class="kpi-item"><strong>Среднее место:</strong> <span id="kpi-place">—</span></div>
+  <div class="kpi-item"><strong>K/D:</strong> <span id="kpi-kd">—</span></div>
+  <div class="kpi-item"><strong>Top-1:</strong>       <span id="kpi-top1">—</span></div>
+  <div class="kpi-item"><strong>Top-3:</strong>       <span id="kpi-top3">—</span></div>
+</div>
+
+<!-- 2) Кнопка раскрытия полной статистики -->
+<button id="show-full-stats"">Полная статистика</button>
+
+<!-- 3) Графики — спрятаны до клика -->
+<div id="full-stats" style="display:none;">
+  <canvas id="chart-rating"  height="200"></canvas>
+  <!-- Вместо старой строки -->
+<!-- <canvas id="chart-kpi-radar" height="200" style="max-width:400px; margin:2rem auto; display:block;"></canvas> -->
+
+    <canvas
+    id="chart-kpi-radar"
+    width="800"    <!-- двойная ширина -->
+    height="400"   <!-- двойная высота -->
+    style="max-width:800px; margin:2rem auto; display:block;"
+    </canvas>
+</div>
+
+<!-- Подключаем ваш скрипт в конце body -->
+<script src="player.js"></script>
+</body>
+</html>

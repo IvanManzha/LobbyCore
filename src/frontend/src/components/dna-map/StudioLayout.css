@@ -1,0 +1,298 @@
+.dna-studio-layout {
+  display: grid;
+  grid-template-columns: 350px 1fr;
+  grid-template-rows: 1fr 140px;
+  grid-template-areas:
+    "panel map"
+    "panel timeline";
+  height: 100%;
+  min-height: 0;
+  background: var(--bg);
+}
+
+.dna-studio-layout--premium {
+  display: flex;
+  flex-direction: column;
+  background: transparent;
+  padding: 0;
+  overflow: hidden;
+}
+
+.dna-studio-premium-header {
+  padding: 8px 6px 10px;
+}
+
+.dna-studio-premium-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: rgba(10, 12, 20, 0.35);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 0 0 1px rgba(14, 165, 233, 0.10), 0 16px 50px rgba(0, 0, 0, 0.35);
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.dna-studio-premium-chip-title {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.dna-studio-premium-chip-sep {
+  opacity: 0.35;
+  font-weight: 600;
+}
+
+.dna-studio-premium-chip-body {
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.95);
+  max-width: 66vw;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dna-studio-premium-chip--compact {
+  width: fit-content;
+  max-width: 100%;
+}
+
+.dna-studio-premium-chip-action {
+  margin-left: auto;
+  padding: 8px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 150ms ease, border-color 150ms ease, transform 150ms ease;
+}
+
+.dna-studio-premium-chip-action:hover {
+  background: rgba(255, 255, 255, 0.10);
+  border-color: rgba(14, 165, 233, 0.35);
+  transform: translateY(-1px);
+}
+
+.dna-studio-premium-selectionPanel {
+  padding: 12px 12px 14px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: rgba(10, 12, 20, 0.35);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 14px 48px rgba(0, 0, 0, 0.35);
+  max-width: 780px;
+}
+
+.dna-studio-premium-selectionTitle {
+  font-size: 13px;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.90);
+  margin-bottom: 10px;
+}
+
+.dna-studio-premium-selectionError {
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: rgba(185, 28, 28, 0.16);
+  border: 1px solid rgba(185, 28, 28, 0.35);
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+
+.dna-studio-premium-selectionGrid {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.dna-studio-premium-field {
+  flex: 1;
+  min-width: 240px;
+}
+
+.dna-studio-premium-label {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.62);
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.dna-studio-premium-select {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 13px;
+  font-weight: 700;
+  outline: none;
+}
+
+.dna-studio-premium-select:focus {
+  border-color: rgba(14, 165, 233, 0.45);
+  box-shadow: 0 0 0 2px rgba(14, 165, 233, 0.12);
+}
+
+.dna-studio-premium-selectionHint {
+  margin-top: 10px;
+  font-size: 12.5px;
+  color: rgba(255, 255, 255, 0.62);
+}
+
+.dna-studio-premium-map {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  padding: 10px;
+}
+
+.dna-studio-premium-map .dna-map-canvas {
+  border-radius: 16px;
+  box-shadow: inset 0 0 0 1px var(--line), 0 14px 48px rgba(0, 0, 0, 0.40);
+}
+
+.dna-studio-layout--premium .dna-map-canvas-toolbar {
+  display: none;
+}
+
+.dna-studio-premium-map::before {
+  content: "";
+  position: absolute;
+  inset: 10px;
+  border-radius: 14px;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 34px 34px;
+  opacity: 0.42;
+  pointer-events: none;
+  z-index: 1;
+  animation: dnaPremiumGridDrift 18s linear infinite;
+}
+
+@keyframes dnaPremiumGridDrift {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-34px, 34px, 0);
+  }
+}
+
+.dna-studio-premium-immersion {
+  position: absolute;
+  inset: 10px;
+  border-radius: 14px;
+  pointer-events: none;
+  z-index: 2;
+  background: radial-gradient(ellipse 70% 70% at 50% 35%, rgba(14, 165, 233, 0.18) 0%, rgba(14, 165, 233, 0.06) 28%, transparent 70%);
+}
+
+.dna-studio-premium-eventFeed {
+  position: absolute;
+  right: 18px;
+  bottom: 92px;
+  width: 320px;
+  max-width: calc(100% - 24px);
+  max-height: 45%;
+  overflow: hidden;
+  z-index: 3;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: rgba(10, 12, 20, 0.40);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 14px 48px rgba(0, 0, 0, 0.35);
+  pointer-events: auto;
+}
+
+.dna-studio-premium-timeline {
+  padding: 0 10px 12px;
+}
+
+.dna-studio-layout--premium .dna-timeline-time {
+  display: none;
+}
+
+.dna-studio-layout--premium .dna-timeline-current {
+  display: none;
+}
+
+.dna-studio-layout--premium .dna-timeline-controls {
+  display: flex;
+  padding: 10px 12px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: rgba(10, 12, 20, 0.32);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 14px 48px rgba(0, 0, 0, 0.25);
+  margin-top: 6px;
+}
+
+.dna-studio-layout--premium .dna-timeline {
+  padding: 0;
+}
+
+.dna-studio-panel {
+  grid-area: panel;
+  width: 350px;
+  min-width: 0;
+  overflow-y: auto;
+  border-right: 1px solid var(--line);
+  background: var(--surface);
+}
+
+.dna-studio-map {
+  grid-area: map;
+  min-width: 0;
+  min-height: 0;
+  position: relative;
+}
+
+.dna-studio-timeline {
+  grid-area: timeline;
+  min-height: 0;
+  border-top: 1px solid var(--line);
+  background: var(--surface);
+}
+
+@media (max-width: 900px) {
+  .dna-studio-layout {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr 120px;
+    grid-template-areas:
+      "panel"
+      "map"
+      "timeline";
+  }
+
+  .dna-studio-panel {
+    width: 100%;
+    max-height: 40vh;
+  }
+}
+
+@media (max-width: 900px) {
+  .dna-studio-premium-eventFeed {
+    right: 12px;
+    left: 12px;
+    width: auto;
+    bottom: 98px;
+  }
+
+  .dna-studio-premium-field {
+    min-width: 100%;
+  }
+}

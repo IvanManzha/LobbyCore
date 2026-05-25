@@ -1,0 +1,342 @@
+.tournament-page {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.tournament-hero {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
+  background: var(--surface);
+  padding: 24px;
+}
+
+.tournament-hero-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.tournament-hero-title {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.tournament-hero-title .status-pill {
+  width: auto;
+  align-self: flex-start;
+}
+
+.tournament-hero-title h1 {
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.tournament-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.tournament-hero-cta {
+  flex-shrink: 0;
+}
+
+.tournament-registration-status {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.tournament-withdraw-team-btn {
+  margin-left: 0;
+}
+
+.tournament-registration-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+.tournament-registration-label--success {
+  color: var(--success, #22c55e);
+}
+
+.tournament-registration-team {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: stretch;
+}
+
+.tournament-registration-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.tournament-registration-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.tournament-pay-btn {
+  padding: 10px 20px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.tournament-registration-closed {
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.tournament-content {
+  padding-top: 8px;
+}
+
+.tab-content {
+  margin-top: 16px;
+}
+
+.players-table {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
+  background: var(--surface);
+  padding: 20px;
+}
+
+.tournament-aside {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.aside-block {
+  display: grid;
+  gap: 12px;
+}
+
+.aside-title {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+
+.tournament-dev-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.aside-metrics {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.aside-label {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.aside-value {
+  font-size: 20px;
+  font-weight: 600;
+  margin-top: 6px;
+}
+
+/* Лента быстрой информации */
+.tournament-quick-feed-block .aside-title {
+  margin-bottom: 8px;
+}
+
+.tournament-quick-feed {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.tournament-quick-feed-item {
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--text);
+  padding: 10px 12px;
+  background: var(--surface2);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+}
+
+.tournament-quick-feed-item--empty {
+  color: var(--muted);
+  font-style: italic;
+}
+
+@media (max-width: 900px) {
+  .tournament-hero-content {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .tournament-pay-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* Finance tab cards */
+.finance-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.finance-item {
+  border: 1px solid var(--line);
+  background: linear-gradient(180deg, var(--surface) 0%, var(--surface2) 100%);
+  border-radius: 12px;
+  padding: 12px 14px;
+}
+
+.finance-my-entry {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface2);
+  padding: 10px 14px;
+  margin-bottom: 14px;
+}
+
+.finance-label {
+  font-size: 12px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.finance-value {
+  margin-top: 4px;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+
+.finance-hint {
+  margin-top: 6px;
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.35;
+}
+
+.finance-item--prizes-sent {
+  grid-column: 1 / -1;
+}
+
+.finance-prize-list {
+  list-style: none;
+  margin: 10px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.finance-prize-line {
+  margin: 0;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: var(--surface2);
+  border: 1px solid var(--line);
+}
+
+.finance-prize-line-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px 12px;
+  font-size: 14px;
+  color: var(--text);
+}
+
+.finance-prize-place {
+  font-weight: 600;
+  color: var(--muted);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.finance-prize-team {
+  font-weight: 600;
+  flex: 1;
+  min-width: 0;
+}
+
+.finance-prize-sum {
+  margin-left: auto;
+  font-weight: 700;
+}
+
+.finance-prize-recipient-link {
+  font-weight: 600;
+  color: var(--accent, #6ee7b7);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.15s ease;
+}
+
+.finance-prize-recipient-link:hover {
+  border-bottom-color: currentColor;
+}
+
+.finance-prize-breakdown {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0 0 0 12px;
+  border-left: 2px solid var(--line);
+  font-size: 13px;
+  color: var(--text);
+}
+
+.finance-prize-breakdown li {
+  margin: 4px 0;
+}
+
+.finance-prize-breakdown a {
+  color: var(--accent, #6ee7b7);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+}
+
+.finance-prize-breakdown a:hover {
+  border-bottom-color: currentColor;
+}
+
+@media (max-width: 700px) {
+  .finance-value {
+    font-size: 18px;
+  }
+
+  .finance-my-entry {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

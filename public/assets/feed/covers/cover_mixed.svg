@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <defs>
+    <linearGradient id="bgGradMixed" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2e2a1a"/>
+      <stop offset="50%" style="stop-color:#1a1810"/>
+      <stop offset="100%" style="stop-color:#0d0c09"/>
+    </linearGradient>
+    <linearGradient id="accentGradMixed" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#ff7a18"/>
+      <stop offset="100%" style="stop-color:#fbbf24"/>
+    </linearGradient>
+    <filter id="glowMixed">
+      <feGaussianBlur stdDeviation="25" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1920" height="1080" fill="url(#bgGradMixed)"/>
+  
+  <!-- Grid pattern -->
+  <g opacity="0.04">
+    <pattern id="gridMixed" width="80" height="80" patternUnits="userSpaceOnUse">
+      <path d="M 80 0 L 0 0 0 80" fill="none" stroke="#fff" stroke-width="1"/>
+    </pattern>
+    <rect width="1920" height="1080" fill="url(#gridMixed)"/>
+  </g>
+  
+  <!-- Accent glow -->
+  <ellipse cx="960" cy="540" rx="550" ry="280" fill="#ff7a18" opacity="0.1" filter="url(#glowMixed)"/>
+  
+  <!-- Mixed icon - shuffle/random symbol with figures -->
+  <g transform="translate(760, 380)" fill="none" stroke="url(#accentGradMixed)" stroke-width="3.5" opacity="0.7">
+    <!-- Shuffle arrows -->
+    <path d="M100 100 Q150 60 200 100 Q250 140 300 100"/>
+    <path d="M280 85 L300 100 L280 115"/>
+    <path d="M100 160 Q150 200 200 160 Q250 120 300 160"/>
+    <path d="M120 145 L100 160 L120 175"/>
+    
+    <!-- Small figures around -->
+    <circle cx="60" cy="60" r="15" opacity="0.5"/>
+    <circle cx="340" cy="60" r="15" opacity="0.5"/>
+    <circle cx="60" cy="200" r="12" opacity="0.4"/>
+    <circle cx="340" cy="200" r="12" opacity="0.4"/>
+    <circle cx="200" cy="40" r="10" opacity="0.3"/>
+    <circle cx="200" cy="220" r="10" opacity="0.3"/>
+  </g>
+  
+  <!-- Decorative elements -->
+  <g stroke="url(#accentGradMixed)" stroke-width="2" opacity="0.25">
+    <line x1="150" y1="150" x2="400" y2="150"/>
+    <line x1="1520" y1="930" x2="1770" y2="930"/>
+    <rect x="180" y="880" width="60" height="60" rx="8" fill="none"/>
+  </g>
+  
+  <!-- Text -->
+  <text x="960" y="720" text-anchor="middle" fill="#fff" font-family="Inter, system-ui, sans-serif" font-size="36" font-weight="700" opacity="0.5">
+    MIXED
+  </text>
+</svg>

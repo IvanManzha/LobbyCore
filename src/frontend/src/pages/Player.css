@@ -1,0 +1,529 @@
+.player-profile {
+  display: grid;
+  gap: 20px;
+}
+
+.profile-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 20px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
+}
+
+.profile-header-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.profile-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: var(--surface2);
+  border: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+}
+
+.profile-badges {
+  display: flex;
+  gap: 10px;
+  margin-top: 6px;
+  align-items: center;
+}
+
+.year-badge {
+  height: 30px;
+  padding: 0 10px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--line);
+  background: var(--surface2);
+  color: var(--text);
+}
+
+.profile-badge {
+  display: inline-flex;
+  align-items: center;
+  height: 30px;
+  padding: 0 12px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--line);
+  background: var(--surface2);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.profile-header-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+  text-align: right;
+}
+
+.profile-dna-block {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.profile-steam-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+  transition: color 0.15s ease;
+}
+.profile-steam-icon:hover {
+  color: #1b2838;
+}
+
+.profile-rating-large {
+  font-size: 28px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.profile-rating-label {
+  font-size: 12px;
+  color: var(--muted);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.profile-ladder-block {
+  margin-top: 4px;
+  padding-top: 8px;
+  border-top: 1px solid var(--line, #eee);
+}
+
+.profile-archetype-block {
+  margin-top: 4px;
+  padding-top: 8px;
+  border-top: 1px solid var(--line, #eee);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.profile-archetype-value {
+  font-size: 16px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.profile-archetype-label {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.profile-dna-tier-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0;
+}
+
+.profile-dna-tier-badge .dnaTierBadgeImage {
+  margin-top: 4px;
+  margin-left: 6px;
+  width: 56px;
+  height: auto;
+  border-radius: 6px;
+  transition: box-shadow 0.2s ease;
+}
+
+.profile-dna-tier-badge .dnaTierBadge--tier-4 .dnaTierBadgeImage {
+  width: 48px;
+  height: 48px;
+}
+
+/* hover эффекты на бейдж тира в профиле отключены по требованию дизайна */
+
+.profile-dna-lab-link {
+  margin-top: 8px;
+  font-size: 13px;
+  color: var(--link, #2563eb);
+  text-decoration: none;
+}
+.profile-dna-lab-link:hover {
+  text-decoration: underline;
+}
+
+.profile-ladder-value {
+  font-size: 18px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.profile-ladder-rank {
+  font-size: 14px;
+  font-weight: 500;
+  margin-left: 4px;
+}
+
+.profile-ladder-breakdown {
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--muted);
+}
+.profile-ladder-breakdown-text {
+  font-variant-numeric: tabular-nums;
+}
+
+.profile-ladder-rank--master { color: #7c3aed; }
+.profile-ladder-rank--diamond { color: #06b6d4; }
+.profile-ladder-rank--platinum { color: #64748b; }
+.profile-ladder-rank--gold { color: #eab308; }
+.profile-ladder-rank--silver { color: #94a3b8; }
+.profile-ladder-rank--bronze { color: #b45309; }
+
+.profile-ladder-label {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.profile-ladder-delta--pos { color: var(--success, #16a34a); }
+.profile-ladder-delta--neg { color: var(--danger, #dc2626); }
+
+.profile-section {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
+  padding: 20px;
+}
+
+.profile-section h2 {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.profile-tournaments-table {
+  width: 100%;
+}
+
+.table-shell {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  background: var(--surface);
+}
+
+.history-tournament {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.no-data-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--muted);
+  border: 1px solid var(--line2);
+  background: var(--surface3);
+}
+
+.rating-excluded-badge {
+  display: inline-flex;
+  align-items: center;
+  height: 26px;
+  padding: 0 12px;
+  border-radius: var(--radius-pill);
+  font-size: 12px;
+  font-weight: 600;
+  border: 1px solid var(--line);
+  color: var(--muted);
+  background: var(--surface2);
+  opacity: 0.8;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.section-title-small {
+  font-size: 13px;
+  text-transform: uppercase;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+  margin-bottom: 12px;
+}
+
+.profile-aside {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.details-toggle {
+  margin-top: 10px;
+  width: 100%;
+}
+
+.profile-aside-block {
+  display: grid;
+  gap: 12px;
+}
+
+/* Award block: визуально отделён от секции метрик */
+.profile-aside-block--award {
+  margin-bottom: 4px;
+}
+
+.profile-aside-block--kpi .section-title-small {
+  margin-top: 2px;
+}
+
+.profile-aside-block--period {
+  margin-top: 4px;
+}
+
+.period-selector {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.period-selector-tabs {
+  display: flex;
+  gap: 4px;
+}
+
+.period-tab {
+  padding: 6px 10px;
+  font-size: 12px;
+  font-weight: 500;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pill);
+  background: var(--surface2);
+  color: var(--text);
+  cursor: pointer;
+}
+
+.period-tab:hover {
+  background: var(--surface3);
+}
+
+.period-tab--active {
+  background: var(--accent);
+  color: var(--bg);
+  border-color: var(--accent);
+}
+
+.period-hint {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.period-select {
+  padding: 6px 10px;
+  font-size: 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pill);
+  background: var(--surface2);
+  color: var(--text);
+}
+
+.period-select.month-select {
+  min-width: 80px;
+}
+
+.profile-tournaments-table--compact thead th,
+.profile-tournaments-table--compact tbody td {
+  padding: 10px 12px;
+  font-size: 13px;
+}
+
+.profile-tournaments-table--compact tbody td:first-child {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.profile-header-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 0;
+}
+
+.profile-header-champion-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text);
+  background: linear-gradient(135deg, rgba(255, 200, 80, 0.2), rgba(255, 122, 24, 0.12));
+  border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+  font-variant-numeric: tabular-nums;
+}
+
+.achievements {
+  display: grid;
+  gap: 10px;
+}
+
+.achievement-item {
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface2);
+}
+
+.achievement-label {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.achievement-value {
+  margin-top: 6px;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+@media (max-width: 900px) {
+  .profile-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .profile-header-right {
+    text-align: left;
+  }
+}
+
+/* Tier explanation modal — светлая тема профиля, акцент из токенов */
+.tierExplanationModal--profile.modal-overlay {
+  background: rgba(15, 23, 42, 0.4);
+}
+
+.tierExplanationModal--profile .tierExplanationModal-modal {
+  background: var(--color-surface, #ffffff);
+  border: 1px solid var(--color-line, rgba(18, 19, 22, 0.08));
+  box-shadow: var(--shadow-card, 0 18px 45px rgba(15, 23, 42, 0.15));
+}
+
+.tierExplanationModal--profile .modal-header h3 {
+  color: var(--color-text, #121316);
+}
+
+.tierExplanationModal--profile .modal-body {
+  color: var(--color-muted, rgba(18, 19, 22, 0.6));
+}
+
+.tierExplanationModal--profile .modal-actions .btn {
+  background: var(--gradient-accent);
+  color: #111111;
+  border: 1px solid transparent;
+  box-shadow: 0 10px 24px rgba(255, 122, 24, 0.25);
+}
+
+.tierExplanationModal--profile .modal-actions .btn:hover {
+  transform: translateY(-1px);
+  opacity: 0.95;
+  box-shadow: 0 12px 30px rgba(255, 122, 24, 0.3), var(--glow-accent-soft);
+  color: #111111;
+}
+
+.tierExplanationModal--profile .tierExplanationModal-text {
+  margin-bottom: 12px;
+  color: var(--color-muted, rgba(18, 19, 22, 0.6));
+}
+
+.tierExplanationModal--profile .tierExplanationModal-grid {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 10px;
+  justify-content: space-between;
+}
+
+.tierExplanationModal--profile .tierExplanationModal-tierItem {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 4px;
+  padding: 0;
+  background: none;
+  border-radius: 0;
+  border: none;
+  cursor: default;
+  min-width: 72px;
+  flex: 0 0 auto;
+}
+
+.tierExplanationModal--profile .tierExplanationModal-tierItem.tier-row-4 {
+  margin-top: 5px;
+}
+
+.tierExplanationModal--profile .tierExplanationModal-tierItem:hover {
+  transform: translateY(-2px);
+}
+
+.tierExplanationModal--profile .tierExplanationModal-tierImg {
+  width: 56px;
+  height: 56px;
+  display: block;
+  object-fit: contain;
+  object-position: center;
+}
+
+/* TODO: убрать margin-left при добавлении нормальных эмблем */
+.tierExplanationModal--profile .tierExplanationModal-tierItem.tier-row-4 .tierExplanationModal-tierImg {
+  width: 48px;
+  height: 48px;
+  margin-left: 4px;
+}
+
+.tierExplanationModal--profile .tierExplanationModal-tierLabel {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--color-text, #121316);
+}
+
+.tierExplanationModal--profile .tierExplanationModal-rangePanel {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  min-height: 28px;
+}
+
+.tierExplanationModal--profile .tierExplanationModal-rangeText {
+  min-width: 80px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--color-line, rgba(18, 19, 22, 0.12));
+  background: #ffffff;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-text, #121316);
+  text-align: center;
+  letter-spacing: 0.03em;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.tierExplanationModal--profile .tierExplanationModal-rangeText.is-visible {
+  opacity: 1;
+}

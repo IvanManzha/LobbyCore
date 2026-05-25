@@ -1,0 +1,169 @@
+.register-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(8, 12, 18, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 300;
+  padding: 20px;
+  animation: registerModalOverlayIn var(--motion-medium) var(--ease-out);
+}
+
+.register-modal {
+  width: min(440px, 100%);
+  background: var(--surface);
+  border: 1px solid var(--line2);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card), var(--ring-accent);
+  animation: registerModalIn var(--motion-medium) var(--ease-out);
+  overflow: hidden;
+}
+
+/* Header */
+.register-modal__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--line);
+}
+
+.register-modal__title {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+  color: var(--text);
+}
+
+.register-modal__close {
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-control);
+}
+
+/* Tournament Info */
+.register-modal__info {
+  padding: 20px;
+  background: var(--surface2);
+  border-bottom: 1px solid var(--line);
+}
+
+.register-modal__tournament-name {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0 0 12px 0;
+  color: var(--text);
+}
+
+.register-modal__meta {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.register-modal__chip {
+  display: inline-flex;
+  align-items: center;
+  height: 26px;
+  padding: 0 12px;
+  border-radius: var(--radius-pill);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+  background: var(--surface);
+  border: 1px solid var(--line);
+}
+
+/* Message */
+.register-modal__message {
+  padding: 32px 20px;
+  text-align: center;
+}
+
+.register-modal__icon {
+  margin-bottom: 16px;
+  color: var(--accent);
+}
+
+.register-modal__text {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text);
+  margin: 0 0 8px 0;
+}
+
+.register-modal__subtext {
+  font-size: 14px;
+  color: var(--muted);
+  margin: 0;
+}
+
+/* Actions */
+.register-modal__actions {
+  display: flex;
+  gap: 12px;
+  padding: 16px 20px;
+  border-top: 1px solid var(--line);
+  background: var(--surface2);
+}
+
+.register-modal__actions .btn {
+  flex: 1;
+}
+
+/* Animations */
+@keyframes registerModalOverlayIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes registerModalIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .register-modal-overlay {
+    padding: 16px;
+    align-items: flex-end;
+  }
+
+  .register-modal {
+    width: 100%;
+    border-radius: var(--radius-card) var(--radius-card) 0 0;
+    animation: registerModalSlideUp var(--motion-medium) var(--ease-out);
+  }
+
+  .register-modal__actions {
+    flex-direction: column;
+  }
+}
+
+@keyframes registerModalSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

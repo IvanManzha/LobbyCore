@@ -1,0 +1,32 @@
+.tabs {
+  display: flex;
+  gap: 8px;
+  padding: 6px;
+  background: var(--surface2);
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--line);
+  width: fit-content;
+}
+
+.tab {
+  padding: 6px 14px;
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-pill);
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color var(--motion-fast) var(--ease-out), background var(--motion-fast) var(--ease-out),
+    box-shadow var(--motion-fast) var(--ease-out);
+}
+
+.tab:hover {
+  color: var(--text);
+}
+
+.tab.active {
+  color: var(--text);
+  background: var(--surface);
+  box-shadow: var(--ring-accent);
+}

@@ -1,0 +1,42 @@
+{
+  "data": [
+    {
+      "type": "player",
+      "id": "account.4920d2d8ce45415fb828afe4a500a2ec",
+      "attributes": {
+        "name": "IVANCHK",
+        "stats": null,
+        "titleId": "pubg",
+        "shardId": "steam",
+        "patchVersion": "",
+        "banType": "Innocent",
+        "clanId": "clan.41d77b6738b04c29a31457093fc11f1d"
+      },
+      "relationships": {
+        "matches": {
+          "data": [
+            {
+              "type": "match",
+              "id": "b00cee06-a828-4aab-8a29-0ab6ddcc20b2"
+            },
+            {
+              "type": "match",
+              "id": "293c335b-c896-4981-8843-c3359d54e3b3"
+            }
+          ]
+        },
+        "assets": {
+          "data": []
+        }
+      },
+      "links": {
+        "self": "https://api.pubg.com/shards/steam/players/account.4920d2d8ce45415fb828afe4a500a2ec",
+        "schema": ""
+      }
+    }
+  ],
+  "links": {
+    "self": "https://api.pubg.com/shards/steam/players?filter[playerNames]=IVANCHK"
+  },
+  "meta": {}
+}

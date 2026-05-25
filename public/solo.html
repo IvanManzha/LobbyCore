@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Статистика игрока (Соло)</title>
+  <style>
+    body {
+      font-family: 'Roboto',sans-serif;
+      margin:0; padding:2rem;
+      max-width:800px; margin:auto;
+      background:#f5f5f5; color:#333;
+      transition:background-color .3s, color .3s;
+    }
+    h1,h2 {
+      margin-bottom:1rem;
+      font-weight:500;
+      color:#222;
+      transition:color .3s;
+    }
+    /* Кнопки */
+    #theme-toggle, #profile-btn {
+      position:fixed; right:10px;
+      padding:8px 16px; font-size:0.9rem;
+      border:none; border-radius:20px; cursor:pointer;
+      box-shadow:0 2px 5px rgba(0,0,0,0.2);
+      transition:background-color .3s, box-shadow .3s;
+    }
+    #theme-toggle { top:10px; background:#1976d2; color:#fff; }
+    #profile-btn  { top:50px; background:#d3cbb8; color:#333; border:1px solid #b5ab97; }
+    #theme-toggle:hover { background:#1565c0 }
+    #profile-btn:hover  { background:#bfb6a5 }
+
+    /* Flex для заголовка */
+    .profile-header {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:1rem;
+    }
+    /* Ссылка-ник */
+    #player-name-link {
+      font-size:1.75rem; font-weight:500;
+      color:#1976d2; text-decoration:none;
+      transition:color .3s;
+    }
+    #player-name-link:hover {
+      text-decoration:underline;
+    }
+
+    /* Таблица */
+    table {
+      width:100%; border-collapse:collapse;
+      background:#fff; border-radius:8px; overflow:hidden;
+      box-shadow:0 2px 8px rgba(0,0,0,0.05); margin-top:1rem;
+      transition:background-color .3s, box-shadow .3s;
+    }
+    th,td {
+      padding:0.75rem; border-bottom:1px solid #e0e0e0;
+      text-align:center; transition:color .3s;
+    }
+    thead { background:#fafafa; }
+
+    /* Тёмная тема */
+    body.dark-theme {
+      background:#0d1117; color:#c9d1d9;
+    }
+    body.dark-theme table {
+      background:#161b22; box-shadow:0 2px 8px rgba(255,255,255,0.05);
+    }
+    body.dark-theme thead { background:#1f2937; }
+    body.dark-theme th, body.dark-theme td { border-bottom:1px solid #30363d; color:#c9d1d9; }
+    body.dark-theme a { color:#58a6ff; }
+    body.dark-theme #player-name-link { color:#58a6ff; }
+    body.dark-theme #theme-toggle { background:#58a6ff; color:#0d1117; }
+    body.dark-theme #profile-btn  { background:#a69f8c; color:#f5f5f5; border-color:#8f8773; }
+    body.dark-theme #profile-btn:hover { background:#8d8674; }
+
+    /* Кнопка «Расписание» */
+/* Приклеиваем «Расписание» */
+#schedule-btn {
+  position: fixed;
+  top: 90px;    /* сместить ниже кнопки «Тема» */
+  right: 10px;
+  background: #1976d2;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  border-radius: 20px;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  z-index: 1000;
+}
+
+#schedule-btn:hover {
+  background: #1565c0;
+}
+
+/* Тёмная тема */
+body.dark-theme #schedule-btn {
+  background: #58a6ff;
+  color: #0d1117;
+}
+body.dark-theme #schedule-btn:hover {
+  background: #4ea0ff;
+}
+/* кнопка Актуальный турнир */
+#active-tournament-btn {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  background: #1976d2;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  border-radius: 20px;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+  z-index: 1000;
+}
+#active-tournament-btn:hover {
+  background: #1565c0;
+}
+/* тёмная тема */
+body.dark-theme #active-tournament-btn {
+  background: #58a6ff;
+  color: #0d1117;
+}
+body.dark-theme #active-tournament-btn:hover {
+  background: #4ea0ff;
+}
+
+
+  </style>
+</head>
+<body>
+    <button id="active-tournament-btn" style="display:none;">Сегодняшний турнир</button>
+  <button id="theme-toggle">🌙 Тема</button>
+  <button id="profile-btn" style="display:none;">Профиль</button>
+  <button id="schedule-btn">Расписание</button>
+
+
+  <h2>Результаты по раундам</h2>
+
+  <div class="profile-header">
+    <!-- Ссылка на профиль игрока -->
+    <a id="player-name-link" href="#">Загрузка...</a>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Раунд</th><th>Место</th><th>Киллы</th><th>Очки</th>
+      </tr>
+    </thead>
+    <tbody id="solo-body"></tbody>
+  </table>
+
+  <script src="solo.js"></script>
+</body>
+</html>

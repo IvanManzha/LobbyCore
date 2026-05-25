@@ -1,0 +1,46 @@
+.dna-fights-panel {
+  margin-top: 12px;
+}
+
+.dna-fights-panel .dna-inspector-label {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.dna-fights-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.dna-fights-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.dna-fights-btn {
+  flex: 1;
+  min-width: 120px;
+  padding: 6px 10px;
+  text-align: left;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card, 8px);
+  background: var(--surface2);
+  color: var(--text);
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.dna-fights-btn:hover {
+  background: var(--surface-hover);
+}
+
+.dna-fights-btn-active {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 15%, transparent);
+}

@@ -1,0 +1,221 @@
+.team {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 1rem;
+  color: #1976d2;
+}
+
+body.dark-theme .back-link {
+  color: #58a6ff;
+}
+
+.team h1 {
+  margin-bottom: 1.5rem;
+}
+
+.team-players {
+  margin-bottom: 2rem;
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+body.dark-theme .team-players {
+  background: #161b22;
+}
+
+.team-players h2 {
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+
+.team-players ul {
+  list-style: none;
+  padding: 0;
+}
+
+.team-players li {
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #e0e0e0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.team-players li a {
+  color: #1976d2;
+  text-decoration: underline;
+  font-weight: 500;
+}
+
+body.dark-theme .team-players li a {
+  color: #58a6ff;
+}
+
+.player-name-cell a {
+  color: #1976d2;
+  text-decoration: underline;
+  font-weight: 500;
+}
+
+body.dark-theme .player-name-cell a {
+  color: #58a6ff;
+}
+
+body.dark-theme .team-players li {
+  border-bottom-color: #30363d;
+}
+
+.team-players li:last-child {
+  border-bottom: none;
+}
+
+.budget {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+body.dark-theme .budget {
+  color: #8b949e;
+}
+
+.team-results,
+.player-kills-detail {
+  margin-bottom: 2rem;
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+body.dark-theme .team-results,
+body.dark-theme .player-kills-detail {
+  background: #161b22;
+}
+
+.team-results h2,
+.player-kills-detail h2 {
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+
+.team-results table,
+.player-kills-detail table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.team-results th,
+.team-results td,
+.player-kills-detail th,
+.player-kills-detail td {
+  padding: 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+body.dark-theme .team-results th,
+body.dark-theme .team-results td,
+body.dark-theme .player-kills-detail th,
+body.dark-theme .player-kills-detail td {
+  border-bottom-color: #30363d;
+}
+
+.team-results thead,
+.player-kills-detail thead {
+  background: #fafafa;
+}
+
+body.dark-theme .team-results thead,
+body.dark-theme .player-kills-detail thead {
+  background: #1f2937;
+}
+
+.team-results .points {
+  font-weight: 600;
+  color: #1976d2;
+}
+
+body.dark-theme .team-results .points {
+  color: #58a6ff;
+}
+
+.team-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.summary-card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+body.dark-theme .summary-card {
+  background: #161b22;
+}
+
+.summary-label {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 0.5rem;
+}
+
+body.dark-theme .summary-label {
+  color: #8b949e;
+}
+
+.summary-value {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #1976d2;
+}
+
+body.dark-theme .summary-value {
+  color: #58a6ff;
+}
+
+.loading, .error {
+  text-align: center;
+  padding: 2rem;
+}
+
+.error {
+  color: #d32f2f;
+}
+
+.error button {
+  margin-top: 1rem;
+  padding: 0.75rem 1.5rem;
+  background: #1976d2;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.error button:hover {
+  background: #1565c0;
+}
+
+body.dark-theme .error {
+  color: #f44336;
+}
+
+body.dark-theme .error button {
+  background: #58a6ff;
+  color: #0d1117;
+}
+
+body.dark-theme .error button:hover {
+  background: #4a9eff;
+}

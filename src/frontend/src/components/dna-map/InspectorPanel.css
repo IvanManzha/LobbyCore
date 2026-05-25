@@ -1,0 +1,184 @@
+.dna-inspector-panel {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.dna-inspector-header {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.dna-inspector-error {
+  padding: 10px 12px;
+  background: var(--surface2);
+  color: var(--danger, #b91c1c);
+  border-radius: var(--radius-card, 8px);
+  font-size: 0.9rem;
+}
+
+.dna-inspector-section {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.dna-inspector-match-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.dna-inspector-match-label {
+  font-size: 0.9rem;
+  color: var(--text);
+  min-width: 80px;
+}
+
+.dna-inspector-label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-muted, #666);
+}
+
+.dna-inspector-select {
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card, 8px);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 0.9rem;
+  width: 100%;
+}
+
+.dna-inspector-compare-row {
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.dna-inspector-compare-row .dna-inspector-select {
+  flex: 1;
+  min-width: 120px;
+}
+
+.dna-inspector-check {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.dna-inspector-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.dna-inspector-chips-wrap {
+  max-height: 80px;
+  overflow-y: auto;
+}
+
+.dna-inspector-chip {
+  padding: 6px 12px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface2);
+  color: var(--text);
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.dna-inspector-chip:hover {
+  background: var(--surface-hover);
+}
+
+.dna-inspector-chip-active {
+  background: var(--accent, #3b82f6);
+  color: #fff;
+  border-color: var(--accent);
+}
+
+.dna-inspector-chip-sm {
+  padding: 4px 8px;
+  font-size: 0.8rem;
+}
+
+.dna-inspector-actions {
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.dna-inspector-btn {
+  padding: 6px 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card, 8px);
+  background: var(--surface2);
+  color: var(--text);
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.dna-inspector-btn:hover:not(:disabled) {
+  background: var(--surface-hover);
+}
+
+.dna-inspector-btn-primary {
+  background: var(--accent, #3b82f6);
+  color: #fff;
+  border-color: var(--accent);
+}
+
+.dna-inspector-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.dna-inspector-dev {
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+}
+
+.dna-compare-summary-text {
+  font-size: 0.9rem;
+  color: var(--text);
+}
+
+.dna-inspector-dev-toggle {
+  padding: 6px 10px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--surface2);
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.dna-inspector-dev-fields {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.dna-inspector-dev-fields label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.85rem;
+}
+
+.dna-inspector-input {
+  padding: 6px 10px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  font-size: 0.9rem;
+}

@@ -1,0 +1,190 @@
+.kills-heatmap {
+  margin-bottom: 24px;
+}
+
+.kills-heatmap-header {
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.kills-heatmap-header h2 {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.kills-heatmap-shell {
+  position: relative;
+  border-radius: var(--radius-card);
+  border: 1px solid var(--line);
+  background: var(--surface);
+  overflow: hidden;
+}
+
+.kills-heatmap-scroll {
+  position: relative;
+  overflow-x: auto;
+}
+
+.kills-heatmap-grid {
+  border-collapse: collapse;
+  min-width: 100%;
+}
+
+.kills-heatmap-grid th,
+.kills-heatmap-grid td {
+  padding: 8px;
+  font-size: 12px;
+  border-bottom: 1px solid var(--line2);
+  border-right: 1px solid var(--line2);
+}
+
+.kills-heatmap-grid th:last-child,
+.kills-heatmap-grid td:last-child {
+  border-right: none;
+}
+
+.kills-heatmap-grid tr:last-child td {
+  border-bottom: none;
+}
+
+.sticky-col {
+  position: sticky;
+  left: 0;
+  z-index: 2;
+  background: var(--surface2);
+}
+
+.player-cell span {
+  font-size: 13px;
+}
+
+.match-header {
+  text-align: center;
+  background: var(--surface2);
+}
+
+.sum-header {
+  min-width: 48px;
+}
+
+.match-selected {
+  box-shadow: var(--ring-accent);
+}
+
+.heatmap-cell {
+  width: 32px;
+  height: 32px;
+  text-align: center;
+  padding: 0;
+  position: relative;
+}
+
+.heatmap-value {
+  font-size: 12px;
+}
+
+.heatmap-empty {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.heatmap-low {
+  background: color-mix(in srgb, var(--surface2) 70%, transparent);
+}
+
+.heatmap-medium {
+  background: color-mix(in srgb, var(--accent) 18%, var(--surface2));
+}
+
+.heatmap-high {
+  background: color-mix(in srgb, var(--accent) 32%, var(--surface2));
+}
+
+.heatmap-selected {
+  box-shadow: var(--ring-accent);
+}
+
+.heatmap-sum {
+  background: color-mix(in srgb, var(--surface2) 85%, transparent);
+}
+
+.heatmap-sum-value {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.team-sum-row .sticky-col {
+  background: var(--surface2);
+}
+
+.team-sum-label span {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.heatmap-legend {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: var(--muted2);
+  margin-top: 4px;
+}
+
+.heatmap-legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.heatmap-legend-swatch {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  border: 1px solid var(--line2);
+}
+
+.heatmap-legend-0 {
+  background: var(--surface2);
+}
+
+.heatmap-legend-1-2 {
+  background: color-mix(in srgb, var(--surface2) 80%, transparent);
+}
+
+.heatmap-legend-3-4 {
+  background: color-mix(in srgb, var(--accent) 18%, var(--surface2));
+}
+
+.heatmap-legend-5plus {
+  background: color-mix(in srgb, var(--accent) 32%, var(--surface2));
+}
+
+.heatmap-shadow-left,
+.heatmap-shadow-right {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 16px;
+  pointer-events: none;
+}
+
+.heatmap-shadow-left {
+  left: 0;
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.24),
+    transparent
+  );
+}
+
+.heatmap-shadow-right {
+  right: 0;
+  background: linear-gradient(
+    to left,
+    rgba(0, 0, 0, 0.24),
+    transparent
+  );
+}
+

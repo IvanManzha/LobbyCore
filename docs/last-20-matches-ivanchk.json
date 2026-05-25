@@ -1,0 +1,51 @@
+{
+  "playerId": "IVANCHK",
+  "seasonId": "2025",
+  "requested": 20,
+  "count": 5,
+  "note": "В данных только 5 матчей с телеметрией. Файл подготовлен под формат «последние N матчей»; при наличии 20 матчей из API/БД структура та же.",
+  "matches": [
+    {
+      "order": 0,
+      "matchId": "ad274924-157d-48f3-8556-45e886c1f873",
+      "label": "Match 1",
+      "dateShort": "—",
+      "summary": { "kills": 2, "damage": 414.95, "placement": 99, "win": false },
+      "telemetryPath": "data/pubg/telemetry/ad274924-157d-48f3-8556-45e886c1f873.json"
+    },
+    {
+      "order": 1,
+      "matchId": "04bef31e-b726-46fe-a0ab-d24161395706",
+      "label": "Match 2",
+      "dateShort": "—",
+      "summary": { "kills": 0, "damage": 128, "placement": 99, "win": false },
+      "telemetryPath": "data/pubg/telemetry/04bef31e-b726-46fe-a0ab-d24161395706.json"
+    },
+    {
+      "order": 2,
+      "matchId": "b35ffcaf-d4c9-497e-843b-f6f380ded161",
+      "label": "Match 3",
+      "dateShort": "—",
+      "summary": { "kills": 2, "damage": 342.55, "placement": 99, "win": false },
+      "telemetryPath": "data/pubg/telemetry/b35ffcaf-d4c9-497e-843b-f6f380ded161.json"
+    },
+    {
+      "order": 3,
+      "matchId": "dfecf657-f11d-4613-933d-6d2abc5aa51f",
+      "label": "Match 4 (предпоследний)",
+      "dateShort": "—",
+      "summary": { "kills": 0, "damage": 64.82, "placement": 99, "win": false },
+      "telemetryPath": "data/pubg/telemetry/dfecf657-f11d-4613-933d-6d2abc5aa51f.json",
+      "telemetryCopyInDocs": "docs/telemetry-ivanchk-prelast-match.json"
+    },
+    {
+      "order": 4,
+      "matchId": "d8671a06-36ad-4760-81ea-3963236b5a1f",
+      "label": "Match 5 (последний)",
+      "dateShort": "—",
+      "summary": { "kills": 0, "damage": 0, "placement": 99, "win": false },
+      "telemetryPath": "data/pubg/telemetry/d8671a06-36ad-4760-81ea-3963236b5a1f.json",
+      "telemetryCopyInDocs": "docs/telemetry-ivanchk-last-match.json"
+    }
+  ]
+}

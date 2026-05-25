@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <defs>
+    <linearGradient id="bgGradSquad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2e1a1a"/>
+      <stop offset="50%" style="stop-color:#1a1010"/>
+      <stop offset="100%" style="stop-color:#0d0909"/>
+    </linearGradient>
+    <linearGradient id="accentGradSquad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#ef4444"/>
+      <stop offset="100%" style="stop-color:#f87171"/>
+    </linearGradient>
+    <filter id="glowSquad">
+      <feGaussianBlur stdDeviation="25" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1920" height="1080" fill="url(#bgGradSquad)"/>
+  
+  <!-- Grid pattern -->
+  <g opacity="0.04">
+    <pattern id="gridSquad" width="80" height="80" patternUnits="userSpaceOnUse">
+      <path d="M 80 0 L 0 0 0 80" fill="none" stroke="#fff" stroke-width="1"/>
+    </pattern>
+    <rect width="1920" height="1080" fill="url(#gridSquad)"/>
+  </g>
+  
+  <!-- Accent glow -->
+  <ellipse cx="960" cy="540" rx="600" ry="300" fill="#ef4444" opacity="0.08" filter="url(#glowSquad)"/>
+  
+  <!-- Squad icon - four figures in formation -->
+  <g transform="translate(710, 350)" fill="none" stroke="url(#accentGradSquad)" stroke-width="3" opacity="0.7">
+    <!-- Figure 1 (front left) -->
+    <circle cx="150" cy="120" r="25"/>
+    <path d="M150 150 L150 210"/>
+    <path d="M150 170 L125 195"/>
+    <path d="M150 170 L175 195"/>
+    <path d="M150 210 L130 260"/>
+    <path d="M150 210 L170 260"/>
+    
+    <!-- Figure 2 (front right) -->
+    <circle cx="350" cy="120" r="25"/>
+    <path d="M350 150 L350 210"/>
+    <path d="M350 170 L325 195"/>
+    <path d="M350 170 L375 195"/>
+    <path d="M350 210 L330 260"/>
+    <path d="M350 210 L370 260"/>
+    
+    <!-- Figure 3 (back left) -->
+    <circle cx="100" cy="40" r="22"/>
+    <path d="M100 65 L100 115"/>
+    <path d="M100 85 L80 105"/>
+    <path d="M100 85 L120 105"/>
+    <path d="M100 115 L85 155"/>
+    <path d="M100 115 L115 155"/>
+    
+    <!-- Figure 4 (back right) -->
+    <circle cx="400" cy="40" r="22"/>
+    <path d="M400 65 L400 115"/>
+    <path d="M400 85 L380 105"/>
+    <path d="M400 85 L420 105"/>
+    <path d="M400 115 L385 155"/>
+    <path d="M400 115 L415 155"/>
+    
+    <!-- Formation lines -->
+    <path d="M125 65 L170 95" stroke-dasharray="6,6" opacity="0.4"/>
+    <path d="M375 65 L330 95" stroke-dasharray="6,6" opacity="0.4"/>
+    <path d="M175 170 L325 170" stroke-dasharray="6,6" opacity="0.4"/>
+  </g>
+  
+  <!-- Decorative elements -->
+  <g stroke="url(#accentGradSquad)" stroke-width="2" opacity="0.25">
+    <line x1="150" y1="150" x2="400" y2="150"/>
+    <line x1="1520" y1="930" x2="1770" y2="930"/>
+  </g>
+  
+  <!-- Text -->
+  <text x="960" y="720" text-anchor="middle" fill="#fff" font-family="Inter, system-ui, sans-serif" font-size="36" font-weight="700" opacity="0.5">
+    SQUAD
+  </text>
+</svg>

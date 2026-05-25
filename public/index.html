@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Текущая турнирная таблица PUBG</title>
+  
+  <style>
+    /* Центрирование и ограничение ширины */
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      padding: 2rem;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+      background: #f5f5f5;
+      color: #333;
+      min-height: 100vh;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+  
+    h1, h2 {
+      margin-bottom: 1rem;
+      font-weight: 500;
+      color: #222;
+      transition: color 0.3s ease;
+    }
+  
+    a {
+      color: #1976d2;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+  
+    a:hover {
+      text-decoration: underline;
+    }
+  
+    /* Таблица */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      margin-top: 1rem;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+  
+    th, td {
+      padding: 1rem;
+      border-bottom: 1px solid #e0e0e0;
+      text-align: center;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+  
+    thead {
+      background: #fafafa;
+    }
+  
+    tbody tr:hover {
+      background: #f0f0f0;
+    }
+  
+    /* Во всех элементах текста ставим светлый цвет в тёмной теме */
+    body.dark-theme {
+    color: #c9d1d9; /* основной текст */
+    }
+
+    /* Наследуют и параграфы, списки, заголовки */
+    body.dark-theme h1,
+    body.dark-theme h2,
+    body.dark-theme h3,
+    body.dark-theme h4,
+    body.dark-theme h5,
+    body.dark-theme h6,
+    body.dark-theme p,
+    body.dark-theme li,
+    body.dark-theme a,
+    body.dark-theme td,
+    body.dark-theme th,
+    body.dark-theme label,
+    body.dark-theme input,
+    body.dark-theme button {
+    color: #c9d1d9;
+    }
+
+    /* Ссылки сделаем чуть ярче */
+    body.dark-theme a {
+    color: #58a6ff;
+    }
+
+    /* Плейсхолдеры инпутов тоже светлеем */
+    body.dark-theme ::placeholder {
+    color: #888;
+    }
+
+    /* Граница полей, если нужно */
+    body.dark-theme input,
+    body.dark-theme textarea,
+    body.dark-theme select {
+    border-color: #444;
+    }
+
+    /* Кнопки с текстом */
+    body.dark-theme button {
+    color: #c9d1d9;
+    }
+
+    /* Фон страницы */
+    body.dark-theme {
+    background-color: #0d1117;  /* тёмный фон */
+    }
+
+    /* Фон таблиц */
+    body.dark-theme table {
+    background-color: #161b22;  /* чуть светлее фона страницы */
+    }
+
+    /* Фон шапки таблиц */
+    body.dark-theme thead {
+    background-color: #1f2937;
+    }
+
+    /* Фон строк при наведении */
+    body.dark-theme tbody tr:hover {
+    background-color: #21262d;
+    }
+
+    /* Фон «карточек» / контейнеров, если у вас есть .card или похожие */
+    body.dark-theme .card,
+    body.dark-theme .back-link {
+    background-color: #161b22;
+    color: #c9d1d9;
+    }
+
+    /* Если у вас есть секции с явно белым фоном */
+    body.dark-theme .white-block,
+    body.dark-theme .panel {
+    background-color: #161b22;
+    }
+
+    /* Для инпутов и форм (login.html, если используется) */
+    body.dark-theme input,
+    body.dark-theme select,
+    body.dark-theme textarea,
+    body.dark-theme button {
+    background-color: #21262d;
+    border-color: #30363d;
+    }
+
+    /* Карточка входа (login.html) */
+    body.dark-theme .card {
+    background-color: #161b22;
+    box-shadow: 0 2px 8px rgba(255,255,255,0.05);
+    }
+
+  
+    /* Кнопка переключения темы */
+    #theme-toggle {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      background: #1976d2;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      font-size: 15px;
+      border-radius: 20px;
+      cursor: pointer;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+  
+    #theme-toggle:hover {
+      background: #1565c0;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+  
+    body.dark-theme #theme-toggle {
+      background: #58a6ff;
+      color: #0d1117;
+    }
+  
+    body.dark-theme #theme-toggle:hover {
+      background: #4ea0ff;
+    }
+  
+    /* Тексты внутри таблиц */
+    .tournament-name-cell {
+      white-space: normal;
+      line-height: 1.4;
+    }
+    /* Стили для кнопки «Профиль» */
+#profile-btn {
+  position: fixed;
+  top: 50px;           /* 50px от верха */
+  right: 10px;         /* 10px от правого края */
+  background: #d3cbb8; /* бежево-серый фон */
+  color: #333;         /* тёмно-серый текст */
+  border: 1px solid #b5ab97;
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  border-radius: 20px;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+#profile-btn:hover {
+  background: #bfb6a5;
+}
+
+body.dark-theme #profile-btn {
+  background: #a69f8c;
+  color: #f5f5f5;
+  border-color: #8f8773;
+}
+
+body.dark-theme #profile-btn:hover {
+  background: #8d8674;
+}
+
+
+    /* Кнопка «Расписание» */
+/* Приклеиваем «Расписание» */
+#schedule-btn {
+    position: fixed;
+  top: 90px;    /* сместить ниже кнопки «Тема» */
+  right: 10px;
+  background: #1976d2;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  border-radius: 20px;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  z-index: 1000;
+}
+
+#schedule-btn:hover {
+  background: #1565c0;
+}
+
+/* Тёмная тема */
+body.dark-theme #schedule-btn {
+  background: #58a6ff;
+  color: #0d1117;
+}
+body.dark-theme #schedule-btn:hover {
+  background: #4ea0ff;
+}
+/* кнопка Актуальный турнир */
+#active-tournament-btn {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  background: #1976d2;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  border-radius: 20px;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+  z-index: 1000;
+}
+#active-tournament-btn:hover {
+  background: #1565c0;
+}
+/* тёмная тема */
+body.dark-theme #active-tournament-btn {
+  background: #58a6ff;
+  color: #0d1117;
+}
+body.dark-theme #active-tournament-btn:hover {
+  background: #4ea0ff;
+}
+
+/* Accordion: скрываем детали по умолчанию */
+.detail-row {
+  display: none;
+}
+/* Курсор для кликабельных названий */
+.team-name {
+  cursor: pointer;
+  color: #1976d2;
+  text-decoration: underline;
+}
+/* Вложенная таблица с деталями */
+.inner-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 0.5rem;
+}
+.inner-table th, .inner-table td {
+  padding: 0.5rem;
+  border: 1px solid #e0e0e0;
+  text-align: left;
+  background: #fafafa;
+}
+/* Модальное окно — оверлей */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  transition: background 0.3s ease;
+}
+
+/* Контейнер модалки */
+.modal {
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  color: #333;
+  transition: background 0.3s ease, color 0.3s ease;
+  position: relative;
+  max-height: 80vh;      /* не превышать 80% высоты экрана */
+  overflow-y: auto;      /* вертикальный скролл, когда нужно */
+  padding-right: 1rem;   /* для скроллбара чуть больше отступ */
+}
+
+/* Чтобы scrollbar выглядел аккуратно */
+.modal::-webkit-scrollbar {
+  width: 8px;
+}
+.modal::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,0.2);
+  border-radius: 4px;
+}
+
+/* Заголовок внутри модалки */
+.modal h2 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-weight: 500;
+  color: #222;
+}
+
+/* Поля ввода и селекты */
+.modal input,
+.modal select {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+}
+.modal input:focus,
+.modal select:focus {
+  outline: none;
+  border-color: #1976d2;
+}
+
+/* Кнопки в модалке */
+.modal-actions {
+  text-align: right;
+  margin-top: 1rem;
+}
+.modal button {
+  padding: 6px 12px;
+  font-size: 0.9rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  margin-left: 0.5rem;
+}
+#cancel-results-btn {
+  background: #e0e0e0;
+  color: #333;
+}
+#cancel-results-btn:hover {
+  background: #d5d5d5;
+}
+#save-results-btn {
+  background: #4caf50;
+  color: #fff;
+}
+#save-results-btn:disabled {
+  background: #a5d6a7;
+  cursor: default;
+}
+#save-results-btn:not(:disabled):hover {
+  background: #43a047;
+}
+
+/* Тёмная тема */
+body.dark-theme .modal {
+  background: #161b22;
+  color: #c9d1d9;
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.05);
+}
+body.dark-theme .modal h2 {
+  color: #c9d1d9;
+}
+body.dark-theme .modal input,
+body.dark-theme .modal select {
+  background: #21262d;
+  border-color: #30363d;
+  color: #c9d1d9;
+}
+body.dark-theme .modal input::placeholder,
+body.dark-theme .modal select::placeholder {
+  color: #888;
+}
+body.dark-theme #cancel-results-btn {
+  background: #30363d;
+  color: #c9d1d9;
+}
+body.dark-theme #cancel-results-btn:hover {
+  background: #484f58;
+}
+body.dark-theme #save-results-btn {
+  background: #7cb342;
+  color: #0d1117;
+}
+body.dark-theme #save-results-btn:not(:disabled):hover {
+  background: #689f38;
+}
+
+.placement-block {
+  margin-top: 1rem;
+  border: 1px solid #ccc;
+  padding: 0.75rem;
+  border-radius: 4px;
+}
+.placement-block h4 { margin: 0 0 0.5rem; }
+.placement-block select { width: 100%; margin-bottom: 0.5rem; }
+.placement-block .player-kills {
+  padding-left: 1rem;
+  margin-bottom: 0.5rem;
+}
+.placement-block .player-kills label {
+  display: block; margin: 0.25rem 0;
+}
+
+/* Поместите это в общий <style> или файл CSS, используемый на index.html */
+    #enter-results-btn {
+  display: inline-block;       /* чтобы кнопка вела себя нормально */
+  position: relative;          /* создаём новый контекст позиционирования */
+  z-index: 1000;               /* выше, чем любая таблица или оверлей */
+  cursor: pointer;             /* курсор «рука» при наведении */
+  margin-top: 1rem;            /* небольшой отступ от таблицы */
+  background: #1976d2;         /* стилизуем под другие кнопки */
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  transition: background 0.3s ease;
+}
+#enter-results-btn:hover {
+  background: #1565c0;
+}
+
+/* Тёмная тема */
+body.dark-theme #enter-results-btn {
+  background: #58a6ff;
+  color: #0d1117;
+}
+body.dark-theme #enter-results-btn:hover {
+  background: #4ea0ff;
+}
+
+/* — Модалка с ограничением по высоте и прокруткой — */
+.modal {
+  max-height: 80vh;      /* не выше 80% высоты экрана */
+  overflow-y: auto;      /* вертикальный скролл при переполнении */
+  padding-right: 1rem;   /* чтобы контент не прятался за скроллбар */
+}
+
+/* Скроллбар внутри модалки */
+.modal::-webkit-scrollbar {
+  width: 8px;
+}
+.modal::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+
+/* Заголовок блока с местом и кнопкой */
+.placement-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+/* Кнопка «свернуть/развернуть» секцию киллов */
+.toggle-kills-btn {
+  background: transparent;
+  border: none;
+  font-size: 1.2rem;
+  line-height: 1;
+  cursor: pointer;
+  color: #666;
+  transition: color 0.3s ease;
+}
+.toggle-kills-btn:hover {
+  color: #333;
+}
+
+/* Скрытая по умолчанию секция киллов */
+.player-kills {
+  display: block; /* показываем после выбора команды */
+  margin-top: 0.5rem;
+}
+.player-kills.collapsed {
+  display: none;
+}
+
+.score-highlight {
+  animation: highlight 3s ease-out;
+}
+
+@keyframes rowFlash { from{background:#fff} to{background:transparent} }
+.row-flash { animation: rowFlash 1s ease-out; }
+
+.delta {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.85em;
+  margin-left: 4px;
+  opacity: 0.7;       
+}
+.delta-icon {
+  width: 1em;    /* подстроится под размер текста */
+  height: 1.5em;
+  margin-right: 2px;
+}
+
+  </style>
+
+  
+</head>
+<body>
+  <h1>Турнирная таблица</h1>
+  <h2 id="tournament-name"></h2> <!-- Добавили сюда -->
+  <button id="active-tournament-btn" style="display:none;">Сегодняшний турнир</button>
+  <button id="theme-toggle" style="position:absolute;top:10px;right:10px;">🌙 Тема</button>
+  <button id="profile-btn" style="position:absolute;top:50px;right:10px;">Профиль</button>
+  <button id="schedule-btn" style="position:absolute;top:90px;right:10px;">Расписание</button>
+  <table id="table">
+    <thead>
+      <tr>
+        <th>Место</th>
+        <th>Команда</th>
+        <th>Очки</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+  <!-- Кнопка только для авторизованного админа/организатора -->
+<button id="enter-results-btn" style="display:none; margin-top:1rem;">
+    Ввести результаты
+  </button>
+  
+  <!-- Модалка для ввода результатов -->
+  <div id="results-modal" class="modal-overlay" style="display:none;">
+    <div class="modal">
+      <h2>Ввод результатов матча</h2>
+  
+      <!-- Шаг 1: выбор номера матча -->
+      <label for="match-select">Матч №</label>
+      <select id="match-select">
+        <!-- опции JS-сгенерирует: 1…tournament.rounds -->
+      </select>
+  
+      <!-- Шаг 2: по порядку позиции -->
+      <div id="placements-container">
+        <!-- JS вставит N блоков .placement-block -->
+      </div>
+  
+      <div class="modal-actions">
+        <button id="cancel-results-btn">Отмена</button>
+        <button id="save-results-btn" disabled>Сохранить</button>
+      </div>
+    </div>
+  </div>
+  
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

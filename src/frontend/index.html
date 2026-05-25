@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect fill='%231a1a2e' width='32' height='32'/><text x='16' y='22' font-size='16' text-anchor='middle' fill='%23eee'>P</text></svg>" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&display=swap" rel="stylesheet" />
+    <title>PUBG Tournament App</title>
+    <!-- Применяем тему ДО загрузки React, чтобы избежать мигания -->
+    <script>
+      (function() {
+        try {
+          const savedTheme = localStorage.getItem('theme');
+          const theme = (savedTheme === 'light' || savedTheme === 'dark') ? savedTheme : 'dark';
+          
+          // Применяем тему к documentElement сразу (он всегда существует)
+          if (theme === 'light') {
+            document.documentElement.classList.add('light-theme');
+            document.documentElement.classList.remove('dark-theme');
+          } else {
+            document.documentElement.classList.add('dark-theme');
+            document.documentElement.classList.remove('light-theme');
+          }
+          
+          // Применяем тему к body, если он уже существует, иначе ждем его создания
+          function applyThemeToBody() {
+            if (document.body) {
+              if (theme === 'light') {
+                document.body.classList.add('light-theme');
+                document.body.classList.remove('dark-theme');
+              } else {
+                document.body.classList.add('dark-theme');
+                document.body.classList.remove('light-theme');
+              }
+            }
+          }
+          
+          // Пытаемся применить сразу, если body уже есть
+          applyThemeToBody();
+          
+          // Если body еще не создан, ждем его создания
+          if (!document.body) {
+            if (document.readyState === 'loading') {
+              document.addEventListener('DOMContentLoaded', applyThemeToBody);
+            } else {
+              // Если DOM уже загружен, но body еще нет (маловероятно), используем setTimeout
+              setTimeout(applyThemeToBody, 0);
+            }
+          }
+        } catch (e) {
+          // Если localStorage недоступен, применяем темную тему по умолчанию
+          document.documentElement.classList.add('dark-theme');
+          if (document.body) {
+            document.body.classList.add('dark-theme');
+          } else {
+            document.addEventListener('DOMContentLoaded', function() {
+              if (document.body) {
+                document.body.classList.add('dark-theme');
+              }
+            });
+          }
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
+

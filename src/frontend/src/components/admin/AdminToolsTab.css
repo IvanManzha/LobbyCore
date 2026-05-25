@@ -1,0 +1,42 @@
+.admin-tools-tab {
+  padding: 0;
+}
+
+.admin-tools-actions {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+.admin-tools-card {
+  padding: 1.25rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md, 8px);
+  background: var(--surface2);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.admin-tools-card-title {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.admin-tools-card-desc {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--muted);
+  flex: 1;
+}
+
+.admin-tools-clear {
+  color: var(--danger, #ef4444);
+}
+
+.admin-tools-clear.btn-primary {
+  background: rgba(239, 68, 68, 0.15);
+  border-color: var(--danger, #ef4444);
+}

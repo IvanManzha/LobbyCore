@@ -1,0 +1,20 @@
+{
+  "watch": [
+    "src/backend",
+    "server.js",
+    "scripts"
+  ],
+  "ext": "js,json,ts",
+  "ignore": [
+    "data/**",
+    "node_modules/**",
+    "src/frontend/**",
+    "public/**"
+  ],
+  "exec": "node src/backend/server.js",
+  "env": {
+    "NODE_ENV": "development"
+  },
+  "delay": 1000
+}
+

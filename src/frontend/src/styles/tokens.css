@@ -1,0 +1,66 @@
+@layer base {
+  :root {
+    color-scheme: dark;
+    --color-bg: #0e1117;
+    --color-bg2: #0a0f18;
+    --color-surface: #111827;
+    --color-surface2: #0b1220;
+    --color-text: #e6e6e6;
+    --color-muted: rgba(230, 230, 230, 0.65);
+    --color-muted2: rgba(230, 230, 230, 0.45);
+    --color-line: rgba(255, 255, 255, 0.08);
+    --color-line2: rgba(255, 255, 255, 0.14);
+    --color-accent: #ff7a18;
+    --color-accent2: #ff9a44;
+    --color-good: #22c55e;
+    --color-warn: #f59e0b;
+    --color-bad: #ef4444;
+
+    --radius-card: 14px;
+    --radius-control: 10px;
+    --radius-pill: 999px;
+
+    --space-1: 4px;
+    --space-2: 8px;
+    --space-3: 12px;
+    --space-4: 16px;
+    --space-5: 20px;
+    --space-6: 24px;
+    --space-7: 32px;
+
+    --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.15);
+    --shadow-card: 0 18px 45px rgba(0, 0, 0, 0.25);
+    --glow-accent-soft: 0 0 24px rgba(255, 122, 24, 0.25);
+
+    --ring-accent: 0 0 0 1px color-mix(in srgb, var(--color-accent) 40%, transparent);
+    --ring-focus: 0 0 0 2px color-mix(in srgb, var(--color-accent) 65%, transparent);
+
+    --motion-fast: 140ms;
+    --motion-medium: 220ms;
+    --motion-slow: 320ms;
+    --ease-standard: cubic-bezier(0.2, 0.8, 0.2, 1);
+    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+    --gradient-accent: linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--color-accent) 100%, white 0%) 0%,
+      color-mix(in srgb, var(--color-accent2) 100%, white 0%) 100%
+    );
+    --gradient-sheen: linear-gradient(120deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0) 60%);
+  }
+
+  body.light-theme {
+    color-scheme: light;
+    --color-bg: #f7f7f8;
+    --color-bg2: #eef1f6;
+    --color-surface: #ffffff;
+    --color-surface2: #f0f2f6;
+    --color-text: #121316;
+    --color-muted: rgba(18, 19, 22, 0.6);
+    --color-muted2: rgba(18, 19, 22, 0.42);
+    --color-line: rgba(18, 19, 22, 0.08);
+    --color-line2: rgba(18, 19, 22, 0.14);
+    --shadow-card: 0 18px 45px rgba(15, 23, 42, 0.15);
+    --glow-accent-soft: 0 0 20px rgba(255, 122, 24, 0.2);
+  }
+}

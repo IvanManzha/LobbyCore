@@ -1,0 +1,170 @@
+.create-tournament {
+  display: grid;
+  gap: 20px;
+}
+
+.steps {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.step-pill {
+  height: 32px;
+  padding: 0 14px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--line);
+  background: var(--surface2);
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.step-pill.active {
+  color: var(--text);
+  background: var(--surface);
+}
+
+.tournament-form {
+  display: grid;
+  gap: 20px;
+}
+
+.form-section {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
+  padding: 20px;
+  display: grid;
+  gap: 16px;
+}
+
+.form-section h2 {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.form-grid .form-group .input,
+.form-grid .form-group .select {
+  width: 100%;
+  min-width: 15ch;
+  max-width: 100%;
+  box-sizing: border-box;
+  field-sizing: content;
+}
+
+.form-group {
+  display: grid;
+  gap: 8px;
+}
+
+.form-group label {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.scoring-grid,
+.rating-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 16px;
+}
+
+.scoring-grid .form-group .input,
+.rating-grid .form-group .input {
+  width: 100%;
+  min-width: 4ch;
+  max-width: 8ch;
+  box-sizing: border-box;
+  field-sizing: content;
+}
+
+.textarea {
+  min-height: 120px;
+  padding: 10px 12px;
+}
+
+.helper-text {
+  font-size: 13px;
+}
+
+.error-message {
+  color: var(--bad);
+  font-size: 13px;
+}
+
+.form-field-error {
+  display: block;
+  font-size: 12px;
+  color: var(--bad, #ef4444);
+  margin-top: 4px;
+}
+
+.form-field-hint {
+  display: block;
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+.form-field-hint--warning {
+  color: var(--warn, #f59e0b);
+}
+
+/* Ширина полей в форме задаётся через .form-grid (одна ширина в сетке) */
+
+.form-scoring-link {
+  display: inline-block;
+  margin-bottom: 12px;
+  font-size: 13px;
+  color: var(--accent);
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0;
+}
+
+.form-scoring-link:hover {
+  color: var(--accent2);
+}
+
+.form-row-inline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 16px;
+  align-items: center;
+}
+
+.form-row-inline--wrap {
+  flex-wrap: wrap;
+}
+
+.form-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+}
+
+@media (max-width: 768px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .scoring-grid,
+  .rating-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1f2e"/>
+      <stop offset="50%" style="stop-color:#0f1318"/>
+      <stop offset="100%" style="stop-color:#0a0d12"/>
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#ff7a18"/>
+      <stop offset="100%" style="stop-color:#ff9a44"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="20" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1920" height="1080" fill="url(#bgGrad)"/>
+  
+  <!-- Grid pattern -->
+  <g opacity="0.05">
+    <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+      <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#fff" stroke-width="1"/>
+    </pattern>
+    <rect width="1920" height="1080" fill="url(#grid)"/>
+  </g>
+  
+  <!-- Accent glow -->
+  <ellipse cx="960" cy="540" rx="600" ry="300" fill="#ff7a18" opacity="0.08" filter="url(#glow)"/>
+  
+  <!-- Decorative lines -->
+  <g stroke="url(#accentGrad)" stroke-width="2" opacity="0.3">
+    <line x1="200" y1="200" x2="400" y2="200"/>
+    <line x1="1520" y1="880" x2="1720" y2="880"/>
+  </g>
+  
+  <!-- Center icon -->
+  <g transform="translate(860, 440)" fill="none" stroke="url(#accentGrad)" stroke-width="3" opacity="0.6">
+    <circle cx="100" cy="100" r="60"/>
+    <path d="M70 100 L90 100 L100 80 L110 120 L120 90 L130 100"/>
+  </g>
+  
+  <!-- Text -->
+  <text x="960" y="650" text-anchor="middle" fill="#fff" font-family="Inter, system-ui, sans-serif" font-size="32" font-weight="600" opacity="0.4">
+    PUBG Tournament
+  </text>
+</svg>

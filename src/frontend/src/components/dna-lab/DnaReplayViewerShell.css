@@ -1,0 +1,1255 @@
+/* Tactical Replay Viewer — DNA Lab → Карта
+ * Экран выбора: без «карты» и без стеклянных подложек (как genesView).
+ * После погружения: карта на фоне shell, панели — только разделители, без blur-подложек. */
+
+.dna-replay-root {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  background: transparent;
+}
+
+/* Только выбор матча: центр, без области под карту */
+.dna-replay-root--select {
+  justify-content: center;
+  align-items: center;
+}
+
+.dna-replay-root--player {
+  min-height: 0;
+}
+
+/* Карта на весь слой, UI поверх (pointer-events только на панелях) */
+.dna-replay-stack {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.dna-replay-map-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.dna-replay-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  pointer-events: none;
+}
+
+.dna-replay-overlay-err {
+  flex-shrink: 0;
+  padding: 6px 12px;
+  pointer-events: auto;
+}
+
+.dna-replay-mid {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  pointer-events: none;
+}
+
+.dna-replay-left,
+.dna-replay-right-wrap {
+  pointer-events: auto;
+}
+
+.dna-replay-map-pass {
+  flex: 1;
+  min-width: 0;
+  pointer-events: none;
+}
+
+.dna-replay-right-wrap {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  max-width: min(400px, 48vw);
+  margin-left: auto;
+  margin-right: 0;
+}
+
+.dna-map-quality-bg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.dna-map-quality-bg__layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.45s ease;
+}
+
+.dna-map-quality-bg__layer--low {
+  opacity: 1;
+  filter: blur(1px) saturate(0.88) brightness(0.78);
+}
+
+.dna-map-quality-bg__layer--low.dna-map-quality-bg__layer--hidden {
+  opacity: 0;
+}
+
+.dna-map-quality-bg__layer--high {
+  opacity: 0;
+}
+
+.dna-map-quality-bg__layer--high.dna-map-quality-bg__layer--visible {
+  opacity: 1;
+  filter: none;
+}
+
+.dna-replay-select-map-bg {
+  opacity: 0.32;
+  pointer-events: none;
+}
+
+.dna-replay-select-map-bg .dna-map-quality-bg__layer--low {
+  filter: blur(2px) saturate(0.85) brightness(0.72);
+}
+
+.dna-replay-root--select .dna-replay-select {
+  position: relative;
+  z-index: 1;
+}
+
+.dna-replay-select {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 640px;
+  padding: 8px 16px 24px;
+  box-sizing: border-box;
+}
+
+/* Без подложки — как блоки в genesView */
+.dna-replay-select-panel {
+  width: 100%;
+  padding: 0;
+  border: none;
+  background: transparent;
+  box-shadow: none;
+}
+
+.dna-replay-select-title {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: rgba(255, 255, 255, 0.95);
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.dna-replay-select-grid {
+  display: flex;
+  gap: 16px 24px;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.dna-replay-field {
+  flex: 0 1 240px;
+  min-width: 200px;
+  max-width: 280px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.dna-replay-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+  margin-bottom: 8px;
+  width: 100%;
+  text-align: center;
+}
+
+.dna-replay-field-select {
+  width: 100%;
+  max-width: 280px;
+  margin: 0 auto;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: transparent;
+  color: rgba(255, 255, 255, 0.95);
+  font-size: 13px;
+  text-align: center;
+  text-align-last: center;
+  cursor: pointer;
+  appearance: auto;
+}
+
+.dna-replay-field-select:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.dna-replay-select-hint {
+  margin-top: 16px;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.45);
+  line-height: 1.5;
+  text-align: center;
+}
+
+.dna-replay-select-muted {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.35);
+  max-width: 360px;
+  text-align: center;
+  line-height: 1.45;
+}
+
+.dna-replay-select-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.dna-replay-btn-primary {
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: 1px solid rgba(14, 165, 233, 0.5);
+  background: transparent;
+  color: rgba(255, 255, 255, 0.95);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 150ms ease, color 150ms ease;
+}
+
+.dna-replay-btn-primary:hover:not(:disabled) {
+  border-color: rgba(14, 165, 233, 0.85);
+  color: rgba(14, 165, 233, 0.95);
+}
+
+.dna-replay-btn-primary:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.dna-replay-btn-ghost {
+  padding: 10px 16px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: transparent;
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color 150ms ease, color 150ms ease;
+}
+
+.dna-replay-btn-ghost:hover:not(:disabled) {
+  border-color: rgba(255, 255, 255, 0.22);
+  color: rgba(255, 255, 255, 0.95);
+}
+
+/* Погружение: только текстура карты, поверх — лёгкая вуаль и подпись */
+.dna-replay-immerse-map-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: #06080d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: dnaReplayImmerseIn 0.5s ease-out both;
+}
+
+.dna-replay-immerse-map-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+}
+
+.dna-replay-immerse-map-fallback {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: #06080d;
+}
+
+.dna-replay-immerse-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(5, 7, 12, 0.38);
+  animation: dnaReplayImmerseIn 0.6s ease-out both;
+}
+
+@keyframes dnaReplayImmerseIn {
+  from {
+    opacity: 0.85;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.dna-replay-immerse-inner {
+  text-align: center;
+  padding: 24px;
+}
+
+.dna-replay-immerse-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.98);
+  margin-bottom: 8px;
+  letter-spacing: -0.02em;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.95), 0 0 1px rgba(0, 0, 0, 1);
+}
+
+.dna-replay-immerse-sub {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.82);
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.9);
+}
+
+.dna-replay-topbar {
+  flex-shrink: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: 8px 12px;
+  padding: 8px 8px 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: transparent;
+  pointer-events: auto;
+}
+
+.dna-replay-topbar--minimal {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  min-height: 56px;
+}
+
+.dna-replay-topbar-left {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.dna-replay-back-btn {
+  flex-shrink: 0;
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(0, 0, 0, 0.25);
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 12px;
+  cursor: pointer;
+  transition:
+    background 180ms ease,
+    border-color 180ms ease;
+}
+
+.dna-replay-back-btn:hover {
+  border-color: rgba(255, 255, 255, 0.22);
+  color: rgba(255, 255, 255, 0.98);
+}
+
+.dna-replay-topbar-center {
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.dna-replay-focus-pill {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.28);
+  color: rgba(255, 255, 255, 0.55);
+  transition:
+    color 220ms ease,
+    border-color 220ms ease,
+    box-shadow 220ms ease;
+}
+
+.dna-replay-focus-pill[data-mode="team"],
+.dna-replay-focus-pill[data-mode="player"] {
+  color: rgba(56, 189, 248, 0.95);
+  border-color: rgba(56, 189, 248, 0.35);
+  box-shadow: 0 0 20px rgba(56, 189, 248, 0.12);
+}
+
+.dna-replay-topbar-right {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  min-width: 0;
+}
+
+.dna-replay-team-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: flex-end;
+  max-width: min(420px, 46vw);
+}
+
+.dna-replay-legend-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(0, 0, 0, 0.22);
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 10px;
+  cursor: pointer;
+  transition:
+    border-color 180ms ease,
+    background 180ms ease;
+}
+
+.dna-replay-legend-chip:hover {
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+.dna-replay-legend-chip.is-on {
+  border-color: rgba(56, 189, 248, 0.45);
+  background: rgba(56, 189, 248, 0.1);
+}
+
+.dna-replay-legend-swatch {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--team, #94a3b8);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.45);
+}
+
+.dna-replay-legend-label {
+  max-width: 72px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dna-replay-breadcrumb {
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.75);
+  max-width: min(520px, 100%);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.9), 0 0 1px rgba(0, 0, 0, 1);
+}
+
+.dna-replay-breadcrumb strong {
+  color: rgba(255, 255, 255, 0.96);
+  font-weight: 600;
+}
+
+.dna-replay-topbar-title {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: rgba(255, 255, 255, 0.65);
+  margin-right: auto;
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.9);
+}
+
+.dna-replay-topbar-tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+
+.dna-replay-topbar-tools label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: rgba(255, 255, 255, 0.4);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: center;
+}
+
+.dna-replay-topbar-tools select {
+  min-width: 120px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(0, 0, 0, 0.45);
+  color: rgba(255, 255, 255, 0.95);
+  font-size: 12px;
+  text-align: center;
+}
+
+.dna-replay-layer-toggles {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.dna-replay-layer-toggles label {
+  flex-direction: row;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.dna-replay-left {
+  position: relative;
+  width: min(300px, 42vw);
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 8px 12px 8px 0;
+  border: none;
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  background: transparent;
+  max-height: 100%;
+  min-height: 0;
+}
+
+.dna-replay-left-title {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.72);
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.85);
+}
+
+.dna-replay-search {
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(0, 0, 0, 0.35);
+  color: rgba(255, 255, 255, 0.95);
+  font-size: 13px;
+}
+
+.dna-replay-roster {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.dna-replay-roster button {
+  text-align: left;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.dna-replay-roster button:hover {
+  border-color: rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.dna-replay-roster button.is-active {
+  border-color: rgba(14, 165, 233, 0.45);
+  color: rgba(14, 165, 233, 0.95);
+}
+
+.dna-replay-roster-meta {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.4);
+  margin-top: 2px;
+}
+
+.dna-replay-right {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  height: 100%;
+  min-height: 0;
+  transform: translateX(0);
+  transition: transform 240ms ease;
+}
+
+.dna-replay-right-inner {
+  pointer-events: auto;
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  border-radius: 0;
+  border: none;
+  border-left: 1px solid rgba(255, 255, 255, 0.08);
+  background: transparent;
+  overflow: hidden;
+  transition: width 220ms ease, opacity 220ms ease, padding 220ms ease;
+}
+
+.dna-replay-right.dna-replay-right--collapsed .dna-replay-right-inner {
+  width: 0;
+  min-width: 0;
+  opacity: 0;
+  padding: 0;
+  border-left: none;
+}
+
+.dna-replay-right.dna-replay-right--collapsed {
+  transform: translateX(10px);
+}
+
+.dna-replay-curtain {
+  pointer-events: auto;
+  align-self: center;
+  width: 28px;
+  min-height: 120px;
+  border-radius: 8px 0 0 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-right: none;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.65);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  line-height: 1;
+}
+
+.dna-replay-curtain:hover {
+  color: rgba(255, 255, 255, 0.95);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.dna-replay-right-tabs {
+  display: flex;
+  gap: 4px;
+  padding: 4px 0 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.dna-replay-right-tabs button {
+  flex: 1;
+  padding: 8px 6px;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.45);
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.dna-replay-right-tabs button.is-on {
+  color: rgba(255, 255, 255, 0.92);
+  box-shadow: inset 0 -1px 0 rgba(14, 165, 233, 0.6);
+}
+
+.dna-replay-right-body {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.dna-replay-feed-gate {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.dna-replay-feed-gate .dna-event-feed {
+  flex: 1;
+  min-height: 0;
+}
+
+.dna-replay-gate-msg {
+  padding: 16px 8px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.dna-replay-detail-placeholder {
+  padding: 12px 8px;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.55);
+  line-height: 1.5;
+}
+
+.dna-replay-roster-name {
+  display: block;
+  font-weight: 500;
+}
+
+.dna-replay-idle-hint {
+  padding: 8px 4px 12px;
+}
+
+.dna-replay-idle-hint-title {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.42);
+  margin-bottom: 8px;
+}
+
+.dna-replay-idle-hint p {
+  margin: 0;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.5);
+  line-height: 1.55;
+}
+
+.dna-replay-context-card {
+  padding: 4px 4px 8px;
+}
+
+.dna-replay-context-card-kicker {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.38);
+  margin-bottom: 6px;
+}
+
+.dna-replay-context-card-title {
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: rgba(255, 255, 255, 0.95);
+  margin-bottom: 10px;
+}
+
+.dna-replay-context-card-muted {
+  margin: 0 0 8px;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.dna-replay-context-card-muted strong {
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: 600;
+}
+
+.dna-replay-context-card-hint {
+  margin: 0;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.42);
+  line-height: 1.5;
+}
+
+.dna-replay-event-card {
+  padding: 4px 4px 8px;
+}
+
+.dna-replay-event-card-kicker {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.38);
+  margin-bottom: 6px;
+}
+
+.dna-replay-event-card-type {
+  font-size: 15px;
+  font-weight: 600;
+  color: rgba(14, 165, 233, 0.95);
+  margin-bottom: 4px;
+}
+
+.dna-replay-event-card-time {
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+  color: rgba(255, 255, 255, 0.65);
+  margin-bottom: 12px;
+}
+
+.dna-replay-event-card-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.78);
+  padding: 6px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.dna-replay-event-card-label {
+  color: rgba(255, 255, 255, 0.42);
+  flex-shrink: 0;
+}
+
+.dna-replay-timeline-wrap {
+  flex-shrink: 0;
+  padding: 6px 10px 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  background: transparent;
+  pointer-events: auto;
+}
+
+/* Фид и подписи поверх карты — контраст */
+.dna-replay-overlay .dna-event-feed-title,
+.dna-replay-overlay .dna-event-feed-item,
+.dna-replay-overlay .dna-replay-detail-placeholder,
+.dna-replay-overlay .dna-replay-gate-msg {
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.85);
+}
+
+.dna-replay-err {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(185, 28, 28, 0.35);
+  background: rgba(185, 28, 28, 0.08);
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 13px;
+  text-align: center;
+}
+
+.dna-replay-left-head {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.dna-replay-left-filters {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.dna-replay-filter {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.dna-replay-filter select {
+  padding: 6px 8px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.18);
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 12px;
+}
+
+.dna-replay-quick-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.dna-replay-btn-tiny {
+  padding: 5px 8px !important;
+  font-size: 11px !important;
+  border-radius: 8px !important;
+}
+
+.dna-replay-left--mode-player .dna-replay-search,
+.dna-replay-left--mode-team .dna-replay-search {
+  opacity: 0.85;
+}
+
+.dna-replay-player-card {
+  position: relative;
+  padding: 12px 12px 12px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.35);
+  overflow: hidden;
+  transition:
+    border-color 220ms ease,
+    box-shadow 220ms ease;
+}
+
+.dna-replay-player-card-accent {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  border-radius: 12px 0 0 12px;
+}
+
+.dna-replay-player-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.dna-replay-player-card-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.96);
+}
+
+.dna-replay-player-card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.78);
+  margin-bottom: 8px;
+}
+
+.dna-replay-player-card-meta.muted {
+  color: rgba(255, 255, 255, 0.42);
+  font-size: 11px;
+  line-height: 1.45;
+}
+
+.dna-replay-status {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.dna-replay-status--alive {
+  color: #4ade80;
+  background: rgba(74, 222, 128, 0.12);
+  border-color: rgba(74, 222, 128, 0.35);
+}
+
+.dna-replay-status--knocked {
+  color: #fbbf24;
+  background: rgba(251, 191, 36, 0.12);
+  border-color: rgba(251, 191, 36, 0.35);
+}
+
+.dna-replay-status--dead {
+  color: #94a3b8;
+  background: rgba(148, 163, 184, 0.1);
+  border-color: rgba(148, 163, 184, 0.3);
+}
+
+.dna-replay-roster-group {
+  margin-bottom: 10px;
+}
+
+.dna-replay-roster-group-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: rgba(255, 255, 255, 0.55);
+  margin-bottom: 6px;
+  padding-left: 2px;
+}
+
+.dna-replay-team-swatch {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.45);
+}
+
+.dna-replay-team-swatch.sm {
+  width: 9px;
+  height: 9px;
+}
+
+.dna-replay-team-swatch.lg {
+  width: 16px;
+  height: 16px;
+}
+
+.dna-replay-roster-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  text-align: left;
+  padding: 8px 10px;
+  margin-bottom: 4px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  background: rgba(0, 0, 0, 0.18);
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 12px;
+  cursor: pointer;
+  transition:
+    border-color 180ms ease,
+    background 180ms ease,
+    opacity 180ms ease;
+}
+
+.dna-replay-roster-row:hover {
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.dna-replay-roster-row.is-active {
+  border-color: rgba(56, 189, 248, 0.45);
+  background: rgba(56, 189, 248, 0.08);
+}
+
+.dna-replay-roster-row.is-dimmed {
+  opacity: 0.42;
+}
+
+.dna-replay-roster-row.is-dimmed:hover {
+  opacity: 0.72;
+}
+
+.dna-replay-roster-row .dna-replay-roster-name {
+  flex: 1;
+  min-width: 0;
+}
+
+.dna-replay-team-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.dna-replay-team-panel-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.dna-replay-team-panel-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.dna-replay-team-panel-sub {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.dna-replay-right-context {
+  flex-shrink: 0;
+  margin-bottom: 8px;
+}
+
+.dna-replay-team-summary {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(0, 0, 0, 0.28);
+}
+
+.dna-replay-team-summary-swatch {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  flex-shrink: 0;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.45);
+}
+
+.dna-replay-team-summary-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.dna-replay-team-summary-stats {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.55);
+  margin-top: 2px;
+}
+
+.dna-replay-player-strip {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(0, 0, 0, 0.22);
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.dna-replay-player-strip-muted {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.dna-replay-event-card--compact {
+  margin-top: 8px;
+  padding: 10px 10px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(0, 0, 0, 0.25);
+}
+
+.dna-replay-tabs {
+  display: inline-flex;
+  gap: 4px;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 9px;
+  padding: 2px;
+}
+
+.dna-replay-tab {
+  border: none;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 12px;
+  padding: 6px 10px;
+  border-radius: 7px;
+  cursor: pointer;
+}
+
+.dna-replay-tab.is-active {
+  color: rgba(255, 255, 255, 0.95);
+  background: rgba(56, 189, 248, 0.18);
+}
+
+.dna-replay-breadcrumb {
+  max-width: min(580px, 56vw);
+}
+
+.dna-replay-left {
+  width: 300px;
+  min-width: 280px;
+  max-width: 320px;
+  padding: 12px;
+}
+
+.dna-replay-right-wrap {
+  max-width: 340px;
+  width: auto;
+  margin-left: auto;
+  margin-right: 0;
+}
+
+.dna-replay-match-caption {
+  position: absolute;
+  right: 10px;
+  bottom: 56px;
+  z-index: 3;
+  pointer-events: none;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.52);
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.75);
+}
+
+.dna-replay-right-inner {
+  padding: 10px 10px 8px;
+}
+
+.dna-replay-section-title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.48);
+  margin: 2px 0 8px;
+}
+
+.dna-replay-roster-row {
+  min-height: 48px;
+  border-radius: 9px;
+}
+
+.dna-replay-roster-main {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1;
+}
+
+.dna-replay-roster-sub {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.44);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dna-replay-status {
+  min-width: 52px;
+  text-align: center;
+}
+
+.dna-replay-feed-gate .dna-event-feed-title {
+  padding: 4px 2px 8px;
+}
+
+@media (max-width: 900px) {
+  .dna-replay-left {
+    width: min(260px, 55vw);
+  }
+  .dna-replay-right {
+    max-width: min(340px, 58vw);
+  }
+}

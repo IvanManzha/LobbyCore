@@ -1,0 +1,74 @@
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  height: 26px;
+  padding: 0 12px;
+  border-radius: var(--radius-pill);
+  font-size: 12px;
+  font-weight: 600;
+  border: 1px solid var(--line);
+  color: var(--text);
+  background: var(--surface2);
+  gap: 8px;
+}
+
+.status-led {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--muted2);
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.04);
+  flex-shrink: 0;
+}
+
+/* REG: зелёный (регистрация открыта) */
+.status-pill.reg {
+  color: var(--good);
+  background: color-mix(in srgb, var(--good) 14%, var(--surface2));
+  border-color: color-mix(in srgb, var(--good) 35%, var(--line));
+}
+
+.status-pill.reg .status-led {
+  background: var(--good);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--good) 20%, transparent);
+}
+
+/* LIVE: рыжий/оранжевый (в процессе) */
+.status-pill.live {
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 14%, var(--surface2));
+  border-color: color-mix(in srgb, var(--accent) 35%, var(--line));
+}
+
+.status-pill.live .status-led {
+  background: var(--accent);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 25%, transparent);
+  animation: statusPulse 1.6s ease-out infinite;
+}
+
+/* DONE: muted */
+.status-pill.done {
+  color: var(--muted);
+  background: color-mix(in srgb, var(--muted2) 20%, var(--surface2));
+  border-color: var(--line);
+}
+
+.status-pill.done .status-led {
+  background: var(--muted2);
+  box-shadow: none;
+}
+
+@keyframes statusPulse {
+  0% {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+  70% {
+    opacity: 0;
+    transform: scale(1.8);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.8);
+  }
+}

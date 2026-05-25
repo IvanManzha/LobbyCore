@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Детали команды</title>
+  <style>
+    /* … ваши существующие стили … */
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 0; padding: 2rem;
+      max-width: 800px; margin: auto;
+      background: #f5f5f5; color: #333;
+      min-height: 100vh; transition: background-color .3s, color .3s;
+      position: relative;
+    }
+    h1,h2 { margin-bottom:1rem; font-weight:500; color:#222; transition: color .3s; }
+    a { color:#1976d2; text-decoration:none; transition: color .3s; }
+    a:hover { text-decoration:underline; }
+    table { width:100%; border-collapse:collapse; background:#fff; border-radius:8px; overflow:hidden;
+      box-shadow:0 2px 8px rgba(0,0,0,0.05); margin-top:1rem; transition: background .3s, box-shadow .3s; }
+    th,td { padding:1rem; border-bottom:1px solid #e0e0e0; text-align:center; transition: background .3s, color .3s; }
+    thead { background:#fafafa; }
+    tbody tr:hover { background:#f0f0f0; }
+
+    body.dark-theme {
+    color: #c9d1d9; /* основной текст */
+    }
+
+    /* Наследуют и параграфы, списки, заголовки */
+    body.dark-theme h1,
+    body.dark-theme h2,
+    body.dark-theme h3,
+    body.dark-theme h4,
+    body.dark-theme h5,
+    body.dark-theme h6,
+    body.dark-theme p,
+    body.dark-theme li,
+    body.dark-theme a,
+    body.dark-theme td,
+    body.dark-theme th,
+    body.dark-theme label,
+    body.dark-theme input,
+    body.dark-theme button {
+    color: #c9d1d9;
+    }
+
+    /* Ссылки сделаем чуть ярче */
+    body.dark-theme a {
+    color: #58a6ff;
+    }
+
+    /* Плейсхолдеры инпутов тоже светлеем */
+    body.dark-theme ::placeholder {
+    color: #888;
+    }
+
+    /* Граница полей, если нужно */
+    body.dark-theme input,
+    body.dark-theme textarea,
+    body.dark-theme select {
+    border-color: #444;
+    }
+
+    /* Кнопки с текстом */
+    body.dark-theme button {
+    color: #c9d1d9;
+    }
+
+    /* Фон страницы */
+    body.dark-theme {
+    background-color: #0d1117;  /* тёмный фон */
+    }
+
+    /* Фон таблиц */
+    body.dark-theme table {
+    background-color: #161b22;  /* чуть светлее фона страницы */
+    }
+
+    /* Фон шапки таблиц */
+    body.dark-theme thead {
+    background-color: #1f2937;
+    }
+
+    /* Фон строк при наведении */
+    body.dark-theme tbody tr:hover {
+    background-color: #21262d;
+    }
+
+    /* Фон «карточек» / контейнеров, если у вас есть .card или похожие */
+    body.dark-theme .card,
+    body.dark-theme .back-link {
+    background-color: #161b22;
+    color: #c9d1d9;
+    }
+
+    /* Если у вас есть секции с явно белым фоном */
+    body.dark-theme .white-block,
+    body.dark-theme .panel {
+    background-color: #161b22;
+    }
+
+    /* Для инпутов и форм (login.html, если используется) */
+    body.dark-theme input,
+    body.dark-theme select,
+    body.dark-theme textarea,
+    body.dark-theme button {
+    background-color: #21262d;
+    border-color: #30363d;
+    }
+
+    /* Карточка входа (login.html) */
+    body.dark-theme .card {
+    background-color: #161b22;
+    box-shadow: 0 2px 8px rgba(255,255,255,0.05);
+    }
+
+    /* Переключатель темы */
+    #theme-toggle {
+      position: fixed; top:10px; right:10px;
+      background:#1976d2; color:#fff; border:none;
+      padding:8px 16px; font-size:15px; border-radius:20px;
+      cursor:pointer; box-shadow:0 2px 5px rgba(0,0,0,0.2);
+      transition:background .3s, box-shadow .3s;
+    }
+    #theme-toggle:hover { background:#1565c0; }
+    body.dark-theme #theme-toggle { background:#58a6ff; color:#0d1117; }
+    body.dark-theme #theme-toggle:hover { background:#4ea0ff; }
+
+    /* Кнопка Профиль */
+    #profile-btn {
+      position: fixed; top:50px; right:10px; display:none;
+      background:#d3cbb8; color:#333; border:1px solid #b5ab97;
+      padding:8px 16px; font-size:15px; border-radius:20px;
+      cursor:pointer; box-shadow:0 2px 5px rgba(0,0,0,0.2);
+      transition:background .3s, box-shadow .3s;
+    }
+    #profile-btn:hover { background:#bfb6a5; }
+    body.dark-theme #profile-btn {
+      background:#a69f8c; color:#f5f5f5; border-color:#8f8773;
+    }
+    body.dark-theme #profile-btn:hover { background:#8d8674; }
+    /* Кнопка «Расписание» */
+/* Приклеиваем «Расписание» */
+    #schedule-btn {
+    position: fixed;
+    top: 90px;    /* сместить ниже кнопки «Тема» */
+    right: 10px;
+    background: #1976d2;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    font-size: 0.9rem;
+    border-radius: 20px;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    z-index: 1000;
+    }
+
+    #schedule-btn:hover {
+    background: #1565c0;
+    }
+
+    /* Тёмная тема */
+    body.dark-theme #schedule-btn {
+    background: #58a6ff;
+    color: #0d1117;
+    }
+    body.dark-theme #schedule-btn:hover {
+    background: #4ea0ff;
+    }
+/* кнопка Актуальный турнир */
+#active-tournament-btn {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  background: #1976d2;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  border-radius: 20px;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+  z-index: 1000;
+}
+#active-tournament-btn:hover {
+  background: #1565c0;
+}
+/* тёмная тема */
+body.dark-theme #active-tournament-btn {
+  background: #58a6ff;
+  color: #0d1117;
+}
+body.dark-theme #active-tournament-btn:hover {
+  background: #4ea0ff;
+}
+.table-wrapper {
+  overflow-x: auto;
+  /* можно добавить сверху/снизу небольшой отступ, если нужно */
+  margin-top: 1rem;
+}
+.table-wrapper table {
+  width: auto;           /* позволит таблице быть шире контейнера */
+  min-width: 600px;      /* пример на 5–6 раундов по 120px, подкорректируйте */
+  white-space: nowrap;
+}
+
+  </style>
+</head>
+<body>
+    <button id="active-tournament-btn" style="display:none;">Сегодняшний турнир</button>
+  <button id="theme-toggle">🌙 Тема</button>
+  <button id="profile-btn" style="display:none">Профиль</button>
+  <button id="schedule-btn">Расписание</button>
+
+  <!-- Назад к списку, сохраняя tournament=... -->
+  <a id="back-link" class="back-link" href="index.html">← Вернуться к списку команд</a>
+
+  <!-- Показываем сразу название турнира -->
+  <h2 id="tournament-name">Загрузка турнира...</h2>
+  <!-- А потом имя команды -->
+  <h1 id="team-name">Загрузка команды...</h1>
+
+  <p id="team-composition">Состав: …</p>
+
+  <h2>Позиции по матчам</h2>
+  <div class="table-wrapper">
+    <table>
+      <thead><tr id="positions-header"></tr></thead>
+      <tbody><tr id="positions-row"></tr></tbody>
+    </table>
+  </div>
+
+  <h2>Киллы по игрокам</h2>
+  <div class="table-wrapper">
+    <table>
+      <thead><tr id="kills-header"><th>Игрок</th></tr></thead>
+      <tbody id="kills-body"></tbody>
+    </table>
+  </div>
+
+  <script src="team.js"></script>
+</body>
+</html>

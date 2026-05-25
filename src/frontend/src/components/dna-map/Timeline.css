@@ -1,0 +1,313 @@
+.dna-timeline {
+  display: flex;
+  flex-direction: column;
+  padding: 12px 16px;
+  gap: 8px;
+  height: 100%;
+  min-height: 0;
+}
+
+.dna-timeline-time {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.dna-timeline-track {
+  position: relative;
+  flex: 1;
+  min-height: 48px;
+  background: var(--surface2);
+  border-radius: var(--radius-card, 8px);
+  cursor: pointer;
+  border: 1px solid var(--line);
+}
+
+.dna-timeline-track-inner {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+}
+
+.dna-timeline-row {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 50%;
+  pointer-events: none;
+}
+
+.dna-timeline-row .dna-timeline-marker,
+.dna-timeline-row .dna-timeline-fight-seg {
+  pointer-events: auto;
+}
+
+.dna-timeline-events {
+  top: 0;
+}
+
+.dna-timeline-fights {
+  bottom: 0;
+}
+
+.dna-timeline-marker {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid var(--bg);
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+}
+
+.dna-timeline-marker:hover {
+  transform: translate(-50%, -50%) scale(1.2);
+}
+
+.dna-timeline-marker-active {
+  box-shadow: 0 0 0 2px var(--accent);
+}
+
+.dna-timeline-fight-seg {
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  background: var(--accent);
+  opacity: 0.3;
+  border: 1px solid var(--accent);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.7rem;
+  padding: 0 4px;
+}
+
+.dna-timeline-fight-seg:hover,
+.dna-timeline-fight-seg-active {
+  opacity: 0.6;
+}
+
+.dna-timeline-scrubber {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 12px;
+  margin-left: -6px;
+  background: transparent;
+  border-radius: 2px;
+  cursor: ew-resize;
+  z-index: 2;
+}
+
+.dna-timeline-scrubber::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 3px;
+  height: 100%;
+  background: var(--accent);
+  border-radius: 2px;
+}
+
+.dna-timeline-scrubber::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 14px;
+  height: 14px;
+  background: var(--accent);
+  border-radius: 50%;
+  border: 2px solid var(--bg);
+}
+
+.dna-timeline-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.dna-timeline-speed {
+  display: inline-flex;
+  gap: 6px;
+  margin-left: 2px;
+}
+
+.dna-timeline-speed-btn-active {
+  background: rgba(14, 165, 233, 0.20);
+  border-color: rgba(14, 165, 233, 0.45);
+  box-shadow: 0 0 0 1px rgba(14, 165, 233, 0.10);
+}
+
+.dna-timeline-current {
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-right: 8px;
+}
+
+.dna-timeline-ctrl-btn {
+  padding: 4px 10px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card, 8px);
+  background: var(--surface2);
+  color: var(--text);
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.dna-timeline-ctrl-btn:hover {
+  background: var(--surface-hover);
+}
+
+.dna-timeline-replay-meta {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-left: 2px;
+}
+
+.dna-timeline-meta-item {
+  opacity: 0.92;
+}
+
+/* —— Replay viewer: тёмная glass-панель, таймлайн в центре —— */
+.dna-timeline--replay {
+  padding: 6px 8px 8px;
+  gap: 8px;
+  border-radius: 10px;
+  background: rgba(6, 10, 16, 0.25);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: none;
+}
+
+.dna-timeline-replay-grid {
+  display: grid;
+  grid-template-columns: minmax(0, auto) minmax(120px, 1fr) minmax(0, auto);
+  gap: 6px 8px;
+  align-items: end;
+}
+
+@media (max-width: 1100px) {
+  .dna-timeline-replay-grid {
+    grid-template-columns: 1fr;
+    align-items: stretch;
+  }
+
+  .dna-timeline-replay-left,
+  .dna-timeline-replay-right {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+}
+
+.dna-timeline-replay-left {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 8px;
+}
+
+.dna-timeline-replay-center {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.dna-timeline-replay-right {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px 8px;
+}
+
+.dna-timeline-time--replay {
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.42);
+}
+
+.dna-timeline-track--replay {
+  min-height: 40px;
+  background: rgba(0, 0, 0, 0.22);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.dna-timeline--replay .dna-timeline-marker {
+  width: 14px;
+  height: 14px;
+  font-size: 8px;
+  border-width: 1.5px;
+}
+
+.dna-timeline-current--replay {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.88);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+  margin-right: 4px;
+}
+
+.dna-timeline-ctrl-btn--replay {
+  padding: 4px 8px;
+  font-size: 0.72rem;
+  border-radius: 9px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.03);
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.dna-timeline-ctrl-btn--replay:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.18);
+  color: rgba(255, 255, 255, 0.98);
+}
+
+.dna-timeline-ctrl-btn--replay:disabled {
+  opacity: 0.4;
+}
+
+.dna-timeline-ctrl-btn--compact {
+  padding: 6px 8px;
+  font-size: 0.72rem;
+  opacity: 0.85;
+}
+
+.dna-timeline-speed--replay {
+  margin-left: 0;
+}
+
+.dna-timeline-replay-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 14px;
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.38);
+  padding-top: 2px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  margin-top: 2px;
+}
+
+.dna-timeline-replay-meta--replay {
+  width: 100%;
+  justify-content: flex-start;
+  border-top: none;
+  margin-top: 0;
+  padding-top: 0;
+}

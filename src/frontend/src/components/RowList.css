@@ -1,0 +1,111 @@
+/* Стилистика как у турнирных таблиц (.table-premium / .tournament-table) */
+.row-list {
+  border: none;
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  background: var(--surface);
+}
+
+.row-list .row.row-header {
+  padding: 14px 16px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: var(--surface2);
+  border: none;
+  border-bottom: none;
+}
+
+.row-list-body .row {
+  border-bottom: none;
+  transition: background var(--motion-fast) var(--ease-out), box-shadow var(--motion-fast) var(--ease-out);
+}
+
+.row-list-body .row:hover {
+  background: color-mix(in srgb, var(--surface) 80%, transparent);
+  box-shadow: inset 0 0 0 1px var(--line2);
+}
+
+.row-link {
+  text-decoration: none;
+  color: inherit;
+  position: relative;
+}
+
+.row-cell {
+  font-size: 14px;
+}
+
+.row-action {
+  text-align: right;
+  color: var(--muted);
+  font-size: 14px;
+  display: inline-flex;
+  align-items: center;
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: opacity var(--motion-fast) var(--ease-out), transform var(--motion-fast) var(--ease-out), color var(--motion-fast) var(--ease-out);
+}
+
+.row-list-body .row:hover .row-action {
+  opacity: 1;
+  transform: translateX(0);
+  color: var(--text);
+}
+
+.row-list .row {
+  position: relative;
+}
+
+.row-list-body .row.row--done {
+  opacity: 0.85;
+  color: var(--muted);
+}
+
+.row-list-body .row.row--done .tournament-row-name {
+  color: var(--muted);
+}
+
+.row--with-edit {
+  display: grid;
+  grid-template-columns: 1.4fr 0.8fr 0.8fr 0.6fr 40px auto;
+  gap: 12px;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--line);
+}
+
+.row--with-edit .row-link--span {
+  grid-column: 1 / -2;
+  display: grid;
+  grid-template-columns: 1.4fr 0.8fr 0.8fr 0.6fr 40px;
+  gap: 12px;
+  margin: -14px -16px;
+  padding: 14px 16px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.row-edit-link {
+  font-size: 13px;
+  color: var(--accent);
+  text-decoration: none;
+  align-self: center;
+  white-space: nowrap;
+}
+
+.row-edit-link:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 900px) {
+  .row {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+
+  .row-action {
+    text-align: left;
+  }
+}

@@ -1,0 +1,167 @@
+@import "./styles/theme.css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+/* Минимальная ширина приложения — окно браузера не сужает контент ниже этого размера */
+html {
+  min-width: 1024px;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  min-width: 1024px;
+}
+
+#root {
+  min-width: 1024px;
+}
+
+/* Мелкий заголовок секции в контенте (не дублирует TopBar) */
+.page-section-title {
+  margin: 0 0 16px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--muted);
+  letter-spacing: 0.02em;
+}
+
+.coverage-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 6px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--warning, #f59e0b);
+  border: 1px solid color-mix(in srgb, var(--warning, #f59e0b) 40%, transparent);
+  background: color-mix(in srgb, var(--warning, #f59e0b) 15%, var(--surface3));
+  cursor: help;
+  transition: all var(--motion-fast) var(--ease-out);
+}
+
+.coverage-badge:hover {
+  background: color-mix(in srgb, var(--warning, #f59e0b) 25%, var(--surface3));
+  border-color: color-mix(in srgb, var(--warning, #f59e0b) 60%, transparent);
+}
+
+.metric-tooltip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 1px solid var(--line2);
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 700;
+  cursor: help;
+  background: var(--surface3);
+}
+
+.sortable {
+  cursor: pointer;
+}
+
+/* Таблицы — стили как у RowList на дашборде */
+.table-shell {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+}
+
+.table-premium {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table-premium thead th {
+  padding: 14px 16px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: var(--surface2);
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+}
+
+.table-premium thead th.sortable:hover {
+  color: var(--text);
+}
+
+.table-premium tbody td {
+  padding: 14px 16px;
+  font-size: 14px;
+  border-bottom: 1px solid var(--line);
+  color: var(--text);
+}
+
+.table-premium tbody tr {
+  transition: background var(--motion-fast) var(--ease-out), box-shadow var(--motion-fast) var(--ease-out);
+}
+
+.table-premium tbody tr:hover {
+  background: color-mix(in srgb, var(--surface) 80%, transparent);
+  box-shadow: inset 0 0 0 1px var(--line2);
+}
+
+.table-premium tbody tr.table-row-highlighted {
+  position: relative;
+  background: color-mix(in srgb, var(--accent2) 14%, var(--surface));
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent2) 60%, transparent);
+}
+
+.table-premium tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.table-number {
+  font-variant-numeric: tabular-nums;
+}
+
+.table-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  color: var(--muted);
+  font-weight: 600;
+  text-decoration: none;
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: opacity var(--motion-fast) var(--ease-out), transform var(--motion-fast) var(--ease-out), color var(--motion-fast) var(--ease-out);
+}
+
+.table-premium tbody tr:hover .table-action {
+  opacity: 1;
+  transform: translateX(0);
+  color: var(--text);
+}
+
+.table-action:hover {
+  color: var(--accent);
+}
+
+.table-action-danger {
+  font-size: 12px;
+  color: var(--bad, #ef4444);
+}
+
+.table-action-danger:hover {
+  color: color-mix(in srgb, var(--bad, #ef4444) 80%, white);
+}

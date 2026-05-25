@@ -1,0 +1,217 @@
+.schedule {
+  display: grid;
+  gap: 18px;
+}
+
+/* Фильтры и поиск — от левого до правого края (как хедер) */
+.schedule-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 0;
+  --schedule-pull: max(0px, (100vw - var(--sidebar-width) - 1160px) / 2);
+  margin-left: calc(-1 * var(--schedule-pull));
+  margin-right: calc(-1 * var(--schedule-pull));
+  width: calc(100% + 2 * var(--schedule-pull));
+  box-sizing: border-box;
+}
+
+.tabs-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.tabs-group .btn-ghost.active {
+  background: var(--surface2);
+  color: var(--text);
+  border: 1px solid var(--line);
+  box-shadow: var(--ring-accent);
+}
+
+.schedule-controls-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.schedule-search {
+  width: 260px;
+}
+
+.schedule-select {
+  min-width: 180px;
+}
+
+.tournament-name {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.schedule-table tbody tr.schedule-row--done {
+  opacity: 0.85;
+}
+
+.schedule-table tbody tr.schedule-row--done td {
+  color: var(--muted);
+}
+
+/* Плашка «мой турнир» — только активные (tbody) */
+.schedule-table tbody tr.schedule-row--my {
+  border-left: 3px solid color-mix(in srgb, var(--accent) 50%, transparent);
+}
+
+.schedule-table tbody tr.schedule-row--my:hover {
+  border-left-color: color-mix(in srgb, var(--accent) 70%, transparent);
+}
+
+/* Завершённые, в которых участвовал — такая же граница (border), но серого цвета */
+.schedule-table tbody tr.schedule-row--done.schedule-row--my {
+  border-left: 3px solid color-mix(in srgb, var(--line) 90%, transparent);
+}
+
+.schedule-table tbody tr.schedule-row--done.schedule-row--my:hover {
+  border-left-color: var(--line);
+}
+
+.schedule-table thead th:first-child {
+  position: relative;
+  padding-left: 20px;
+}
+
+.schedule-table thead th:first-child::before {
+  content: '';
+  position: absolute;
+  left: -3px;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--surface2);
+}
+
+.table-shell {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
+  background: var(--surface);
+  overflow: hidden;
+}
+
+/* Блок «Мои турниры» — турниры, на которые зарегистрирован / в которых участвуешь */
+.schedule-section--my {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.schedule-section-title {
+  margin: 0 0 4px;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.schedule-badge {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 2px 6px;
+  font-size: 11px;
+  font-weight: 600;
+  border-radius: 4px;
+  letter-spacing: 0.02em;
+}
+
+.schedule-badge--my {
+  background: var(--accent-subtle, rgba(255, 152, 0, 0.15));
+  color: var(--accent, #f57c00);
+}
+
+.schedule-subsection {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.schedule-subsection-title {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--muted);
+  letter-spacing: 0.02em;
+}
+
+/* Премиум-таблица: компактно, tabular nums, чипы */
+.schedule-table--premium thead th,
+.schedule-table--premium tbody td {
+  padding: 12px 16px;
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+}
+
+.schedule-table--premium .schedule-date-value,
+.schedule-table--premium .schedule-price,
+.schedule-table--premium .schedule-reg-countdown {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Блок дедлайна регистрации: основная строка + второстепенная */
+.schedule-reg-block {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  align-items: flex-start;
+}
+
+.schedule-reg-countdown {
+  font-weight: 600;
+  color: var(--text);
+  font-size: 14px;
+}
+
+.schedule-reg-short {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.schedule-reg-empty {
+  color: var(--muted);
+}
+
+/* Чип формата */
+.schedule-format-chip {
+  display: inline-block;
+  padding: 4px 10px;
+  font-size: 12px;
+  font-weight: 500;
+  border-radius: var(--radius, 6px);
+  background: var(--surface2);
+  color: var(--text);
+}
+
+.schedule-table--compact thead th,
+.schedule-table--compact tbody td {
+  padding: 10px 14px;
+  font-size: 14px;
+}
+
+@media (max-width: 900px) {
+  .schedule-controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .tabs-group {
+    flex-wrap: wrap;
+  }
+
+  .schedule-controls-right {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .schedule-search,
+  .schedule-select {
+    width: 100%;
+  }
+}

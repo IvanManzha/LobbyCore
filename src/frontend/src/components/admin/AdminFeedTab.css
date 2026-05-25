@@ -1,0 +1,142 @@
+.admin-feed-tab {
+  padding: 0;
+}
+
+.admin-feed-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.admin-feed-filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.admin-feed-select,
+.admin-feed-search {
+  padding: 0.4rem 0.6rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm, 4px);
+  background: var(--surface2);
+  color: var(--text);
+  font-size: 0.9rem;
+}
+
+.admin-feed-search {
+  min-width: 180px;
+}
+
+.admin-feed-table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md, 8px);
+  background: var(--surface2);
+}
+
+.admin-feed-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.admin-feed-table th,
+.admin-feed-table td {
+  padding: 0.6rem 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid var(--line);
+}
+
+.admin-feed-table th {
+  font-weight: 600;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.admin-feed-table tbody tr:hover {
+  background: var(--surface);
+}
+
+.admin-feed-status {
+  display: inline-block;
+  padding: 0.2rem 0.5rem;
+  border-radius: var(--radius-sm, 4px);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.admin-feed-status--published {
+  background: rgba(34, 197, 94, 0.2);
+  color: var(--accent);
+}
+
+.admin-feed-status--draft {
+  background: rgba(156, 163, 175, 0.2);
+  color: var(--muted);
+}
+
+.admin-feed-status--archived {
+  background: rgba(107, 114, 128, 0.2);
+  color: var(--muted);
+}
+
+.admin-feed-actions {
+  display: flex;
+  gap: 0.25rem;
+  flex-wrap: wrap;
+}
+
+.admin-feed-actions .btn-sm {
+  padding: 0.2rem 0.5rem;
+  font-size: 0.8rem;
+}
+
+.admin-feed-delete {
+  color: var(--danger, #ef4444);
+}
+
+.admin-feed-empty {
+  text-align: center;
+  color: var(--muted);
+  padding: 1.5rem;
+}
+
+.admin-feed-loading {
+  color: var(--muted);
+  margin: 1rem 0;
+}
+
+.admin-feed-toast {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  padding: 0.75rem 1.25rem;
+  border-radius: var(--radius-md, 8px);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 1100;
+  font-size: 0.9rem;
+  animation: admin-feed-toast-in 0.2s ease;
+}
+
+.admin-feed-toast--error {
+  border-color: var(--danger, #ef4444);
+  color: var(--danger, #ef4444);
+}
+
+@keyframes admin-feed-toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
