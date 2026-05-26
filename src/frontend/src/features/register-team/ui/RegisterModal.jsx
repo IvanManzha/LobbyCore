@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { tournamentApi, playerApi } from '@/services/api';
-import { formatMode, formatFeedDate } from '@/utils/feed';
+import { formatMode, formatFeedDate } from '@/entities/feed-post';
 import {
   getMyRegistration,
   getRegistrationRules,

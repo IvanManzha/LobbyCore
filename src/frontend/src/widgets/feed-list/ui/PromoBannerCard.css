@@ -1,0 +1,52 @@
+/* PromoBannerCard: full width, lower height (160–200px) */
+.feed-card--promo {
+  height: 180px;
+  min-height: 160px;
+}
+
+.feed-card--promo .feed-card__overlay--promo {
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.2) 0%,
+    rgba(0, 0, 0, 0.4) 40%,
+    rgba(0, 0, 0, 0.8) 100%
+  );
+}
+
+.feed-promo-badge {
+  display: inline-flex;
+  align-items: center;
+  height: 24px;
+  padding: 0 10px;
+  border-radius: var(--radius-pill);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: rgba(255, 122, 24, 0.15);
+  border: 1px solid rgba(255, 122, 24, 0.3);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.feed-card__desc--promo {
+  -webkit-line-clamp: 3;
+}
+
+/* Promo specific hover - softer accent */
+.feed-card--promo:hover {
+  border-color: color-mix(in srgb, var(--accent2) 30%, var(--line));
+}
+
+@media (max-width: 768px) {
+  .feed-card--promo {
+    height: 160px;
+    min-height: 140px;
+  }
+
+  .feed-card__desc--promo {
+    display: block;
+    -webkit-line-clamp: 2;
+  }
+}

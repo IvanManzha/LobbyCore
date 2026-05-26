@@ -1,0 +1,15 @@
+/* Single-column premium feed: full width cards, centered container */
+.feed-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  max-width: 1150px;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .feed-list {
+    gap: 16px;
+  }
+}

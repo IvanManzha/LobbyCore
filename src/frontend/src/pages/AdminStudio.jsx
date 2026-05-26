@@ -1,12 +1,14 @@
 // src/frontend/src/pages/AdminStudio.jsx
 import React, { useState, useCallback } from 'react';
-import Tabs from '../components/Tabs';
-import { adminApi } from '../services/api';
-import AdminFeedTab from '../components/admin/AdminFeedTab';
-import AdminTournamentsTab from '../components/admin/AdminTournamentsTab';
-import AdminScenariosTab from '../components/admin/AdminScenariosTab';
-import AdminToolsTab from '../components/admin/AdminToolsTab';
-import AdminLogsTab from '../components/admin/AdminLogsTab';
+import { Tabs } from '@/shared/ui';
+import { adminApi } from '@/services/api';
+import {
+  AdminFeedTab,
+  AdminTournamentsTab,
+  AdminScenariosTab,
+  AdminToolsTab,
+  AdminLogsTab,
+} from '@/widgets/admin-studio';
 import './AdminStudio.css';
 
 const TAB_IDS = {
