@@ -1,6 +1,6 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import Layout from '@/components/Layout';
+import Layout from '@/widgets/app-layout';
 import Home from '@/pages/Home';
 import Tournament from '@/pages/Tournament';
 import Player from '@/pages/Player';
