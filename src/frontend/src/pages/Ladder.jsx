@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ladderApi } from '../services/api';
-import { useLayoutConfig } from '../contexts/LayoutConfigContext';
-import EmptyState from '../components/EmptyState';
-import Skeleton from '../components/Skeleton';
-import LadderRankBadge from '../components/LadderRankBadge';
+import { ladderApi } from '@/services/api';
+import { useLayoutConfig } from '@/contexts/LayoutConfigContext';
+import { EmptyState, Skeleton } from '@/shared/ui';
+import { LadderRankBadge } from '@/entities/ladder';
 import './Ladder.css';
 
 const CURRENT_YEAR = new Date().getFullYear();

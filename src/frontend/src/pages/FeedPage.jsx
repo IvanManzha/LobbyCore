@@ -1,15 +1,13 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import { feedApi } from '../services/api';
-import { useAuth } from '../hooks/useAuth';
-import { useUnread } from '../contexts/UnreadContext';
-import FeedList from '../components/feed/FeedList';
-import RegisterModal from '../components/modals/RegisterModal';
-import EmptyState from '../components/EmptyState';
-import Skeleton from '../components/Skeleton';
-import { filterPostsByType } from '../utils/feed';
-import { sortFeedPosts } from '../utils/feedSort';
-import { useTranslation } from '../contexts/LanguageContext';
+import { feedApi } from '@/services/api';
+import { useAuth } from '@/features/auth';
+import { useUnread } from '@/contexts/UnreadContext';
+import { FeedList } from '@/widgets/feed-list';
+import { RegisterModal } from '@/features/register-team';
+import { EmptyState, Skeleton } from '@/shared/ui';
+import { filterPostsByType, sortFeedPosts } from '@/entities/feed-post';
+import { useTranslation } from '@/contexts/LanguageContext';
 import './FeedPage.css';
 
 function FeedPage() {

@@ -1,20 +1,18 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import { tournamentApi, financeApi, adminFinanceApi, subscribeToUpdates } from '../services/api';
-import { useAuth } from '../hooks/useAuth';
-import { useLayoutConfig } from '../contexts/LayoutConfigContext';
-import Tabs from '../components/Tabs';
-import TournamentTable from '../components/TournamentTable';
-import TournamentMatches from '../components/TournamentMatches';
-import TournamentPlayers from '../components/TournamentPlayers';
-import Skeleton from '../components/Skeleton';
-import EmptyState from '../components/EmptyState';
-import RegisterModal from '../components/modals/RegisterModal';
-import Modal from '../components/Modal';
-import { useTranslation } from '../contexts/LanguageContext';
-import { DEVELOPERS } from '../config/app';
-import { buildTournamentDerived } from '../utils/tournamentDerived';
-import { getMyRegistration, isRegistrationClosed, formatStartAt } from '../utils/registration';
+import { tournamentApi, financeApi, adminFinanceApi, subscribeToUpdates } from '@/services/api';
+import { useAuth } from '@/features/auth';
+import { useLayoutConfig } from '@/contexts/LayoutConfigContext';
+import { Tabs, Skeleton, EmptyState, Modal } from '@/shared/ui';
+import {
+  TournamentTable,
+  TournamentMatches,
+  TournamentPlayers,
+} from '@/widgets/tournament-leaderboard';
+import { RegisterModal } from '@/features/register-team';
+import { useTranslation } from '@/contexts/LanguageContext';
+import { DEVELOPERS } from '@/shared/config/app';
+import { buildTournamentDerived, getMyRegistration, isRegistrationClosed, formatStartAt } from '@/entities/tournament';
 import './Tournament.css';
 
 function Tournament() {

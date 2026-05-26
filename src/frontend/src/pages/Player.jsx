@@ -5,7 +5,7 @@ import { useAuth } from '../hooks/useAuth';
 import { useLayoutConfig } from '../contexts/LayoutConfigContext';
 const RatingChart = lazy(() => import('../components/RatingChart'));
 import { MetricGrid, InsightsPanel } from '@/widgets/player-analytics';
-import ChampionshipsAwardCard from '../components/profile/ChampionshipsAwardCard';
+import { ChampionshipsAwardCard } from '@/entities/player';
 import { EmptyState, Skeleton, StatusPill } from '@/shared/ui';
 import {
   getRatingSeries,

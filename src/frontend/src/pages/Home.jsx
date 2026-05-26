@@ -1,16 +1,13 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { tournamentApi, playerApi, subscribeToUpdates } from '../services/api';
-import { useAuth } from '../hooks/useAuth';
-import { DEVELOPERS } from '../config/app';
-import { useLayoutConfigSetter } from '../contexts/LayoutConfigContext';
-import { useTranslation } from '../contexts/LanguageContext';
-import ActivityFeed from '../components/ActivityFeed';
-import MissionControl from '../components/MissionControl';
-import EmptyState from '../components/EmptyState';
-import StatusPill from '../components/StatusPill';
-import RowList, { DataRow } from '../components/RowList';
-import Skeleton from '../components/Skeleton';
+import { tournamentApi, playerApi, subscribeToUpdates } from '@/services/api';
+import { useAuth } from '@/features/auth';
+import { DEVELOPERS } from '@/shared/config/app';
+import { useLayoutConfigSetter } from '@/contexts/LayoutConfigContext';
+import { useTranslation } from '@/contexts/LanguageContext';
+import { ActivityFeed } from '@/widgets/activity-feed';
+import { MissionControl } from '@/widgets/mission-control';
+import { EmptyState, StatusPill, RowList, DataRow, Skeleton } from '@/shared/ui';
 import './Home.css';
 
 function Home() {

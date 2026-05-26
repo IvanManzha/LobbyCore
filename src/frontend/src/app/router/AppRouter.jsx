@@ -15,7 +15,7 @@ import CreateTournament from '@/pages/CreateTournament';
 import Settings from '@/pages/Settings';
 import Finance from '@/pages/Finance';
 import AdminStudio from '@/pages/AdminStudio';
-import AdminStudioGuard from '@/components/AdminStudioGuard';
+import { AdminStudioGuard } from '@/app/guards';
 import AdminFinance from '@/pages/AdminFinance';
 import DnaLab from '@/pages/DnaLab';
 import DnaMapRedirect from '@/pages/DnaMapRedirect';

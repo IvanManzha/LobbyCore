@@ -1,13 +1,15 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { tournamentApi, subscribeToUpdates } from '../services/api';
-import { useLayoutConfig } from '../contexts/LayoutConfigContext';
-import StatusPill from '../components/StatusPill';
-import EmptyState from '../components/EmptyState';
-import { useAuth } from '../hooks/useAuth';
-import { useTranslation } from '../contexts/LanguageContext';
-import Skeleton from '../components/Skeleton';
-import { getMyRegistration, formatTournamentDate, getRegistrationDeadlineDisplay } from '../utils/registration';
+import { tournamentApi, subscribeToUpdates } from '@/services/api';
+import { useLayoutConfig } from '@/contexts/LayoutConfigContext';
+import { EmptyState, StatusPill, Skeleton } from '@/shared/ui';
+import { useAuth } from '@/features/auth';
+import { useTranslation } from '@/contexts/LanguageContext';
+import {
+  getMyRegistration,
+  formatTournamentDate,
+  getRegistrationDeadlineDisplay,
+} from '@/entities/tournament';
 import './Schedule.css';
 
 function Schedule() {
