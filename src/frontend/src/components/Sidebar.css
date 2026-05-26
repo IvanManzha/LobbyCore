@@ -105,23 +105,23 @@
 }
 
 .sidebar-brand-icon-wrap {
-  width: 20px;
-  min-width: 20px;
-  height: 20px;
+  width: 45px;
+  min-width: 45px;
+  height: 45px;
   display: flex;
   align-items: center;
   justify-content: flex-start;
   flex-shrink: 0;
 }
 
-.sidebar-brand-dot {
-  width: 10px;
-  height: 10px;
-  min-width: 10px;
-  min-height: 10px;
-  border-radius: 999px;
-  background: var(--accent);
-  box-shadow: 0 0 0 4px rgba(255, 122, 24, 0.12);
+.sidebar-brand-logo {
+  width: 45px;
+  height: 45px;
+  min-width: 45px;
+  min-height: 45px;
+  border-radius: 6px;
+  display: block;
+  object-fit: contain;
 }
 
 .sidebar-brand-text {

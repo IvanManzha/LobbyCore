@@ -195,7 +195,7 @@ function Sidebar({
         <div className="sidebar-header">
           <div className="sidebar-brand">
             <span className="sidebar-brand-icon-wrap" aria-hidden>
-              <span className="sidebar-brand-dot" />
+              <img className="sidebar-brand-logo" src="/lobbycore-icon-v4.png" alt="" />
             </span>
             <div className="sidebar-brand-text">
               <span className="sidebar-brand-name">{APP_NAME}</span>
