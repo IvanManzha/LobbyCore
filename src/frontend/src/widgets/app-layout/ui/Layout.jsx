@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo, useCallback, useRef } from 'react'
 import { useNavigate, useLocation, Outlet } from 'react-router-dom';
 import { LayoutConfigProvider, useLayoutConfigState } from '@/contexts/LayoutConfigContext';
 import { useAuth } from '@/features/auth';
-import { useChampion } from '@/hooks/useChampion';
+import { useChampion } from '@/entities/player';
 import { useMediaQuery } from '@/shared/lib';
 import { useTranslation } from '@/contexts/LanguageContext';
 import { playerApi } from '@/services/api';
