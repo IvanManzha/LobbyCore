@@ -1,0 +1,73 @@
+.metric-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.metric-item {
+  padding: 12px;
+  border-radius: 12px;
+  background: var(--surface2);
+  border: 1px solid var(--line2);
+  box-shadow: var(--shadow-card);
+  transition: box-shadow var(--motion-fast) var(--ease-out), border-color var(--motion-fast) var(--ease-out);
+}
+
+.metric-item:hover {
+  border-color: color-mix(in srgb, var(--accent) 30%, var(--line2));
+  box-shadow: var(--shadow-card), var(--glow-accent-soft);
+}
+
+.metric-label {
+  font-size: 12px;
+  color: var(--muted);
+  letter-spacing: 0.02em;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.metric-value {
+  margin-top: 6px;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+.metric-coverage {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 6px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--warning, #f59e0b);
+  border: 1px solid color-mix(in srgb, var(--warning, #f59e0b) 40%, transparent);
+  background: color-mix(in srgb, var(--warning, #f59e0b) 15%, var(--surface3));
+  cursor: help;
+  transition: all var(--motion-fast) var(--ease-out);
+}
+
+.metric-coverage:hover {
+  background: color-mix(in srgb, var(--warning, #f59e0b) 25%, var(--surface3));
+  border-color: color-mix(in srgb, var(--warning, #f59e0b) 60%, transparent);
+}
+
+.metric-tooltip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 1px solid var(--line2);
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 700;
+  cursor: help;
+  background: var(--surface3);
+}

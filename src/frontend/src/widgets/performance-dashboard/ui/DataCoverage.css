@@ -1,0 +1,47 @@
+.data-coverage-inline {
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.data-coverage-label {
+  white-space: nowrap;
+}
+
+.coverage-grid {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.coverage-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--line);
+  background: color-mix(in srgb, var(--surface2) 70%, transparent);
+  font-size: 11px;
+  cursor: default;
+}
+
+.coverage-label {
+  color: var(--muted2);
+}
+
+.coverage-value {
+  font-weight: 600;
+}
+
+.data-coverage-tooltip {
+  margin-left: 2px;
+}
+
+.data-coverage-warn {
+  border-color: color-mix(in srgb, var(--warn) 60%, transparent);
+}
+

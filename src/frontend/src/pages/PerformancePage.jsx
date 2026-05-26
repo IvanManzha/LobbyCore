@@ -1,21 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useLayoutConfig, useLayoutConfigSetter } from '../contexts/LayoutConfigContext';
-import Skeleton from '../components/Skeleton';
-import EmptyState from '../components/EmptyState';
-import PerformanceHero from '../components/PerformanceHero';
-import PerformanceTable from '../components/PerformanceTable';
-import KillsHeatmap from '../components/KillsHeatmap';
-import HighlightsCards from '../components/HighlightsCards';
-import DataCoverage from '../components/DataCoverage';
-import { tournamentApi, subscribeToUpdates } from '../services/api';
+import { EmptyState, Skeleton } from '@/shared/ui';
+import {
+  PerformanceHero,
+  PerformanceTable,
+  KillsHeatmap,
+  HighlightsCards,
+  DataCoverage,
+} from '@/widgets/performance-dashboard';
+import { tournamentApi, subscribeToUpdates } from '@/services/api';
 import {
   getMatchResults,
   getTeamKillsMatrix,
   computeHighlights,
   computeSummary,
-  computeFormDots
-} from '../utils/performanceHelpers';
+  computeFormDots,
+} from '@/entities/player';
 import { useTranslation } from '../contexts/LanguageContext';
 import './PerformancePage.css';
 

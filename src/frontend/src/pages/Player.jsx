@@ -4,14 +4,17 @@ import { playerApi, tournamentApi } from '../services/api';
 import { useAuth } from '../hooks/useAuth';
 import { useLayoutConfig } from '../contexts/LayoutConfigContext';
 const RatingChart = lazy(() => import('../components/RatingChart'));
-import MetricGrid from '../components/MetricGrid';
+import { MetricGrid, InsightsPanel } from '@/widgets/player-analytics';
 import ChampionshipsAwardCard from '../components/profile/ChampionshipsAwardCard';
-import InsightsPanel from '../components/InsightsPanel';
-import EmptyState from '../components/EmptyState';
-import Skeleton from '../components/Skeleton';
-import StatusPill from '../components/StatusPill';
-import { getRatingSeries } from '../stats/getRatingSeries';
-import { getBestTournament, getTrends, getContributionBreakdown, getCoverage, getConsistency } from '../stats/getInsights';
+import { EmptyState, Skeleton, StatusPill } from '@/shared/ui';
+import {
+  getRatingSeries,
+  getBestTournament,
+  getTrends,
+  getContributionBreakdown,
+  getCoverage,
+  getConsistency,
+} from '@/entities/player';
 import { useTranslation } from '../contexts/LanguageContext';
 import { isSteamAuthEnabled } from '../config/featureFlags';
 import DnaTierBadge from "../components/dna-lab/DnaTierBadge";
