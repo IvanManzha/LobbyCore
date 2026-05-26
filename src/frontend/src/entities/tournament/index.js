@@ -1,4 +1,8 @@
 export {
+  buildTournamentDerived,
+} from './lib/tournamentDerived';
+
+export {
   getRegistrationRules,
   MONTH_SHORT,
   formatStartAt,
@@ -7,6 +11,9 @@ export {
   isRegistrationClosed,
   getMyRegistration,
   getFreeAgentsCount,
-} from '@/entities/tournament';
+} from './lib/registration';
 
-export { default } from '@/entities/tournament/lib/registration';
+export {
+  validateTournamentDate,
+  getTodayISO,
+} from './lib/dateValidation';
