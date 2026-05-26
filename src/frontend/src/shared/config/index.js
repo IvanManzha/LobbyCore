@@ -4,4 +4,4 @@ export {
   APP_SUBTITLE,
   FEATURE_DNA_LAB,
   DEVELOPERS,
-} from '@/shared/config/app';
+} from './app';
