@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Modal from "../Modal";
+import { Modal } from '@/shared/ui';
 import tier1Img from "../../assets/dna-tiers/1 тир-edited-free (carve.photos).png";
 import tier2Img from "../../assets/dna-tiers/2 тир-edited-free (carve.photos) (3).png";
 import tier3Img from "../../assets/dna-tiers/3 тир-no-bg-preview (carve.photos).png";

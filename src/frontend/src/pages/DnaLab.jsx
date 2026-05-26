@@ -1,11 +1,13 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "../contexts/LanguageContext";
-import DnaStagePlaceholder from "../components/dna-lab/DnaStagePlaceholder";
-import GenesView from "../components/dna-lab/GenesView";
-import GenesMinimalScene from "../components/dna-lab/GenesMinimalScene";
-import DnaLabMapView from "../components/dna-lab/DnaLabMapView";
-import DnaDevDrawer from "../components/dna-lab/DnaDevDrawer";
+import {
+  DnaStagePlaceholder,
+  GenesView,
+  GenesMinimalScene,
+  DnaLabMapView,
+  DnaDevDrawer,
+} from '@/widgets/dna-lab';
 import { getSeasons, getProfile, getDictionary } from "../services/dnaApi";
 import { getPreloadedDnaData } from "../contexts/DnaPreloadContext";
 import { useAuth } from "../hooks/useAuth";

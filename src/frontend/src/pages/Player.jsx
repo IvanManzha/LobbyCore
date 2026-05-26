@@ -17,7 +17,7 @@ import {
 } from '@/entities/player';
 import { useTranslation } from '../contexts/LanguageContext';
 import { isSteamAuthEnabled } from '../config/featureFlags';
-import DnaTierBadge from "../components/dna-lab/DnaTierBadge";
+import { DnaTierBadge } from '@/widgets/dna-lab';
 import './Player.css';
 
 function Player() {

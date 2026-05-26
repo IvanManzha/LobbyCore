@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import Modal from "../Modal";
+import { Modal } from '@/shared/ui';
 
 /** Краткие описания архетипов (RU). */
 const ARCHETYPE_DESCRIPTIONS = {

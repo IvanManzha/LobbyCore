@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import './TournamentTable.css';
-import DnaTierBadge from '@/components/dna-lab/DnaTierBadge';
+import { DnaTierBadge } from '@/widgets/dna-lab';
 
 function TournamentTable({ table, tournamentId: propTournamentId, tournament, status = '', myRegistration = null }) {
   const [expandedRegRow, setExpandedRegRow] = useState(null);

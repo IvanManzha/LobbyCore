@@ -10,7 +10,7 @@ import { createPortal } from "react-dom";
 import { useNavigate } from "react-router-dom";
 import { toPng } from "html-to-image";
 import { useTranslation } from "./LanguageContext";
-import DnaLabTransitionLayer from "../components/dna-lab/DnaLabTransitionLayer";
+import { DnaLabTransitionLayer } from '@/widgets/dna-lab';
 
 const INTRO_SEEN_KEY = "dnaIntroSeen";
 const DNA_TRANSITION_LOG = "[DNA-Transition]";

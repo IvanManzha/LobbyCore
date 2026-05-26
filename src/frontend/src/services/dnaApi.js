@@ -16,7 +16,7 @@ export async function getSeasons() {
  * @param {string} playerId
  * @param {string} [seasonId] Year slice, e.g. "2025", "2026".
  * @param {{ useDnaTest?: boolean }} [options]
- * @returns {Promise<import('../components/dna-lab/types').DNAProfile>}
+ * @returns {Promise<import('@/widgets/dna-lab/types').DNAProfile>}
  */
 export async function getProfile(playerId, seasonId = '2025', options = {}) {
   const params = { ...(seasonId ? { seasonId } : {}) };
@@ -26,7 +26,7 @@ export async function getProfile(playerId, seasonId = '2025', options = {}) {
 }
 
 /**
- * @returns {Promise<import('../components/dna-lab/types').DictionaryEntry[]>}
+ * @returns {Promise<import('@/widgets/dna-lab/types').DictionaryEntry[]>}
  */
 export async function getDictionary() {
   const { data } = await api.get('/dna/dictionary');
@@ -36,7 +36,7 @@ export async function getDictionary() {
 /**
  * @param {string} [seasonId] Year slice, e.g. "2025", "2026".
  * @param {{ useDnaTest?: boolean }} [options]
- * @returns {Promise<import('../components/dna-lab/types').LeaderboardEntry[]>}
+ * @returns {Promise<import('@/widgets/dna-lab/types').LeaderboardEntry[]>}
  */
 export async function getLeaderboard(seasonId = '2025', options = {}) {
   const params = { ...(seasonId ? { seasonId } : {}) };
@@ -127,7 +127,7 @@ export async function getPipelineStatus(jobId) {
  * POST /api/v1/dna/sync-genes — recompute genes from test DB, save to main DB, return profile v2.
  * @param {string} playerId
  * @param {string} [seasonId]
- * @returns {Promise<import('../components/dna-lab/types').DNAProfile>}
+ * @returns {Promise<import('@/widgets/dna-lab/types').DNAProfile>}
  */
 export async function syncGenesFromTestDb(playerId, seasonId = '2025') {
   const { data } = await api.post('/dna/sync-genes', { playerId, seasonId });

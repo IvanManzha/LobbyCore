@@ -13,7 +13,7 @@ import { getPageTitle } from '@/utils/pageTitle';
 import Sidebar, { SIDEBAR_COLLAPSED_KEY } from './Sidebar';
 import TopBar from './TopBar';
 import BottomNav from './BottomNav';
-import DnaLabShell from '@/components/dna-lab/DnaLabShell';
+import { DnaLabShell } from '@/widgets/dna-lab';
 import { DnaLabEntryProvider } from '@/contexts/DnaLabEntryContext';
 import { DnaPreloadProvider } from '@/contexts/DnaPreloadContext';
 import './Layout.css';
