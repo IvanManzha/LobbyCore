@@ -9,7 +9,7 @@ import {
 } from "./utils/periodUtils";
 import { pickHint } from "./compareHints";
 import { GENES } from "./mock/dnaMock";
-import { useTranslation } from "../../contexts/LanguageContext";
+import { useTranslation } from "@/contexts/LanguageContext";
 
 /**
  * Duel mode: your 8-gon vs opponent's 8-gon.

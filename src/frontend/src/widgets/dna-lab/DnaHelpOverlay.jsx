@@ -1,5 +1,5 @@
 import React from "react";
-import { useTranslation } from "../../contexts/LanguageContext";
+import { useTranslation } from "@/contexts/LanguageContext";
 
 /**
  * Sprint 8: Help overlay — 3-step quick guide. Shown when Help (?) is clicked in HUD.

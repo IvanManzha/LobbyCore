@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from "react";
-import { useTranslation } from "../../contexts/LanguageContext";
+import { useTranslation } from "@/contexts/LanguageContext";
 import {
   ScatterChart,
   Scatter,

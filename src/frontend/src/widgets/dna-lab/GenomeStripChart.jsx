@@ -1,6 +1,6 @@
 import React, { useMemo, useRef, useState } from "react";
-import { formatTrendShort } from "../../utils/dnaFormatting";
-import { useTranslation } from "../../contexts/LanguageContext";
+import { formatTrendShort } from "@/shared/lib/dnaFormatting";
+import { useTranslation } from "@/contexts/LanguageContext";
 
 const WIDTH = 800;
 const HEIGHT = 280;

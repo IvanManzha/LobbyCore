@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from "react";
-import { getSeasons } from "../services/dnaApi";
+import { getSeasons } from '@/services/dnaApi';
 import { resolveDnaEntry, setDnaLastMode } from '@/shared/lib/dnaPreferences';
 
 const REDUCED_MOTION_KEY = "dnaReducedMotion";

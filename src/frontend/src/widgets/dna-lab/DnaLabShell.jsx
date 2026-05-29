@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, Outlet } from "react-router-dom";
-import { DnaLabShellProvider, useDnaLabShell } from "../../contexts/DnaLabShellContext";
-import { useAuth } from "../../hooks/useAuth";
+import { DnaLabShellProvider, useDnaLabShell } from "@/contexts/DnaLabShellContext";
+import { useAuth } from "@/features/auth";
 import DnaMiniHUD from "./DnaMiniHUD";
 import { useDnaIntroSeen } from "./DnaDiveIntro";
 import DnaLivingBackground from "./DnaLivingBackground";

@@ -5,3 +5,4 @@ export { default as EmptyState } from './EmptyState/EmptyState';
 export { default as StatusPill } from './StatusPill/StatusPill';
 export { default as PageHeader } from './PageHeader/PageHeader';
 export { default as RowList, DataRow } from './RowList/RowList';
+export { default as ThemeToggle } from './ThemeToggle/ThemeToggle';

@@ -1,9 +1,9 @@
 import React from "react";
 import DnaReplayViewerShell from "./DnaReplayViewerShell";
-import { useDnaMapStudio } from "../dna-map/useDnaMapStudio";
-import { useAuth } from "../../hooks/useAuth";
-import { useDnaLabShell } from "../../contexts/DnaLabShellContext";
-import { DEVELOPERS } from "../../config/app";
+import { useDnaMapStudio } from "@/widgets/dna-map/useDnaMapStudio";
+import { useAuth } from "@/features/auth";
+import { useDnaLabShell } from "@/contexts/DnaLabShellContext";
+import { DEVELOPERS } from "@/shared/config/app";
 
 export default function DnaLabMapView() {
   const { user } = useAuth();

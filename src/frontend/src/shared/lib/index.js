@@ -5,3 +5,11 @@ export {
   setDnaLastMode,
   resolveDnaEntry,
 } from './dnaPreferences';
+
+export {
+  formatTrend,
+  formatTrendShort,
+  formatGeneValue,
+  formatConfidence,
+  formatUpdatedAgo,
+} from './dnaFormatting';

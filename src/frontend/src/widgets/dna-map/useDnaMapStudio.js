@@ -6,10 +6,10 @@ import {
   getPubgMatches,
   getDnaMapTournaments,
   getDnaMapTournamentMatches,
-} from "../../services/dnaApi";
-import { DNA_MAP_IMAGE_URLS } from "../../config/pubgMaps";
-import { filterTournaments } from "../../utils/testDataFilters";
-import { collectReplayRoster, getTeamIdForPlayer, isSoloLikeSession } from "../../utils/replaySessionModel";
+} from "@/services/dnaApi";
+import { DNA_MAP_IMAGE_URLS } from "@/config/pubgMaps";
+import { filterTournaments } from "@/utils/testDataFilters";
+import { collectReplayRoster, getTeamIdForPlayer, isSoloLikeSession } from "@/utils/replaySessionModel";
 
 const MAP_IMAGE_CACHE_BUST = "?v=2";
 

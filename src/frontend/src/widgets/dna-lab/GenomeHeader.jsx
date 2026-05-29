@@ -1,6 +1,6 @@
 import React from "react";
-import { formatUpdatedAgo, formatConfidence } from "../../utils/dnaFormatting";
-import { useTranslation } from "../../contexts/LanguageContext";
+import { formatUpdatedAgo, formatConfidence } from "@/shared/lib/dnaFormatting";
+import { useTranslation } from "@/contexts/LanguageContext";
 import DnaTierBadge from "./DnaTierBadge";
 
 /**

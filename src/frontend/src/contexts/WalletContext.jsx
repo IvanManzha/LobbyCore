@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useCallback, useEffect } from 'react';
-import { financeApi } from '../services/api';
+import { financeApi } from '@/services/api';
 
 const WalletContext = createContext(null);
 

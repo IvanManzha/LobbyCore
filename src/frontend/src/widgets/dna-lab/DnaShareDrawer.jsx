@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useTranslation } from "../../contexts/LanguageContext";
+import { useTranslation } from "@/contexts/LanguageContext";
 
 /**
  * Sprint 8: Share drawer — Gene, Snapshot, Compare card types; "Show numbers" toggle.

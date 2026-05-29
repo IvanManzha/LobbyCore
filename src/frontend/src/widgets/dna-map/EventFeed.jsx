@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
-import { getTeamColor } from "../../utils/mapReplayVisuals";
-import { collectReplayRoster, sortedTeamIdsFromRoster } from "../../utils/replaySessionModel";
+import { getTeamColor } from "@/utils/mapReplayVisuals";
+import { collectReplayRoster, sortedTeamIdsFromRoster } from "@/utils/replaySessionModel";
 import "./EventFeed.css";
 
 function formatTime(sec) {

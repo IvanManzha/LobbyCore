@@ -1,5 +1,5 @@
 import React, { useMemo, useRef, useEffect } from "react";
-import { useTranslation } from "../../contexts/LanguageContext";
+import { useTranslation } from "@/contexts/LanguageContext";
 
 const GENE_KEYS = [
   "combat", "pressure", "conversion", "survival",

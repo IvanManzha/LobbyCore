@@ -11,9 +11,9 @@ import {
   getFitTransform,
   getFitToBoundsTransform,
   focusPoint as getFocusTransform,
-} from "../../utils/mapTransform";
-import { getMapInfo } from "../../config/pubgMaps";
-import { getEventStyle, formatEventTooltip } from "../../utils/eventIcons";
+} from "@/utils/mapTransform";
+import { getMapInfo } from "@/config/pubgMaps";
+import { getEventStyle, formatEventTooltip } from "@/utils/eventIcons";
 import {
   getEventImportance,
   getEventBaseRadius,
@@ -23,15 +23,15 @@ import {
   getFocusDimMultiplier,
   getTeamColor,
   getTrackPositionAtTime,
-} from "../../utils/mapReplayVisuals";
-import { interpolateZoneAtTime } from "../../utils/mapZoneInterpolation";
+} from "@/utils/mapReplayVisuals";
+import { interpolateZoneAtTime } from "@/utils/mapZoneInterpolation";
 import {
   buildPlayerTrackList,
   collectReplayRoster,
   sortedTeamIdsFromRoster,
   getTeamIdForPlayer,
-} from "../../utils/replaySessionModel";
-import { getPlayerStatusAtTime } from "../../utils/replayPlayerStatus";
+} from "@/utils/replaySessionModel";
+import { getPlayerStatusAtTime } from "@/utils/replayPlayerStatus";
 import "./MapCanvas.css";
 
 const MAP_IMAGE_CACHE_BUST = "?v=2";

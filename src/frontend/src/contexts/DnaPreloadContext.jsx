@@ -5,7 +5,7 @@ import React, {
   useRef,
   useEffect,
 } from "react";
-import { getProfile, getDictionary } from "../services/dnaApi";
+import { getProfile, getDictionary } from '@/services/dnaApi';
 
 const DnaPreloadContext = createContext(null);
 

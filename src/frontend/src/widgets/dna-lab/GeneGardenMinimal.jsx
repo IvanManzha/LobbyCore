@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useRef, useEffect } from "react";
 import { createPortal } from "react-dom";
-import { useTranslation } from "../../contexts/LanguageContext";
+import { useTranslation } from "@/contexts/LanguageContext";
 import { GENES } from "./mock/dnaMock";
 
 /** Все аббревиатуры ровно 3 буквы для компактного блока генов */

@@ -1,6 +1,6 @@
 import React from "react";
-import { formatGeneValue, formatTrendShort } from "../../utils/dnaFormatting";
-import { useTranslation } from "../../contexts/LanguageContext";
+import { formatGeneValue, formatTrendShort } from "@/shared/lib/dnaFormatting";
+import { useTranslation } from "@/contexts/LanguageContext";
 
 /**
  * Gene Dock: one row of 8 gene cards (controls). Desktop: single row; mobile: horizontal scroll.

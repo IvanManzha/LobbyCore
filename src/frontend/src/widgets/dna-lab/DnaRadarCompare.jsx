@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { useTranslation } from "../../contexts/LanguageContext";
+import { useTranslation } from "@/contexts/LanguageContext";
 import {
   RadarChart,
   PolarGrid,

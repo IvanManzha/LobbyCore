@@ -1,9 +1,9 @@
 import React, { useMemo, useState, useEffect } from "react";
-import { getProfile, getLeaderboard } from "../../services/dnaApi";
+import { getProfile, getLeaderboard } from "@/services/dnaApi";
 import DnaRadarChart from "./DnaRadarChart";
 import GeneGarden from "./GeneGarden";
 import { GENES } from "./mock/dnaMock";
-import { useTranslation } from "../../contexts/LanguageContext";
+import { useTranslation } from "@/contexts/LanguageContext";
 
 const GENE_KEYS = GENES.map((g) => g.key);
 const MAX_SQUAD_SIZE = 4;

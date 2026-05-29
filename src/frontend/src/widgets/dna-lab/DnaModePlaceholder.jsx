@@ -1,5 +1,5 @@
 import React from "react";
-import { useTranslation } from "../../contexts/LanguageContext";
+import { useTranslation } from "@/contexts/LanguageContext";
 
 /**
  * Placeholder for DNA modes. variant="map" shows DNA Map / Soon.

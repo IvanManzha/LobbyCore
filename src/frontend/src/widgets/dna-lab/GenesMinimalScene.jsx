@@ -1,5 +1,5 @@
 import React, { useMemo, useCallback, useState, useEffect, useLayoutEffect, useRef } from "react";
-import { useTranslation } from "../../contexts/LanguageContext";
+import { useTranslation } from "@/contexts/LanguageContext";
 import GeneGardenMinimal from "./GeneGardenMinimal";
 import DnaInsightCarousel from "./DnaInsightCarousel";
 import { GENES } from "./mock/dnaMock";

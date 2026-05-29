@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useTranslation } from "../../contexts/LanguageContext";
+import { useTranslation } from "@/contexts/LanguageContext";
 
 const IconStats = () => (
   <svg viewBox="0 0 48 48" className="dnaHubCardSvg" aria-hidden>

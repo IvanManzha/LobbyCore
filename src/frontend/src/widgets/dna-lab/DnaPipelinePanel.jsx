@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
-import { useTranslation } from "../../contexts/LanguageContext";
-import { postPipeline, getPipelineStatus, postPipelineRetry, syncGenesFromTestDb } from "../../services/dnaApi";
+import { useTranslation } from "@/contexts/LanguageContext";
+import { postPipeline, getPipelineStatus, postPipelineRetry, syncGenesFromTestDb } from "@/services/dnaApi";
 
 const POLL_INTERVAL_MS = 1500;
 

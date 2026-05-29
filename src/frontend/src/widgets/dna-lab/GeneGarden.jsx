@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { useTranslation } from "../../contexts/LanguageContext";
-import { formatGeneValue, formatTrendShort } from "../../utils/dnaFormatting";
+import { useTranslation } from "@/contexts/LanguageContext";
+import { formatGeneValue, formatTrendShort } from "@/shared/lib/dnaFormatting";
 import { GENES } from "./mock/dnaMock";
 
 const SHORT_LABELS = {

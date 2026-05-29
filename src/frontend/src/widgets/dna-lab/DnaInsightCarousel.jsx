@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
-import { useTranslation } from "../../contexts/LanguageContext";
-import { formatTrend, formatConfidence } from "../../utils/dnaFormatting";
+import { useTranslation } from "@/contexts/LanguageContext";
+import { formatTrend, formatConfidence } from "@/shared/lib/dnaFormatting";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, ResponsiveContainer } from "recharts";
 import Accordion from "./Accordion";
 import { useGeneInsightData, useCoreInsightData, buildGeneInsightCandidates } from "./useDnaInsightData";

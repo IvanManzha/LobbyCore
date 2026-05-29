@@ -1,6 +1,6 @@
 import React from "react";
-import { formatGeneValue, formatTrendShort } from "../../utils/dnaFormatting";
-import { useTranslation } from "../../contexts/LanguageContext";
+import { formatGeneValue, formatTrendShort } from "@/shared/lib/dnaFormatting";
+import { useTranslation } from "@/contexts/LanguageContext";
 
 /**
  * Row of 8 gene chips. Shows shortLabel, value (or "—"), mini trend. Selected: accent; no data: tooltip.

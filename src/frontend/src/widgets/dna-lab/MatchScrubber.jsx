@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useMemo } from "react";
 import { aggregateByWeek } from "./utils/periodUtils";
-import { useTranslation } from "../../contexts/LanguageContext";
+import { useTranslation } from "@/contexts/LanguageContext";
 
 /**
  * Match Scrubber: track with match or week nodes, drag/scroll.

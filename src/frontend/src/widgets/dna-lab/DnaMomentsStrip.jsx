@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from "react";
 import { GENES } from "./mock/dnaMock";
-import { useTranslation } from "../../contexts/LanguageContext";
+import { useTranslation } from "@/contexts/LanguageContext";
 
 const PINNED_KEY = "dnaPinnedMoments";
 
