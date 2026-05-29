@@ -13,3 +13,10 @@ export {
   formatConfidence,
   formatUpdatedAgo,
 } from './dnaFormatting';
+
+export {
+  MAP_SCROLL_QUALITY_THRESHOLD,
+  useMapScrollQuality,
+} from './useMapScrollQuality';
+
+export * as replay from './replay';

@@ -3,22 +3,22 @@ import MapCanvas from "@/widgets/dna-map/MapCanvas";
 import Timeline from "@/widgets/dna-map/Timeline";
 import EventFeed from "@/widgets/dna-map/EventFeed";
 import { getMapImageQualityUrls } from "@/config/pubgMaps";
-import { useMapScrollQuality } from '@/hooks/useMapScrollQuality';
+import { useMapScrollQuality } from '@/shared/lib/useMapScrollQuality';
 import MapQualityBackground from "./MapQualityBackground";
-import { interpolateZoneAtTime } from "@/utils/mapZoneInterpolation";
+import { interpolateZoneAtTime } from "@/shared/lib/replay/mapZoneInterpolation";
 import {
   collectReplayRoster,
   sortedTeamIdsFromRoster,
   getTeamIdForPlayer,
   isSoloLikeSession,
   filterRosterToActivePlayers,
-} from "@/utils/replaySessionModel";
-import { getStableTeamColor } from "@/utils/replayTeamColors";
+} from "@/shared/lib/replay/replaySessionModel";
+import { getStableTeamColor } from "@/shared/lib/replay/replayTeamColors";
 import {
   getPlayerStatusAtTime,
   countPlayerKillsUpTo,
   countTeamKillsUpTo,
-} from "@/utils/replayPlayerStatus";
+} from "@/shared/lib/replay/replayPlayerStatus";
 import "./DnaReplayViewerShell.css";
 
 function formatReplayTime(sec) {

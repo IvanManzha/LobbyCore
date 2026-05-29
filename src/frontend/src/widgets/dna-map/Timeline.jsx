@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo, useRef } from "react";
-import { getEventStyle } from "@/utils/eventIcons";
-import { getEventImportance } from "@/utils/mapReplayVisuals";
-import { collectReplayRoster, getTeamIdForPlayer } from "@/utils/replaySessionModel";
+import { getEventStyle } from "@/shared/lib/replay/eventIcons";
+import { getEventImportance } from "@/shared/lib/replay/mapReplayVisuals";
+import { collectReplayRoster, getTeamIdForPlayer } from "@/shared/lib/replay/replaySessionModel";
 import "./Timeline.css";
 
 function eventMatchesReplayFocus(ev, focusPlayerId, focusTeamId, teamGameMode, session) {

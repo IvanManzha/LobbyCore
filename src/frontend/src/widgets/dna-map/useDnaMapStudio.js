@@ -8,8 +8,8 @@ import {
   getDnaMapTournamentMatches,
 } from "@/services/dnaApi";
 import { DNA_MAP_IMAGE_URLS } from "@/config/pubgMaps";
-import { filterTournaments } from "@/utils/testDataFilters";
-import { collectReplayRoster, getTeamIdForPlayer, isSoloLikeSession } from "@/utils/replaySessionModel";
+import { filterTournaments } from "@/shared/lib/replay/testDataFilters";
+import { collectReplayRoster, getTeamIdForPlayer, isSoloLikeSession } from "@/shared/lib/replay/replaySessionModel";
 
 const MAP_IMAGE_CACHE_BUST = "?v=2";
 
