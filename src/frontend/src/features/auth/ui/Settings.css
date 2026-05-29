@@ -1,0 +1,141 @@
+.settings {
+  display: grid;
+  gap: 20px;
+}
+
+.settings-section {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
+  padding: 20px;
+  display: grid;
+  gap: 14px;
+}
+
+.settings-section h2 {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.form-group {
+  display: grid;
+  gap: 8px;
+}
+
+.form-group label {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.settings-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.settings-row--align {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.settings-theme-switch {
+  display: flex;
+  gap: 0;
+  border-radius: var(--radius-control, 10px);
+  overflow: hidden;
+  border: 1px solid var(--line);
+}
+
+.settings-theme-btn {
+  padding: 8px 16px;
+  border-radius: 0;
+  border: none;
+  font-size: 13px;
+}
+
+.settings-theme-btn:first-child {
+  border-right: 1px solid var(--line);
+}
+
+.settings-theme-btn.active {
+  background: color-mix(in srgb, var(--accent) 20%, var(--surface2));
+  color: var(--text);
+  font-weight: 600;
+}
+
+.settings-status {
+  font-size: 13px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: var(--surface2);
+}
+
+.settings-status.success {
+  color: var(--good);
+  border-color: color-mix(in srgb, var(--good) 40%, var(--line));
+}
+
+.btn-steam {
+  background: #171a21;
+  color: #fff;
+  border: none;
+}
+.btn-steam:hover:not(:disabled) {
+  background: #2a2d35;
+}
+
+.settings-status.error {
+  color: var(--bad);
+  border-color: color-mix(in srgb, var(--bad) 40%, var(--line));
+}
+
+.input-password-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-password-wrapper .input {
+  padding-right: 44px;
+  width: 100%;
+}
+
+.input-password-toggle {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+.input-password-toggle:hover {
+  color: var(--text);
+  background: var(--surface2);
+}
+
+.settings-checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  user-select: none;
+}
+
+.settings-checkbox-row input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}

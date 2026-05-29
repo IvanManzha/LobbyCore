@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useLayoutConfig, useLayoutConfigSetter } from '../contexts/LayoutConfigContext';
+import { useLayoutConfig, useLayoutConfigSetter } from '@/contexts/LayoutConfigContext';
 import { EmptyState, Skeleton } from '@/shared/ui';
 import {
   PerformanceHero,
@@ -17,7 +17,7 @@ import {
   computeSummary,
   computeFormDots,
 } from '@/entities/player';
-import { useTranslation } from '../contexts/LanguageContext';
+import { useTranslation } from '@/contexts/LanguageContext';
 import './PerformancePage.css';
 
 function PerformancePage({ type }) {

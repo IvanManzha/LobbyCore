@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { setDnaLastMode } from "../utils/dnaPreferences";
+import { setDnaLastMode } from '@/shared/lib/dnaPreferences';
 
 export default function DnaMapRedirect() {
   const navigate = useNavigate();

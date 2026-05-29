@@ -1,0 +1,73 @@
+.login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 70vh;
+}
+
+.login-card {
+  background: var(--surface);
+  padding: 28px;
+  border-radius: var(--radius-card);
+  border: 1px solid var(--line);
+  width: 100%;
+  max-width: 460px;
+}
+
+.login-card h1 {
+  margin-bottom: 16px;
+  font-weight: 600;
+  font-size: 22px;
+}
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.error-message {
+  color: var(--bad);
+  margin-bottom: 16px;
+  font-size: 13px;
+}
+
+.form-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.register-section {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+}
+
+.register-section h2 {
+  margin-bottom: 12px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.register-hint {
+  margin: 0 0 12px;
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+.btn-steam {
+  background: #171a21;
+  color: #fff;
+  border: none;
+}
+.btn-steam:hover:not(:disabled) {
+  background: #2a2d35;
+}

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/features/auth';
 import { tournamentApi, adminFinanceApi, steamLinkRequestApi } from '@/services/api';
-import { isSteamAuthEnabled } from '@/config/featureFlags';
+import { isSteamAuthEnabled } from '@/shared/config';
 import './AdminFinance.css';
 
 const TAB_TOPUPS = 'topups';

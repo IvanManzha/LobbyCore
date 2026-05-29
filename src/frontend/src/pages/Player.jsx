@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useCallback, useMemo, useRef, useTransition, Suspense, lazy } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { playerApi, tournamentApi } from '../services/api';
-import { useAuth } from '../hooks/useAuth';
-import { useLayoutConfig } from '../contexts/LayoutConfigContext';
+import { playerApi, tournamentApi } from '@/services/api';
+import { useAuth } from '@/features/auth';
+import { useLayoutConfig } from '@/contexts/LayoutConfigContext';
 const RatingChart = lazy(() => import('../components/RatingChart'));
 import { MetricGrid, InsightsPanel } from '@/widgets/player-analytics';
 import { ChampionshipsAwardCard } from '@/entities/player';
@@ -15,8 +15,8 @@ import {
   getCoverage,
   getConsistency,
 } from '@/entities/player';
-import { useTranslation } from '../contexts/LanguageContext';
-import { isSteamAuthEnabled } from '../config/featureFlags';
+import { useTranslation } from '@/contexts/LanguageContext';
+import { isSteamAuthEnabled } from '@/shared/config';
 import { DnaTierBadge } from '@/widgets/dna-lab';
 import './Player.css';
 

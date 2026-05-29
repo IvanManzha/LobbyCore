@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useTranslation } from "../contexts/LanguageContext";
+import { useTranslation } from '@/contexts/LanguageContext';
 import {
   DnaStagePlaceholder,
   GenesView,
@@ -8,11 +8,11 @@ import {
   DnaLabMapView,
   DnaDevDrawer,
 } from '@/widgets/dna-lab';
-import { getSeasons, getProfile, getDictionary } from "../services/dnaApi";
-import { getPreloadedDnaData } from "../contexts/DnaPreloadContext";
-import { useAuth } from "../hooks/useAuth";
-import { useDnaLabShell } from "../contexts/DnaLabShellContext";
-import { DEVELOPERS } from "../config/app";
+import { getSeasons, getProfile, getDictionary } from '@/services/dnaApi';
+import { getPreloadedDnaData } from '@/contexts/DnaPreloadContext';
+import { useAuth } from '@/features/auth';
+import { useDnaLabShell } from '@/contexts/DnaLabShellContext';
+import { DEVELOPERS } from '@/shared/config/app';
 import "./DnaLab.css";
 
 const MIN_REQUIRED_MATCHES = 3;

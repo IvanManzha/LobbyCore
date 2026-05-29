@@ -5,3 +5,5 @@ export {
   FEATURE_DNA_LAB,
   DEVELOPERS,
 } from './app';
+
+export { isSteamAuthEnabled } from './featureFlags';
