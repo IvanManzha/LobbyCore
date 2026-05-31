@@ -2,6 +2,7 @@ import React, { useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import './TournamentTable.css';
 import { PlayerPlaque } from '@/entities/player';
+import { FEATURE_PLAYER_PLAQUES } from '@/shared/config';
 import {
   getParticipantPerformanceLink,
   isSoloLikeParticipant,
@@ -65,6 +66,7 @@ function TournamentTable({ table, tournamentId: propTournamentId, tournament, st
     getParticipantPerformanceLink(tournamentId, tournamentType, teamName, players);
 
   const usesPlayerPlaque = (row) =>
+    FEATURE_PLAYER_PLAQUES &&
     isSoloLikeParticipant({
       tournamentType,
       players: row?.players,

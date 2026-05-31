@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useAuth } from '@/features/auth';
 import { playerApi } from '@/services/api';
+import { useFeatureFlag } from '@/contexts/FeatureFlagsContext';
 import { getAchievementById } from '../../../../shared/achievement/index.js';
 
 function toAchievementStates(rows) {
@@ -27,10 +28,16 @@ function toUnlockedSets(payload) {
   };
 }
 
+const EMPTY_UNLOCKED = {
+  badgeIds: new Set(),
+  backgroundIds: new Set(),
+};
+
 /**
  * @param {string | null | undefined} playerId
  */
 export function usePlayerAchievements(playerId) {
+  const plaquesEnabled = useFeatureFlag('playerPlaques');
   const { user } = useAuth();
   const normalizedId = (playerId || '').trim();
   const selfId = (user?.pubgNick || user?.username || '').trim();
@@ -39,10 +46,16 @@ export function usePlayerAchievements(playerId) {
     normalizedId.toLowerCase() === selfId.toLowerCase();
 
   const [payload, setPayload] = useState(null);
-  const [loading, setLoading] = useState(Boolean(normalizedId));
+  const [loading, setLoading] = useState(Boolean(normalizedId && plaquesEnabled));
   const [error, setError] = useState(null);
 
   const refresh = useCallback(async () => {
+    if (!plaquesEnabled) {
+      setPayload(null);
+      setLoading(false);
+      setError(null);
+      return null;
+    }
     if (!normalizedId) {
       setPayload(null);
       setLoading(false);
@@ -63,9 +76,16 @@ export function usePlayerAchievements(playerId) {
     } finally {
       setLoading(false);
     }
-  }, [normalizedId, isSelf]);
+  }, [plaquesEnabled, normalizedId, isSelf]);
 
   useEffect(() => {
+    if (!plaquesEnabled) {
+      setPayload(null);
+      setLoading(false);
+      setError(null);
+      return undefined;
+    }
+
     let cancelled = false;
     (async () => {
       if (!normalizedId) {
@@ -98,11 +118,11 @@ export function usePlayerAchievements(playerId) {
     return () => {
       cancelled = true;
     };
-  }, [normalizedId, isSelf]);
+  }, [plaquesEnabled, normalizedId, isSelf]);
 
   const setLoadout = useCallback(
     async (next) => {
-      if (!isSelf || !normalizedId) return null;
+      if (!plaquesEnabled || !isSelf || !normalizedId) return null;
       const data = await playerApi.updateMyCosmetics(next);
       setPayload(data);
       window.dispatchEvent(
@@ -112,17 +132,35 @@ export function usePlayerAchievements(playerId) {
       );
       return data?.loadout ?? null;
     },
-    [isSelf, normalizedId],
+    [plaquesEnabled, isSelf, normalizedId],
   );
 
   const states = useMemo(() => toAchievementStates(payload?.achievements), [payload?.achievements]);
 
-  const unlockedCosmetics = useMemo(() => toUnlockedSets(payload), [payload]);
+  const unlockedCosmetics = useMemo(
+    () => (plaquesEnabled ? toUnlockedSets(payload) : EMPTY_UNLOCKED),
+    [plaquesEnabled, payload],
+  );
 
   const unlockedCount = useMemo(
     () => states.filter((s) => s.unlocked).length,
     [states],
   );
+
+  if (!plaquesEnabled) {
+    return {
+      loading: false,
+      error: null,
+      loadout: null,
+      isSelf: false,
+      states: [],
+      unlockedCosmetics: EMPTY_UNLOCKED,
+      unlockedCount: 0,
+      totalCount: 0,
+      setLoadout: async () => null,
+      refresh: async () => null,
+    };
+  }
 
   return {
     loading,

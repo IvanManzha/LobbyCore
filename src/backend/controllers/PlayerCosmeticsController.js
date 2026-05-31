@@ -1,7 +1,15 @@
 const AchievementService = require('../services/AchievementService');
+const { isPlayerPlaquesEnabled } = require('../config/features');
 
 class PlayerCosmeticsController {
+  static featureDisabled(res) {
+    return res.status(404).json({ error: 'Feature not available' });
+  }
+
   async getPlayerCosmetics(req, res) {
+    if (!isPlayerPlaquesEnabled()) {
+      return PlayerCosmeticsController.featureDisabled(res);
+    }
     try {
       const { name } = req.params;
       const payload = await AchievementService.getCosmeticsPayload(name);
@@ -15,6 +23,9 @@ class PlayerCosmeticsController {
   }
 
   async getMyCosmetics(req, res) {
+    if (!isPlayerPlaquesEnabled()) {
+      return PlayerCosmeticsController.featureDisabled(res);
+    }
     try {
       const username = req.user?.username;
       if (!username) {
@@ -31,6 +42,9 @@ class PlayerCosmeticsController {
   }
 
   async updateMyCosmetics(req, res) {
+    if (!isPlayerPlaquesEnabled()) {
+      return PlayerCosmeticsController.featureDisabled(res);
+    }
     try {
       const username = req.user?.username;
       if (!username) {

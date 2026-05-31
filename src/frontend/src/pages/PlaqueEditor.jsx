@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, Navigate, useLocation } from 'react-router-dom';
 import { useAuth } from '@/features/auth';
 import { PlaqueEditor } from '@/features/player-cosmetics';
+import { useFeatureFlag } from '@/contexts/FeatureFlagsContext';
 import { useTranslation } from '@/contexts/LanguageContext';
 import { useLayoutConfig } from '@/contexts/LayoutConfigContext';
 
@@ -14,6 +15,10 @@ export default function PlaqueEditorPage() {
     { pageTitle: t('plaque.editorTitle') },
     [t],
   );
+
+  if (!FEATURE_PLAYER_PLAQUES) {
+    return <Navigate to="/settings" replace />;
+  }
 
   if (loading && !user) {
     return <div className="settings muted">{t('achievements.loading')}</div>;

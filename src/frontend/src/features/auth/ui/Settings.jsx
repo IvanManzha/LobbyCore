@@ -3,7 +3,7 @@ import { useAuth } from '@/features/auth';
 import { useTheme } from '@/contexts/ThemeContext';
 import { useTranslation } from '@/contexts/LanguageContext';
 import { playerApi, statsApi, steamLinkRequestApi } from '@/services/api';
-import { isSteamAuthEnabled } from '@/shared/config';
+import { isSteamAuthEnabled, FEATURE_PLAYER_PLAQUES } from '@/shared/config';
 import { Link } from 'react-router-dom';
 import './Settings.css';
 
@@ -176,6 +176,7 @@ function Settings() {
             </div>
           </div>
         </div>
+        {FEATURE_PLAYER_PLAQUES && (
         <div className="settings-section">
           <h2>{t('plaque.sectionTitle')}</h2>
           <p className="muted plaque-settings-intro">{t('plaque.settingsIntro')}</p>
@@ -188,6 +189,7 @@ function Settings() {
             <p className="muted">{t('plaque.loginRequired')}</p>
           )}
         </div>
+        )}
         <div className="settings-section">
           <h2>{t('settings.profile')}</h2>
           <div className="form-group">

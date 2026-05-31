@@ -1,17 +1,21 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useAuth } from '@/features/auth';
 import { playerApi } from '@/services/api';
+import { useFeatureFlag } from '@/contexts/FeatureFlagsContext';
 import {
   DEFAULT_PLAQUE_LOADOUT,
   getDemoLoadoutForPlayer,
 } from '@/entities/achievement';
 import { loadStoredLoadout } from '../lib/plaqueLoadoutStorage';
 
+const DISABLED_LOADOUT = { ...DEFAULT_PLAQUE_LOADOUT };
+
 /**
  * @param {string | null | undefined} playerId
  * @param {{ preferStored?: boolean }} [options]
  */
 export function usePlayerLoadout(playerId, options = {}) {
+  const plaquesEnabled = useFeatureFlag('playerPlaques');
   const { user } = useAuth();
   const normalizedId = (playerId || '').trim();
   const selfId = (user?.pubgNick || user?.username || '').trim();
@@ -20,7 +24,7 @@ export function usePlayerLoadout(playerId, options = {}) {
     normalizedId.toLowerCase() === selfId.toLowerCase();
 
   const [loadout, setLoadoutState] = useState(() => ({ ...DEFAULT_PLAQUE_LOADOUT }));
-  const [loading, setLoading] = useState(Boolean(normalizedId));
+  const [loading, setLoading] = useState(Boolean(normalizedId && plaquesEnabled));
 
   const readFallbackLoadout = useCallback(() => {
     if (!normalizedId) return getDemoLoadoutForPlayer('');
@@ -31,6 +35,10 @@ export function usePlayerLoadout(playerId, options = {}) {
   }, [normalizedId, isSelf, options.preferStored]);
 
   const refresh = useCallback(async () => {
+    if (!plaquesEnabled) {
+      setLoadoutState({ ...DISABLED_LOADOUT });
+      return;
+    }
     if (!normalizedId) {
       setLoadoutState(getDemoLoadoutForPlayer(''));
       return;
@@ -43,9 +51,15 @@ export function usePlayerLoadout(playerId, options = {}) {
     } catch {
       setLoadoutState(readFallbackLoadout());
     }
-  }, [normalizedId, isSelf, readFallbackLoadout]);
+  }, [plaquesEnabled, normalizedId, isSelf, readFallbackLoadout]);
 
   useEffect(() => {
+    if (!plaquesEnabled) {
+      setLoadoutState({ ...DISABLED_LOADOUT });
+      setLoading(false);
+      return undefined;
+    }
+
     let cancelled = false;
     setLoading(true);
     refresh().finally(() => {
@@ -54,10 +68,10 @@ export function usePlayerLoadout(playerId, options = {}) {
     return () => {
       cancelled = true;
     };
-  }, [refresh]);
+  }, [plaquesEnabled, refresh]);
 
   useEffect(() => {
-    if (!normalizedId) return undefined;
+    if (!plaquesEnabled || !normalizedId) return undefined;
     const key = normalizedId.toLowerCase();
     const onChange = (e) => {
       if (e.detail?.playerId === key) {
@@ -66,11 +80,11 @@ export function usePlayerLoadout(playerId, options = {}) {
     };
     window.addEventListener('player-plaque-loadout-changed', onChange);
     return () => window.removeEventListener('player-plaque-loadout-changed', onChange);
-  }, [normalizedId, refresh]);
+  }, [plaquesEnabled, normalizedId, refresh]);
 
   const setLoadout = useCallback(
     async (next) => {
-      if (!isSelf || !normalizedId) return;
+      if (!plaquesEnabled || !isSelf || !normalizedId) return;
       const value = typeof next === 'function' ? next(loadout) : next;
       const data = await playerApi.updateMyCosmetics(value);
       setLoadoutState(data?.loadout || { ...DEFAULT_PLAQUE_LOADOUT });
@@ -80,17 +94,28 @@ export function usePlayerLoadout(playerId, options = {}) {
         }),
       );
     },
-    [isSelf, normalizedId, loadout],
+    [plaquesEnabled, isSelf, normalizedId, loadout],
   );
 
   return useMemo(
-    () => ({
-      loadout,
-      loading,
-      isSelf,
-      setLoadout,
-      refresh,
-    }),
-    [loadout, loading, isSelf, setLoadout, refresh],
+    () => {
+      if (!plaquesEnabled) {
+        return {
+          loadout: { ...DISABLED_LOADOUT },
+          loading: false,
+          isSelf: false,
+          setLoadout: async () => {},
+          refresh: async () => {},
+        };
+      }
+      return {
+        loadout,
+        loading,
+        isSelf,
+        setLoadout,
+        refresh,
+      };
+    },
+    [plaquesEnabled, loadout, loading, isSelf, setLoadout, refresh],
   );
 }

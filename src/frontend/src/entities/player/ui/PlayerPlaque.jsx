@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { getCosmeticById } from '@/entities/achievement';
 import { useTranslation } from '@/contexts/LanguageContext';
+import { useFeatureFlag } from '@/contexts/FeatureFlagsContext';
 import { usePlayerLoadout } from '../model/usePlayerLoadout';
 import './PlayerPlaque.css';
 
@@ -24,6 +25,49 @@ function resolveBackgroundStyle(backgroundId) {
   return { background: fallback?.background || 'var(--surface2)' };
 }
 
+function PlayerPlaqueFallback({
+  name,
+  size,
+  to,
+  subtitle,
+  trailing,
+  interactive,
+  className,
+}) {
+  const rootClass = [
+    'player-plaque-fallback',
+    `player-plaque-fallback--${size}`,
+    interactive && to ? 'player-plaque-fallback--link' : '',
+    className,
+  ]
+    .filter(Boolean)
+    .join(' ');
+
+  const inner = (
+    <>
+      <span className="player-plaque-fallback__name" title={name}>
+        {name}
+      </span>
+      {subtitle ? (
+        <span className="player-plaque-fallback__subtitle" title={subtitle}>
+          {subtitle}
+        </span>
+      ) : null}
+      {trailing ? <span className="player-plaque-fallback__trailing">{trailing}</span> : null}
+    </>
+  );
+
+  if (to && interactive) {
+    return (
+      <Link to={to} className={rootClass}>
+        {inner}
+      </Link>
+    );
+  }
+
+  return <div className={rootClass}>{inner}</div>;
+}
+
 /**
  * @param {Object} props
  * @param {string} props.playerId
@@ -36,7 +80,7 @@ function resolveBackgroundStyle(backgroundId) {
  * @param {boolean} [props.interactive]
  * @param {string} [props.className]
  */
-function PlayerPlaque({
+function PlayerPlaqueEnabled({
   playerId,
   displayName,
   size = 'md',
@@ -131,6 +175,27 @@ function PlayerPlaque({
   }
 
   return <div className={rootClass}>{inner}</div>;
+}
+
+function PlayerPlaque(props) {
+  const playerPlaques = useFeatureFlag('playerPlaques');
+  const name = (props.displayName || props.playerId || '?').trim();
+
+  if (!playerPlaques) {
+    return (
+      <PlayerPlaqueFallback
+        name={name}
+        size={props.size || 'md'}
+        to={props.to}
+        subtitle={props.subtitle}
+        trailing={props.trailing}
+        interactive={props.interactive ?? true}
+        className={props.className || ''}
+      />
+    );
+  }
+
+  return <PlayerPlaqueEnabled {...props} />;
 }
 
 export default React.memo(PlayerPlaque);

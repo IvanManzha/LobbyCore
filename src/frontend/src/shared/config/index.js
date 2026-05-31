@@ -6,4 +6,4 @@ export {
   DEVELOPERS,
 } from './app';
 
-export { isSteamAuthEnabled } from './featureFlags';
+export { isSteamAuthEnabled, FEATURE_PLAYER_PLAQUES, useFeatureFlag, useFeatureFlags } from './featureFlags';

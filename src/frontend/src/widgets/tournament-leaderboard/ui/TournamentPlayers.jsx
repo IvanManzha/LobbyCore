@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { EmptyState } from '@/shared/ui';
 import { PlayerPlaque } from '@/entities/player';
+import { FEATURE_PLAYER_PLAQUES } from '@/shared/config';
 import './TournamentPlayers.css';
 import './TournamentTable.css';
 import {
@@ -95,7 +96,7 @@ function TeamRow({ entity, tournamentId, tournamentType, isSolo, onFormMatchClic
   const totalMembers = members.length || 0;
   const showPaidCount = entryFeeDC > 0 && totalMembers > 0;
   const entityLink = getEntityLink(tournamentId, tournamentType, entity);
-  const showPlaque = isSoloLikeParticipant({
+  const showPlaque = FEATURE_PLAYER_PLAQUES && isSoloLikeParticipant({
     tournamentType,
     players: entity.players,
     name: entity.name,
