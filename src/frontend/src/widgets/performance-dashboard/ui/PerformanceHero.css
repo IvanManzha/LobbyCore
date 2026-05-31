@@ -6,16 +6,40 @@
 }
 
 .performance-hero-top {
-  display: flex;
-  justify-content: space-between;
-  gap: 24px;
-  align-items: flex-start;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: stretch;
 }
 
-.performance-hero-left {
+.performance-hero-plaque-wrap {
+  min-width: 0;
   display: flex;
-  flex-direction: column;
-  gap: 12px;
+  align-self: stretch;
+}
+
+.performance-hero-plaque-wrap .player-plaque {
+  flex: 1;
+  width: 100%;
+  max-width: none;
+  height: 100%;
+}
+
+.performance-hero-team-title {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  padding: 16px 20px;
+  border-radius: var(--radius-card);
+  border: 1px solid var(--line);
+  background: var(--surface2);
+}
+
+.performance-hero-team-title h1 {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
 }
 
 .performance-hero-right {
@@ -225,7 +249,11 @@
 
 @media (max-width: 900px) {
   .performance-hero-top {
-    flex-direction: column;
+    grid-template-columns: 1fr;
+  }
+
+  .performance-hero-plaque-wrap .player-plaque {
+    min-height: 88px;
   }
 
   .performance-hero-summary {

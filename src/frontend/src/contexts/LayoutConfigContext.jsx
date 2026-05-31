@@ -17,7 +17,7 @@ export function LayoutConfigProvider({ children, pathname }) {
   );
 }
 
-/** Вызвать в странице, чтобы передать Layout: pageTitleOverride, headerAction, showInfoSidebar, asideContent.
+/** Вызвать в странице, чтобы передать Layout: pageTitle, pageTitleMeta, pageTitleMetaHref, headerAction, showInfoSidebar, asideContent.
  *  deps — массив примитивов; конфиг обновляется при изменении deps (избегаем цикла от смены ссылки props). */
 export function useLayoutConfig(props, deps = []) {
   const ctx = useContext(LayoutConfigContext);

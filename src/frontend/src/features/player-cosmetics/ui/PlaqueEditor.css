@@ -1,0 +1,469 @@
+.plaque-editor {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  max-width: 720px;
+}
+
+.plaque-editor__section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.plaque-editor__section-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.plaque-editor__section-title {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.plaque-editor__ach-summary {
+  font-size: 13px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--muted);
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--line) 35%, transparent);
+}
+
+.plaque-editor__preview-wrap {
+  width: 100%;
+  max-width: 532px;
+  height: var(--tournament-row-height, 100px);
+}
+
+.plaque-editor__preview-wrap .player-plaque {
+  height: 100%;
+  width: 100%;
+  border-radius: var(--radius-card);
+  border: 1px solid color-mix(in srgb, var(--line) 85%, transparent);
+  box-shadow: 0 1px 0 color-mix(in srgb, #fff 6%, transparent) inset;
+}
+
+/* —— Background picker (unlocked only) —— */
+
+.plaque-editor__bg-swatch {
+  border-radius: calc(var(--radius-card) + 2px);
+  overflow: hidden;
+}
+
+.plaque-editor__bg-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 532px;
+}
+
+.plaque-editor__bg-wrap {
+  width: 100%;
+  border-radius: calc(var(--radius-card) + 2px);
+  transition: box-shadow 0.15s ease, transform 0.15s ease;
+}
+
+.plaque-editor__bg-wrap:hover {
+  transform: translateY(-1px);
+}
+
+.plaque-editor__bg-wrap.is-active {
+  box-shadow:
+    0 0 0 2px var(--accent),
+    0 10px 24px color-mix(in srgb, var(--accent) 20%, transparent);
+}
+
+.plaque-editor__bg-tile {
+  position: relative;
+  width: 100%;
+  min-height: 72px;
+  aspect-ratio: 5.32 / 1;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: flex-end;
+  padding: 10px 18px;
+  color: #fff;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.55);
+  transition: filter 0.15s ease;
+}
+
+.plaque-editor__bg-wrap:hover .plaque-editor__bg-tile {
+  filter: brightness(1.04);
+}
+
+.plaque-editor__bg-tile-label {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+/* —— Badge chips (no box, icon only) —— */
+
+.plaque-editor__badge-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 14px;
+}
+
+.plaque-editor__badge-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+.plaque-editor__badge-chip:hover:not(:disabled) {
+  transform: scale(1.12);
+}
+
+.plaque-editor__badge-chip.is-active {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+.plaque-editor__badge-chip.is-disabled {
+  opacity: 0.38;
+  cursor: not-allowed;
+}
+
+.plaque-editor__badge-chip-icon {
+  font-size: 32px;
+  line-height: 1;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.15));
+}
+
+/* —— Cursor-following tooltip for badges —— */
+
+.plaque-editor__cursor-tip {
+  position: fixed;
+  z-index: 10000;
+  width: min(240px, calc(100vw - 24px));
+  padding: 10px 12px;
+  border-radius: calc(var(--radius) + 2px);
+  border: 1px solid color-mix(in srgb, var(--line) 70%, transparent);
+  background: var(--surface);
+  box-shadow: var(--shadow-card, 0 12px 32px rgba(0, 0, 0, 0.22));
+  pointer-events: none;
+}
+
+.plaque-editor__cursor-tip-title {
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 4px;
+  letter-spacing: -0.01em;
+}
+
+.plaque-editor__cursor-tip-desc {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.4;
+  margin-bottom: 6px;
+}
+
+.plaque-editor__cursor-tip-progress {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+/* —— Progress bars —— */
+
+.plaque-editor__progress-reveal {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.plaque-editor__progress-reveal-stats,
+.plaque-editor__progress-reveal-done {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.plaque-editor__progress-reveal-done {
+  color: var(--success, #16a34a);
+}
+
+.plaque-editor__progress-reveal-pct {
+  font-size: 11px;
+  color: var(--muted);
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.plaque-editor__progress-bar {
+  height: 5px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--line) 55%, transparent);
+  overflow: hidden;
+}
+
+.plaque-editor__progress-fill {
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--accent) 85%, #fff 15%) 0%,
+    var(--accent) 100%
+  );
+  transition: width 0.25s ease;
+}
+
+/* —— Achievement list —— */
+
+.plaque-editor__ach-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.plaque-editor__ach {
+  position: relative;
+  border-radius: calc(var(--radius-card) + 2px);
+  border: 1px solid color-mix(in srgb, var(--line) 80%, transparent);
+  background: var(--surface2);
+  overflow: hidden;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.plaque-editor__ach--done {
+  border-color: color-mix(in srgb, var(--success, #16a34a) 28%, var(--line));
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--success, #16a34a) 6%, var(--surface2)) 0%,
+    var(--surface2) 100%
+  );
+}
+
+.plaque-editor__ach--expanded {
+  border-color: color-mix(in srgb, var(--accent) 35%, var(--line));
+  box-shadow: 0 8px 24px color-mix(in srgb, var(--accent) 8%, transparent);
+}
+
+.plaque-editor__ach-main {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 14px 14px 14px 12px;
+  border: none;
+  background: transparent;
+  text-align: left;
+  color: inherit;
+  cursor: default;
+}
+
+.plaque-editor__ach--locked .plaque-editor__ach-main {
+  cursor: pointer;
+}
+
+.plaque-editor__ach--locked .plaque-editor__ach-main:hover {
+  background: color-mix(in srgb, var(--line) 12%, transparent);
+}
+
+.plaque-editor__ach-icon {
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 700;
+  background: color-mix(in srgb, var(--line) 40%, transparent);
+  color: var(--muted);
+}
+
+.plaque-editor__ach--done .plaque-editor__ach-icon {
+  background: color-mix(in srgb, var(--success, #16a34a) 16%, transparent);
+  color: var(--success, #16a34a);
+}
+
+.plaque-editor__ach-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.plaque-editor__ach-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.plaque-editor__ach-title {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.plaque-editor__ach-badge {
+  flex-shrink: 0;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 3px 8px;
+  border-radius: 999px;
+  color: var(--muted);
+  background: color-mix(in srgb, var(--line) 35%, transparent);
+}
+
+.plaque-editor__ach-badge--done {
+  color: var(--success, #16a34a);
+  background: color-mix(in srgb, var(--success, #16a34a) 14%, transparent);
+}
+
+.plaque-editor__ach-desc {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.plaque-editor__ach-meta {
+  margin-top: 8px;
+}
+
+.plaque-editor__ach-hint {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.plaque-editor__ach-chevron {
+  flex-shrink: 0;
+  font-size: 20px;
+  line-height: 1;
+  color: var(--muted);
+  transform: rotate(90deg);
+  transition: transform 0.2s ease, color 0.15s ease;
+}
+
+.plaque-editor__ach-chevron.is-open {
+  transform: rotate(-90deg);
+  color: var(--accent);
+}
+
+/* Reward preview on achievement hover */
+
+.plaque-editor__ach-reward {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  opacity: 0;
+  transform: translateX(6px);
+  transition: opacity 0.18s ease, transform 0.18s ease;
+  pointer-events: none;
+}
+
+.plaque-editor__ach:hover .plaque-editor__ach-reward {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.plaque-editor__ach-reward-bg {
+  flex-shrink: 0;
+  width: 168px;
+  height: 40px;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+.plaque-editor__ach-reward-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  line-height: 1;
+  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.12));
+}
+
+.plaque-editor__ach-reveal {
+  padding: 0 14px 14px 58px;
+  animation: plaque-editor-reveal 0.18s ease;
+}
+
+@keyframes plaque-editor-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.plaque-editor__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--line);
+}
+
+.plaque-editor__status {
+  margin: 0;
+  flex: 1 1 100%;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 8px 12px;
+  border-radius: var(--radius);
+}
+
+.plaque-editor__status--success {
+  color: var(--success, #16a34a);
+  background: color-mix(in srgb, var(--success, #16a34a) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--success, #16a34a) 35%, transparent);
+}
+
+.plaque-editor__status--error {
+  color: var(--danger, #dc2626);
+  background: color-mix(in srgb, var(--danger, #dc2626) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--danger, #dc2626) 35%, transparent);
+}
+
+.plaque-editor--loading,
+.plaque-editor--error {
+  padding: 24px 0;
+}
+
+@media (max-width: 520px) {
+  .plaque-editor__ach-reveal {
+    padding-left: 14px;
+  }
+
+  .plaque-editor__ach-reward {
+    display: none;
+  }
+
+  .plaque-editor__bg-tile {
+    min-height: 64px;
+  }
+}
+
+@media (hover: none) {
+  .plaque-editor__ach-reward {
+    opacity: 1;
+    transform: none;
+  }
+}

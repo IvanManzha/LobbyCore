@@ -68,7 +68,7 @@ describe('Player', () => {
       </MemoryRouter>
     );
 
-    await waitFor(() => expect(screen.getByRole('heading', { name: 'PlayerOne' })).toBeInTheDocument());
+    await waitFor(() => expect(screen.getByText('PlayerOne')).toBeInTheDocument());
     expect(screen.getByRole('heading', { name: 'Турниры' })).toBeInTheDocument();
     expect(screen.getByText('Winter Cup')).toBeInTheDocument();
   });

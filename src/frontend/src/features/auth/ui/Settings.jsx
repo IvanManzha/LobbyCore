@@ -4,10 +4,11 @@ import { useTheme } from '@/contexts/ThemeContext';
 import { useTranslation } from '@/contexts/LanguageContext';
 import { playerApi, statsApi, steamLinkRequestApi } from '@/services/api';
 import { isSteamAuthEnabled } from '@/shared/config';
+import { Link } from 'react-router-dom';
 import './Settings.css';
 
 function Settings() {
-  const { user } = useAuth();
+  const { user, isAuthenticated } = useAuth();
   const themeContext = useTheme();
   const { t, lang, setLang } = useTranslation();
   const [snapshotYear, setSnapshotYear] = useState('2025');
@@ -174,6 +175,18 @@ function Settings() {
               </button>
             </div>
           </div>
+        </div>
+        <div className="settings-section">
+          <h2>{t('plaque.sectionTitle')}</h2>
+          <p className="muted plaque-settings-intro">{t('plaque.settingsIntro')}</p>
+          {isAuthenticated && user && (
+            <Link to="/settings/plaque" className="btn btn-secondary">
+              {t('plaque.openEditor')}
+            </Link>
+          )}
+          {!isAuthenticated && (
+            <p className="muted">{t('plaque.loginRequired')}</p>
+          )}
         </div>
         <div className="settings-section">
           <h2>{t('settings.profile')}</h2>

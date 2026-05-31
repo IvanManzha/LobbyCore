@@ -2,6 +2,7 @@
 const express = require('express');
 const TournamentController = require('../controllers/TournamentController');
 const PlayerController = require('../controllers/PlayerController');
+const PlayerCosmeticsController = require('../controllers/PlayerCosmeticsController');
 const StatsController = require('../controllers/StatsController');
 const MatchMonitorController = require('../controllers/MatchMonitorController');
 const FeedController = require('../controllers/FeedController');
@@ -25,7 +26,8 @@ const {
   validateLogin,
   validateRegister,
   validateUpdateProfile,
-  validateRegisterTournament
+  validateRegisterTournament,
+  validateCosmeticsLoadout
 } = require('../middleware/validation');
 
 const router = express.Router();
@@ -95,8 +97,15 @@ router.post('/tournaments/:id/close', verifyToken, isAdmin, TournamentController
 router.post('/tournaments/:id/cancel', verifyToken, isAdmin, TournamentController.cancelTournament.bind(TournamentController));
 router.delete('/tournaments/:id', verifyToken, isAdmin, TournamentController.deleteTournament.bind(TournamentController));
 
+// Player routes — /players/me/* до /players/:name
+router.get('/players/me/cosmetics', verifyToken, PlayerCosmeticsController.getMyCosmetics.bind(PlayerCosmeticsController));
+router.put('/players/me/cosmetics', verifyToken, validateCosmeticsLoadout, PlayerCosmeticsController.updateMyCosmetics.bind(PlayerCosmeticsController));
+router.get('/players/me', verifyToken, PlayerController.getCurrentUser.bind(PlayerController));
+router.put('/players/me', verifyToken, validateUpdateProfile, PlayerController.updateProfile.bind(PlayerController));
+
 // Player routes (публичные)
 router.get('/players', PlayerController.getAllPlayers.bind(PlayerController));
+router.get('/players/:name/cosmetics', PlayerCosmeticsController.getPlayerCosmetics.bind(PlayerCosmeticsController));
 router.get('/players/:name', PlayerController.getPlayerProfile.bind(PlayerController));
 router.get('/players/:name/stats', PlayerController.getPlayerStats.bind(PlayerController));
 router.get('/players/:name/championships', PlayerController.getChampionships.bind(PlayerController));
@@ -120,9 +129,7 @@ router.post('/finance/topup', verifyToken, FinanceController.createTopup.bind(Fi
 router.post('/finance/cashout/request', verifyToken, FinanceController.createCashout.bind(FinanceController));
 router.post('/finance/transfer', verifyToken, FinanceController.transfer.bind(FinanceController));
 
-// Protected routes (требуют авторизации)
-router.get('/players/me', verifyToken, PlayerController.getCurrentUser.bind(PlayerController));
-router.put('/players/me', verifyToken, validateUpdateProfile, PlayerController.updateProfile.bind(PlayerController));
+// Protected routes (требуют авторизации) — /players/me перенесён выше
 
 // Stats routes
 router.post('/stats/recalculate-all', verifyToken, isAdmin, StatsController.recalculateAllRatings.bind(StatsController));

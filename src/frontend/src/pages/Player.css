@@ -16,9 +16,64 @@
 
 .profile-header-left {
   display: flex;
-  align-items: center;
-  gap: 16px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  min-width: 0;
+  flex: 1;
 }
+
+.profile-plaque-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.profile-plaque-wrap {
+  width: 532px;
+  max-width: 100%;
+  height: var(--tournament-row-height, 100px);
+  flex-shrink: 0;
+}
+
+.profile-plaque-wrap .player-plaque {
+  height: 100%;
+  width: 100%;
+  border-radius: var(--radius-card);
+  border: 1px solid color-mix(in srgb, var(--line) 85%, transparent);
+  box-shadow: 0 1px 0 color-mix(in srgb, #fff 6%, transparent) inset;
+}
+
+.profile-plaque-settings-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: var(--surface2);
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+}
+
+.profile-plaque-settings-btn:hover {
+  color: var(--accent);
+  border-color: color-mix(in srgb, var(--accent) 35%, var(--line));
+  background: color-mix(in srgb, var(--accent) 8%, var(--surface2));
+}
+
+.profile-header-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+  max-width: 532px;
+}
+
 
 .profile-avatar {
   width: 48px;

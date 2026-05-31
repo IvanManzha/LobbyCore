@@ -18,6 +18,8 @@ export {
 export { getRatingSeries } from './lib/getRatingSeries';
 export { getKpiSnapshot } from './lib/getKpiSnapshot';
 export { useChampion } from './model/useChampion';
+export { usePlayerLoadout } from './model/usePlayerLoadout';
+export { default as PlayerPlaque } from './ui/PlayerPlaque';
 export { default as ChampionshipsAwardCard } from './ui/ChampionshipsAwardCard';
 export { default as ChampionshipsPopover } from './ui/ChampionshipsPopover';
 export { default as ChampionshipsTile } from './ui/ChampionshipsTile';

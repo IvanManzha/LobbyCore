@@ -13,6 +13,7 @@ import Register from '@/pages/Register';
 import SteamAuthCallback from '@/pages/SteamAuthCallback';
 import CreateTournament from '@/pages/CreateTournament';
 import Settings from '@/pages/Settings';
+import PlaqueEditorPage from '@/pages/PlaqueEditor';
 import Finance from '@/pages/Finance';
 import AdminStudio from '@/pages/AdminStudio';
 import { AdminStudioGuard } from '@/app/guards';
@@ -46,6 +47,7 @@ export default function AppRouter() {
         <Route path="/create-tournament" element={<CreateTournament />} />
         <Route path="/create" element={<CreateTournament />} />
         <Route path="/finance" element={<Finance />} />
+        <Route path="/settings/plaque" element={<PlaqueEditorPage />} />
         <Route path="/settings" element={<Settings />} />
       </Route>
     </Routes>

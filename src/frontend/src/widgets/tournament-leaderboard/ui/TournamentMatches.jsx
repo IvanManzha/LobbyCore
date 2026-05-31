@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { EmptyState } from '@/shared/ui';
 import './TournamentMatches.css';
+import './TournamentTable.css';
 
 function MatchStatusPill({ status }) {
   const statusMap = {

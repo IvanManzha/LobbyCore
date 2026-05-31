@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { playerApi, getBackendOrigin } from '@/services/api';
 import { isSteamAuthEnabled } from '@/shared/config';
 import { useTranslation } from '@/contexts/LanguageContext';
@@ -11,6 +11,8 @@ function Login() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const location = useLocation();
+  const returnTo = location.state?.returnTo || null;
   const { t } = useTranslation();
 
   const handleLogin = async (e) => {
@@ -28,7 +30,11 @@ function Login() {
       setLoading(true);
       setError(null);
       await playerApi.login(pubgNick.trim(), password);
-      navigate(`/player/${encodeURIComponent(pubgNick.trim())}`);
+      if (returnTo && returnTo.startsWith('/')) {
+        navigate(returnTo);
+      } else {
+        navigate(`/player/${encodeURIComponent(pubgNick.trim())}`);
+      }
     } catch (err) {
       setError(err.response?.data?.error || err.response?.data?.message || t('auth.loginError'));
     } finally {

@@ -1,7 +1,35 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { EmptyState } from '@/shared/ui';
+import { PlayerPlaque } from '@/entities/player';
 import './TournamentPlayers.css';
+import './TournamentTable.css';
+import {
+  getParticipantPerformanceLink,
+  isSoloLikeParticipant,
+} from '../lib/participantDisplay';
+
+const COL = {
+  rank: 'tournament-table__col-rank',
+  participant: 'tournament-table__col-participant',
+  stat: 'tournament-table__col-stat',
+  form: 'tournament-table__col-form',
+  remove: 'tournament-table__col-remove',
+};
+
+function PlayersColGroup({ showRemoveCol }) {
+  return (
+    <colgroup>
+      <col className={COL.rank} />
+      <col className={COL.participant} />
+      <col className={COL.stat} />
+      <col className={COL.stat} />
+      <col className={COL.stat} />
+      <col className={COL.form} />
+      {showRemoveCol && <col className={COL.remove} />}
+    </colgroup>
+  );
+}
 
 function FormTimeline({ form, onMatchClick }) {
   if (!form || form.length === 0) return null;
@@ -45,9 +73,20 @@ function FormTimeline({ form, onMatchClick }) {
   );
 }
 
+function getEntityLink(tournamentId, tournamentType, entity) {
+  return getParticipantPerformanceLink(
+    tournamentId,
+    tournamentType,
+    entity.name,
+    entity.players ?? entity.name,
+  );
+}
+
 function TeamRow({ entity, tournamentId, tournamentType, isSolo, onFormMatchClick, onRemoveTeam, canRemove, isParticipant, entry, entryFeeDC }) {
   const [expanded, setExpanded] = useState(false);
-  const hasPlayers = !isSolo && entity.players && entity.players.length > 1;
+  const hasPlayers = !isSoloLikeParticipant({ tournamentType, players: entity.players, name: entity.name })
+    && entity.players
+    && entity.players.length > 1;
   const members = entry?.members || (entry?.captainId ? [entry.captainId] : []);
   const memberPayments = entry?.memberPayments && typeof entry.memberPayments === 'object' ? entry.memberPayments : {};
   const paidMembers = entryFeeDC > 0 && members.length > 0
@@ -55,6 +94,39 @@ function TeamRow({ entity, tournamentId, tournamentType, isSolo, onFormMatchClic
     : 0;
   const totalMembers = members.length || 0;
   const showPaidCount = entryFeeDC > 0 && totalMembers > 0;
+  const entityLink = getEntityLink(tournamentId, tournamentType, entity);
+  const showPlaque = isSoloLikeParticipant({
+    tournamentType,
+    players: entity.players,
+    name: entity.name,
+  });
+
+  const paidBadge = showPaidCount ? (
+    <span className="team-paid-badge" title="Оплатили взнос">
+      {paidMembers}/{totalMembers}
+    </span>
+  ) : null;
+
+  const nameCell = showPlaque ? (
+    <td className="tournament-table__player-cell tournament-table__col-participant">
+      <PlayerPlaque
+        playerId={entity.name}
+        displayName={entity.name}
+        size="table"
+        to={entityLink}
+        trailing={paidBadge}
+      />
+    </td>
+  ) : (
+    <td className={COL.participant}>
+      <span className="player-name-cell">
+        <Link to={entityLink} className="player-name-link" onClick={(e) => e.stopPropagation()}>
+          {entity.name}
+        </Link>
+        {paidBadge}
+      </span>
+    </td>
+  );
 
   const handleRemove = (e) => {
     e.stopPropagation();
@@ -63,83 +135,101 @@ function TeamRow({ entity, tournamentId, tournamentType, isSolo, onFormMatchClic
     onRemoveTeam(entity.name);
   };
 
+  if (showPlaque && isSolo) {
+    return (
+      <tr className={`player-row${isParticipant ? ' row--participant' : ''}`}>
+        <td className={COL.rank}>
+          <span className="table-number">
+            {entity.rank != null ? entity.rank : '—'}
+          </span>
+        </td>
+        {nameCell}
+        <td className={COL.stat}>
+          <span className="table-number">
+            {entity.totalPoints != null ? entity.totalPoints : '—'}
+          </span>
+        </td>
+        <td className={COL.stat}>
+          <span className="table-number">
+            {entity.totalKills != null ? entity.totalKills : '—'}
+          </span>
+        </td>
+        <td className={COL.stat}>
+          <span className="table-number">
+            {entity.avgPlace != null ? entity.avgPlace.toFixed(1) : '—'}
+          </span>
+        </td>
+        <td className={COL.form}>
+          {entity.form && entity.form.length > 0 && (
+            <FormTimeline form={entity.form} onMatchClick={onFormMatchClick} />
+          )}
+        </td>
+      </tr>
+    );
+  }
+
   return (
     <>
       <tr 
         className={`player-row${isParticipant ? ' row--participant' : ''}`}
         onClick={() => hasPlayers && setExpanded(!expanded)}
       >
-        <td>
+        <td className={COL.rank}>
           <span className="table-number">
             {entity.rank != null ? entity.rank : '—'}
           </span>
         </td>
-        <td>
-          <span className="player-name-cell">
-            <Link to={entity.link} className="player-name-link" onClick={(e) => e.stopPropagation()}>
-              {entity.name}
-            </Link>
-            {showPaidCount && (
-              <span className="team-paid-badge" title="Оплатили взнос">
-                {paidMembers}/{totalMembers}
-              </span>
-            )}
-          </span>
-        </td>
-        <td>
+        {nameCell}
+        <td className={COL.stat}>
           <span className="table-number">
             {entity.totalPoints != null ? entity.totalPoints : '—'}
           </span>
         </td>
-        <td>
+        <td className={COL.stat}>
           <span className="table-number">
             {entity.totalKills != null ? entity.totalKills : '—'}
           </span>
         </td>
-        <td>
+        <td className={COL.stat}>
           <span className="table-number">
             {entity.avgPlace != null ? entity.avgPlace.toFixed(1) : '—'}
           </span>
         </td>
-        <td>
+        <td className={COL.form}>
           {entity.form && entity.form.length > 0 && (
             <FormTimeline form={entity.form} onMatchClick={onFormMatchClick} />
           )}
         </td>
-        {hasPlayers && (
-          <td>
-            <button 
-              className="expand-toggle"
-              onClick={(e) => {
-                e.stopPropagation();
-                setExpanded(!expanded);
-              }}
-            >
-              {expanded ? '▼' : '▶'}
-            </button>
-          </td>
-        )}
-        {onRemoveTeam && canRemove && (
-          <td onClick={(e) => e.stopPropagation()}>
-            <button type="button" className="btn btn-ghost btn-small table-action-danger" onClick={handleRemove}>
-              Отменить регистрацию
-            </button>
+        {onRemoveTeam && (
+          <td className={COL.remove} onClick={(e) => e.stopPropagation()}>
+            {canRemove && (
+              <button
+                type="button"
+                className="tournament-remove-btn"
+                onClick={handleRemove}
+                title="Отменить регистрацию"
+                aria-label="Отменить регистрацию"
+              >
+                ×
+              </button>
+            )}
           </td>
         )}
       </tr>
       {expanded && hasPlayers && (
         <tr className="player-row-expanded">
-          <td colSpan={onRemoveTeam ? 8 : 7}>
+          <td colSpan={onRemoveTeam ? 7 : 6}>
             <div className="roster-breakdown">
               <div className="roster-title">Состав команды</div>
               <div className="roster-players">
                 {entity.players.map((player, idx) => (
                   <div key={idx} className="roster-player">
-                    <div className="roster-player-name">
-                      <Link to={`/player/${encodeURIComponent(player.name)}`}>
-                        {player.name}
-                      </Link>
-                    </div>
+                    <Link
+                      to={`/player/${encodeURIComponent(player.name)}`}
+                      className="player-name-link roster-player-name"
+                    >
+                      {player.name}
+                    </Link>
                     <div className="roster-player-stats">
                       <div className="roster-stat">
                         <span className="roster-stat-label">Киллы:</span>
@@ -222,6 +312,8 @@ function TournamentPlayers({ entities = [], tournamentId, tournamentType, tourna
     );
   }
 
+  const showRemoveCol = !isSolo && Boolean(onRemoveTeam);
+
   return (
     <div className="tournament-players">
       <div className="players-header">
@@ -236,21 +328,23 @@ function TournamentPlayers({ entities = [], tournamentId, tournamentType, tourna
       <div className="players-table-view">
         <div className="table-shell">
           <table className="table-premium">
+            <PlayersColGroup showRemoveCol={showRemoveCol} />
             <thead>
               <tr>
-                <th>Место</th>
-                <th>{isSolo ? 'Игрок' : 'Команда'}</th>
-                <th>Очки</th>
-                <th>Киллы</th>
-                <th>Ср. место</th>
-                <th>
+                <th className={COL.rank}>Место</th>
+                <th className={COL.participant}>{isSolo ? 'Игрок' : 'Участник'}</th>
+                <th className={COL.stat}>Очки</th>
+                <th className={COL.stat}>Киллы</th>
+                <th className={COL.stat}>Ср. место</th>
+                <th className={COL.form}>
                   <span className="form-column-header">
                     Форма
                     <span className="form-column-hint" title="Показывает места в последних матчах">i</span>
                   </span>
                 </th>
-                {!isSolo && <th />}
-                {!isSolo && onRemoveTeam && <th />}
+                {showRemoveCol && (
+                  <th className={COL.remove} aria-label="Отменить регистрацию" />
+                )}
               </tr>
             </thead>
             <tbody>

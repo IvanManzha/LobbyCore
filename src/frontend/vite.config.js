@@ -2,14 +2,16 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { sharedAchievementPlugin } from './vite-shared-achievement-plugin.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [sharedAchievementPlugin(), react()],
   resolve: {
     alias: {
       '@': path.resolve(__dirname, 'src'),
+      '@shared': path.resolve(__dirname, '../shared'),
     },
   },
   envDir: path.resolve(__dirname, '../..'),
@@ -42,6 +44,11 @@ export default defineConfig({
         }
       },
       '/assets': {
+        target: 'http://127.0.0.1:3100',
+        changeOrigin: true,
+        secure: false
+      },
+      '/maps': {
         target: 'http://127.0.0.1:3100',
         changeOrigin: true,
         secure: false

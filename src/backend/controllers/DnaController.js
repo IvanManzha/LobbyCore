@@ -153,10 +153,6 @@ async function getProfile(req, res, next) {
     const { playerId } = req.params;
     const seasonId = req.query.seasonId || DnaService.DEFAULT_SEASON;
     const useDnaTest = req.query.useDnaTest === 'true' || req.query.useDnaTest === '1';
-    const normalizedId = String(playerId || '').trim().toLowerCase();
-    // #region agent log
-    fetch('http://127.0.0.1:7242/ingest/f20934ed-d84f-4eb9-803c-4dd6dccc9729',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'DnaController.js:getProfile',message:'getProfile params',data:{playerId,seasonId,normalizedId,useDnaTest},timestamp:Date.now(),hypothesisId:'H1'})}).catch(()=>{});
-    // #endregion
     const options = { useDnaTest };
     const [profile, calibrationStatus, poolStatsData] = await Promise.all([
       DnaService.getProfileOrStub(playerId, seasonId, options),
@@ -165,10 +161,6 @@ async function getProfile(req, res, next) {
     ]);
     const profileV2 = await DnaService.mapProfileToV2(profile, poolStatsData);
     profileV2.calibration = calibrationStatus;
-    // #region agent log
-    const matchCount = (profile && (profile.matchHistory || profile.matches)) ? (profile.matchHistory || profile.matches).length : 0;
-    fetch('http://127.0.0.1:7242/ingest/f20934ed-d84f-4eb9-803c-4dd6dccc9729',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'DnaController.js:getProfile',message:'profile result',data:{hasProfile:!!profile,matchCount,genesCount:(profileV2.genes||[]).length},timestamp:Date.now(),hypothesisId:'H3'})}).catch(()=>{});
-    // #endregion
     res.json(profileV2);
   } catch (e) {
     next(e);

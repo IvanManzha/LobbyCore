@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 /**
  * Два слоя одной карты: preview (по умолчанию) и full (после скролла).
@@ -11,14 +11,18 @@ export default function MapQualityBackground({
   imgClassName = 'dna-replay-immerse-map-img',
   cacheBust = '4',
 }) {
-  if (!lowUrl && !highUrl) return null;
+  const [lowFailed, setLowFailed] = useState(false);
+  const [highFailed, setHighFailed] = useState(false);
+
+  if ((!lowUrl && !highUrl) || (lowFailed && highFailed)) return null;
 
   const bust = (url) => (url ? `${url}?v=${cacheBust}` : null);
-  const showHigh = quality === 'high' && highUrl;
+  const showHigh = quality === 'high' && highUrl && !highFailed;
+  const showLow = lowUrl && !lowFailed && (!showHigh || !highUrl);
 
   return (
     <div className={`dna-map-quality-bg ${className}`.trim()} aria-hidden>
-      {lowUrl ? (
+      {showLow ? (
         <img
           src={bust(lowUrl)}
           alt=""
@@ -26,9 +30,10 @@ export default function MapQualityBackground({
             showHigh ? ' dna-map-quality-bg__layer--hidden' : ''
           }`}
           decoding="async"
+          onError={() => setLowFailed(true)}
         />
       ) : null}
-      {highUrl && highUrl !== lowUrl ? (
+      {highUrl && highUrl !== lowUrl && !highFailed ? (
         <img
           src={bust(highUrl)}
           alt=""
@@ -36,6 +41,7 @@ export default function MapQualityBackground({
             showHigh ? ' dna-map-quality-bg__layer--visible' : ''
           }`}
           decoding="async"
+          onError={() => setHighFailed(true)}
         />
       ) : null}
     </div>

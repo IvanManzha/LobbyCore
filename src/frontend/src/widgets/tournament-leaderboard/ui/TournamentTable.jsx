@@ -1,18 +1,52 @@
 import React, { useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import './TournamentTable.css';
-import { DnaTierBadge } from '@/widgets/dna-lab';
+import { PlayerPlaque } from '@/entities/player';
+import {
+  getParticipantPerformanceLink,
+  isSoloLikeParticipant,
+} from '../lib/participantDisplay';
+
+const COL = {
+  rank: 'tournament-table__col-rank',
+  participant: 'tournament-table__col-participant',
+  rating: 'tournament-table__col-rating',
+  stat: 'tournament-table__col-stat',
+  paid: 'tournament-table__col-paid',
+  action: 'tournament-table__col-action',
+};
+
+function RegColGroup({ hasPaidCol }) {
+  return (
+    <colgroup>
+      <col className={COL.rank} />
+      <col className={COL.participant} />
+      <col className={COL.rating} />
+      {hasPaidCol && <col />}
+      <col className={COL.action} />
+    </colgroup>
+  );
+}
+
+function FinishedColGroup() {
+  return (
+    <colgroup>
+      <col className={COL.rank} />
+      <col className={COL.participant} />
+      <col className={COL.rating} />
+      <col className={COL.stat} />
+      <col className={COL.stat} />
+      <col className={COL.stat} />
+      <col className={COL.action} />
+    </colgroup>
+  );
+}
 
 function TournamentTable({ table, tournamentId: propTournamentId, tournament, status = '', myRegistration = null }) {
   const [expandedRegRow, setExpandedRegRow] = useState(null);
-
-  if (!table || !table.teams) {
-    return <div className="muted">Нет данных</div>;
-  }
-
   const { id: urlTournamentId } = useParams();
-  const tournamentId = propTournamentId || urlTournamentId || table.tournament?.id || table.tournament?._id;
-  const tournamentType = table.tournament?.type || 'solo';
+  const tournamentId = propTournamentId || urlTournamentId || table?.tournament?.id || table?.tournament?._id;
+  const tournamentType = table?.tournament?.type || 'solo';
   const isSoloTournament = tournamentType === 'solo';
   const isReg = status === 'REG';
   const entryFeeDC = tournament?.finance?.entryFeeDC ?? tournament?.extra?.finance?.entryFeeDC ?? 0;
@@ -27,66 +61,53 @@ function TournamentTable({ table, tournamentId: propTournamentId, tournament, st
     return { paid, total: members.length || 0 };
   };
 
-  const getTeamLink = (teamName) => {
-    // Если нет ID турнира, не создаем ссылку
-    if (!tournamentId) {
-      return null;
-    }
-    
-    if (tournamentType === 'solo') {
-      // Для соло турниров используем отдельную страницу
-      return `/tournament/${tournamentId}/solo/${encodeURIComponent(teamName)}`;
-    }
-    
-    // Для командных турниров используем страницу команды
-    return `/tournament/${tournamentId}/team/${encodeURIComponent(teamName)}`;
-  };
+  const getTeamLink = (teamName, players) =>
+    getParticipantPerformanceLink(tournamentId, tournamentType, teamName, players);
+
+  const usesPlayerPlaque = (row) =>
+    isSoloLikeParticipant({
+      tournamentType,
+      players: row?.players,
+      name: row?.name,
+    });
+
+  const renderPlayerPlaque = (playerName, { to, trailing, players } = {}) => (
+    <PlayerPlaque
+      playerId={playerName}
+      displayName={playerName}
+      size="table"
+      to={to || getTeamLink(playerName, players) || `/player/${encodeURIComponent(playerName)}`}
+      trailing={trailing}
+    />
+  );
 
   const renderTeamName = (team) => {
-    const teamLink = getTeamLink(team.name);
-    
-    // Если это команда с несколькими игроками - показываем название команды как ссылку, а игроков отдельно
-    if (team.players && team.players.length > 1) {
-      return (
-        <div className="team-name-with-players">
-          {teamLink ? (
-            <Link to={teamLink} className="team-name-link">
-              {team.name}
-            </Link>
-          ) : (
-            <span className="team-name-text">{team.name}</span>
-          )}
-          <span className="team-players-list">
-            {' ('}
-            {team.players.map((player, idx) => (
-              <React.Fragment key={idx}>
-                <Link to={`/player/${encodeURIComponent(player)}`}>
-                  {player}
-                </Link>
-                {idx < team.players.length - 1 && ', '}
-              </React.Fragment>
-            ))}
-            {')'}
-          </span>
-        </div>
-      );
-    }
-    
-    // Иначе просто ссылка на команду/игрока
-    if (teamLink) {
-      return (
-        <Link to={teamLink}>
-          {team.name}
-        </Link>
-      );
-    }
-    // Если ссылка не может быть создана (нет ID турнира), показываем просто текст
-    return <span>{team.name}</span>;
+    const teamLink = getTeamLink(team.name, team.players);
+    return (
+      <div className="team-name-with-players">
+        {teamLink ? (
+          <Link to={teamLink} className="team-name-link">
+            {team.name}
+          </Link>
+        ) : (
+          <span className="team-name-text">{team.name}</span>
+        )}
+        <span className="team-players-list">
+          {' ('}
+          {team.players.map((player, idx) => (
+            <React.Fragment key={idx}>
+              <Link to={`/player/${encodeURIComponent(player)}`}>{player}</Link>
+              {idx < team.players.length - 1 && ', '}
+            </React.Fragment>
+          ))}
+          {')'}
+        </span>
+      </div>
+    );
   };
 
   const leaderboardRows = useMemo(() => {
-    // Строим строки лидерборда сами по данным из table.teams,
-    // чтобы форма данных всегда точно соответствовала колонкам таблицы.
+    if (!table?.teams) return [];
     return (table.teams || []).map((team) => {
       const results = team.results || [];
       const totalKills = results.reduce((sum, r) => sum + (Number(r?.kills) || 0), 0);
@@ -103,39 +124,40 @@ function TournamentTable({ table, tournamentId: propTournamentId, tournament, st
         killsCoverage: {
           trackedMatches: killsTracked,
           totalMatches: matchesPlayed,
-          label: `Kills tracked: ${killsTracked}/${matchesPlayed}`
+          label: `Kills tracked: ${killsTracked}/${matchesPlayed}`,
         },
         totalRating: team.totalRating ?? null,
         budget: team.budget,
-        ladder_rank_label: team.ladder_rank_label ?? null,
-        dominant_trait: team.dominant_trait ?? null,
-        dna_tier: team.dna_tier ?? null,
         rating_value: team.rating_value ?? null,
-        rating_delta: team.rating_delta ?? null
+        rating_delta: team.rating_delta ?? null,
       };
-    })
-      // Сортируем по месту (rank) по возрастанию, null/undefined в конец
-      .sort((a, b) => {
-        if (a.rank == null && b.rank == null) return 0;
-        if (a.rank == null) return 1;
-        if (b.rank == null) return -1;
-        return a.rank - b.rank;
-      });
+    }).sort((a, b) => {
+      if (a.rank == null && b.rank == null) return 0;
+      if (a.rank == null) return 1;
+      if (b.rank == null) return -1;
+      return a.rank - b.rank;
+    });
   }, [table]);
 
-  // Режим регистрации: №, Команда/участник (с раскрытием состава), Рейтинг, Оплата
+  const regColSpan = entryFeeDC > 0 ? 5 : 4;
+
+  if (!table || !table.teams) {
+    return <div className="muted">Нет данных</div>;
+  }
+
   if (isReg) {
-    const paidCount = (row) => getPaidCount(row.name);
     return (
       <div className="tournament-table tournament-table--reg">
+        <div className="table-shell">
         <table className="table-premium">
+          <RegColGroup hasPaidCol={entryFeeDC > 0} />
           <thead>
             <tr>
-              <th>№</th>
-              <th>Команда / участник</th>
-              <th>Рейтинг</th>
-              {entryFeeDC > 0 && <th>Оплата</th>}
-              <th />
+              <th className={COL.rank}>№</th>
+              <th className={COL.participant}>Команда / участник</th>
+              <th className={COL.rating}>Рейтинг</th>
+              {entryFeeDC > 0 && <th className={COL.paid}>Оплата</th>}
+              <th className={COL.action} />
             </tr>
           </thead>
           <tbody>
@@ -144,42 +166,51 @@ function TournamentTable({ table, tournamentId: propTournamentId, tournament, st
               const hasRoster = row.players && row.players.length > 1;
               const isExpanded = expandedRegRow === row.name;
               const isParticipant = myRegistration && (row.name || '').trim() === (myRegistration.teamName || '').trim();
-              const paid = paidCount(row);
+              const paid = getPaidCount(row);
+              const link = getTeamLink(row.name, row.players) || `/player/${encodeURIComponent(row.name)}`;
+              const showPlaque = usesPlayerPlaque(row);
+
               return (
                 <React.Fragment key={row.name}>
                   <tr
                     className={[
                       hasRoster ? 'tournament-table__row--expandable' : '',
-                      isParticipant ? 'row--participant' : ''
+                      isParticipant ? 'row--participant' : '',
                     ].filter(Boolean).join(' ')}
                     onClick={() => hasRoster && setExpandedRegRow(isExpanded ? null : row.name)}
                   >
-                    <td>
+                    <td className={COL.rank}>
                       <span className="table-number">{row.rank ?? '—'}</span>
                     </td>
-                    <td>
-                      <div className="tournament-table__team-cell">
-                        {hasRoster && (
-                          <span className="tournament-table__expand-icon">
-                            {isExpanded ? '▼' : '▶'}
-                          </span>
-                        )}
-                        {hasRoster ? (
-                          <Link to={getTeamLink(row.name) || '#'} onClick={(e) => e.stopPropagation()}>
+                    <td
+                      className={
+                        showPlaque
+                          ? 'tournament-table__player-cell tournament-table__col-participant'
+                          : 'tournament-table__col-participant'
+                      }
+                    >
+                      {showPlaque ? (
+                        renderPlayerPlaque(row.name, { to: link, players: row.players })
+                      ) : (
+                        <div className="tournament-table__team-cell">
+                          {hasRoster && (
+                            <span className="tournament-table__expand-icon">
+                              {isExpanded ? '▼' : '▶'}
+                            </span>
+                          )}
+                          <Link to={getTeamLink(row.name, row.players) || '#'} onClick={(e) => e.stopPropagation()}>
                             {row.name}
                           </Link>
-                        ) : (
-                          renderTeamName({ name: row.name, players: row.players })
-                        )}
-                      </div>
+                        </div>
+                      )}
                     </td>
-                    <td>
+                    <td className={COL.rating}>
                       <span className="table-number">
                         {row.totalRating != null ? row.totalRating : '—'}
                       </span>
                     </td>
                     {entryFeeDC > 0 && (
-                      <td>
+                      <td className={COL.paid}>
                         {paid ? (
                           <span className="tournament-table__paid-count">{paid.paid}/{paid.total}</span>
                         ) : (
@@ -187,9 +218,9 @@ function TournamentTable({ table, tournamentId: propTournamentId, tournament, st
                         )}
                       </td>
                     )}
-                    <td>
-                      {getTeamLink(row.name) && (
-                        <Link className="table-action" to={getTeamLink(row.name)} onClick={(e) => e.stopPropagation()}>
+                    <td className={COL.action}>
+                      {getTeamLink(row.name, row.players) && (
+                        <Link className="table-action" to={getTeamLink(row.name, row.players)} onClick={(e) => e.stopPropagation()}>
                           →
                         </Link>
                       )}
@@ -197,12 +228,12 @@ function TournamentTable({ table, tournamentId: propTournamentId, tournament, st
                   </tr>
                   {hasRoster && isExpanded && (
                     <tr key={`${row.name}-roster`} className="tournament-table__roster-row">
-                      <td colSpan={entryFeeDC > 0 ? 5 : 4}>
+                      <td colSpan={regColSpan}>
                         <div className="tournament-table__roster">
                           <div className="tournament-table__roster-title">Состав</div>
                           <ul className="tournament-table__roster-list">
                             {(row.players || []).map((player, idx) => (
-                              <li key={idx}>
+                              <li key={idx} className="tournament-table__roster-list-item">
                                 <Link to={`/player/${encodeURIComponent(player)}`}>{player}</Link>
                                 {team.budget && team.budget[idx] != null && (
                                   <span className="tournament-table__roster-rating"> ({team.budget[idx]} р.)</span>
@@ -219,102 +250,96 @@ function TournamentTable({ table, tournamentId: propTournamentId, tournament, st
             })}
           </tbody>
         </table>
+        </div>
       </div>
     );
   }
 
-  // Завершённые и в процессе: Rank, Команда, Archetype (solo), Рейтинг (число + дельта), очки, киллы, матчи
   return (
     <div className="tournament-table">
+      <div className="table-shell">
       <table className="table-premium">
+        <FinishedColGroup />
         <thead>
           <tr>
-            <th>Rank</th>
-            <th>Команда</th>
-            {isSoloTournament && <th>Archetype</th>}
-            <th>Рейтинг</th>
-            <th>Очки</th>
-            <th>Киллы</th>
-            <th>Матчи</th>
-            <th />
+            <th className={COL.rank}>Rank</th>
+            <th className={COL.participant}>{isSoloTournament ? 'Игрок' : 'Участник'}</th>
+            <th className={COL.rating}>Рейтинг</th>
+            <th className={COL.stat}>Очки</th>
+            <th className={COL.stat}>Киллы</th>
+            <th className={COL.stat}>Матчи</th>
+            <th className={COL.action} />
           </tr>
         </thead>
         <tbody>
           {leaderboardRows.map((row) => {
             const isParticipant = myRegistration && (row.name || '').trim() === (myRegistration.teamName || '').trim();
+            const link = getTeamLink(row.name, row.players) || `/player/${encodeURIComponent(row.name)}`;
+            const showPlaque = usesPlayerPlaque(row);
+
             return (
-            <tr key={row.name} className={isParticipant ? 'row--participant' : ''}>
-              <td>
-                <span className="table-number">{row.rank ?? '—'}</span>
-              </td>
-              <td>{renderTeamName({ name: row.name, players: row.players })}</td>
-              {isSoloTournament && (
-                <td>
-                  <span className="tournament-table-archetype">
-                    {row.dominant_trait || '—'}
-                    {row.dna_tier != null && (
-                      <span className="tournament-table-dna-tier">
-                        <DnaTierBadge tier={row.dna_tier} />
-                      </span>
-                    )}
+              <tr key={row.name} className={isParticipant ? 'row--participant' : ''}>
+                <td className={COL.rank}>
+                  <span className="table-number">{row.rank ?? '—'}</span>
+                </td>
+                <td
+                  className={
+                    showPlaque
+                      ? 'tournament-table__player-cell tournament-table__col-participant'
+                      : 'tournament-table__col-participant'
+                  }
+                >
+                  {showPlaque
+                    ? renderPlayerPlaque(row.name, { to: link, players: row.players })
+                    : renderTeamName({ name: row.name, players: row.players })}
+                </td>
+                <td className={COL.rating}>
+                  {row.rating_value != null ? (
+                    <span className="tournament-table-rating-value">
+                      <span className="table-number">{row.rating_value}</span>
+                      {row.rating_delta != null && (
+                        <span
+                          className={`tournament-table-rating-delta ${
+                            row.rating_delta > 0 ? 'is-up' : row.rating_delta < 0 ? 'is-down' : 'is-flat'
+                          }`}
+                        >
+                          {row.rating_delta > 0 ? '↑' : row.rating_delta < 0 ? '↓' : '→'}{' '}
+                          {Math.abs(row.rating_delta)}
+                        </span>
+                      )}
+                    </span>
+                  ) : (
+                    <span className="table-number muted">—</span>
+                  )}
+                </td>
+                <td className={COL.stat}>
+                  <span className="table-number">{row.totalPoints ?? 0}</span>
+                </td>
+                <td className={COL.stat}>
+                  <span className="table-number">
+                    {row.totalKills}
+                    {row.killsCoverage.totalMatches > 0 &&
+                      row.killsCoverage.trackedMatches < row.killsCoverage.totalMatches && (
+                        <span className="coverage-badge" title={row.killsCoverage.label}>!</span>
+                      )}
                   </span>
                 </td>
-              )}
-              <td>
-                {row.rating_value != null ? (
-                  <span className="tournament-table-rating-value">
-                    <span className="table-number">{row.rating_value}</span>
-                    {row.rating_delta != null && (
-                      <span
-                        className={`tournament-table-rating-delta ${
-                          row.rating_delta > 0 ? 'is-up' : row.rating_delta < 0 ? 'is-down' : 'is-flat'
-                        }`}
-                      >
-                        {row.rating_delta > 0 ? '↑' : row.rating_delta < 0 ? '↓' : '→'}{' '}
-                        {Math.abs(row.rating_delta)}
-                      </span>
-                    )}
-                  </span>
-                ) : (
-                  <span className="table-number muted">—</span>
-                )}
-              </td>
-              <td>
-                <span className="table-number">{row.totalPoints ?? 0}</span>
-              </td>
-              <td>
-                <span className="table-number">
-                  {row.totalKills}
-                  {row.killsCoverage.totalMatches > 0 &&
-                    row.killsCoverage.trackedMatches <
-                      row.killsCoverage.totalMatches && (
-                      <span
-                        className="coverage-badge"
-                        title={row.killsCoverage.label}
-                      >
-                        !
-                      </span>
-                    )}
-                </span>
-              </td>
-              <td>
-                <span className="table-number">{row.matchesPlayed ?? 0}</span>
-              </td>
-              <td>
-                {getTeamLink(row.name) && (
-                  <Link className="table-action" to={getTeamLink(row.name)}>
-                    →
-                  </Link>
-                )}
-              </td>
-            </tr>
-          );
+                <td className={COL.stat}>
+                  <span className="table-number">{row.matchesPlayed ?? 0}</span>
+                </td>
+                <td className={COL.action}>
+                  {getTeamLink(row.name, row.players) && (
+                    <Link className="table-action" to={getTeamLink(row.name, row.players)}>→</Link>
+                  )}
+                </td>
+              </tr>
+            );
           })}
         </tbody>
       </table>
+      </div>
     </div>
   );
 }
 
 export default TournamentTable;
-

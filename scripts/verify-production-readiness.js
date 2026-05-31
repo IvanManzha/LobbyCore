@@ -47,6 +47,10 @@ async function main() {
   const spaIndex = path.join(projectRoot, 'public', 'react', 'index.html');
   check(fs.existsSync(spaIndex), 'Собранный SPA: public/react/index.html (npm run frontend:build)');
 
+  const mapsDir = path.join(projectRoot, 'public', 'maps');
+  const previewParamo = path.join(mapsDir, 'preview', 'paramo.jpg');
+  check(fs.existsSync(previewParamo), 'Карты PUBG: public/maps/preview/paramo.jpg (npm run maps:download)');
+
   if (nodeEnv === 'production') {
     check(!!process.env.JWT_SECRET, 'JWT_SECRET задан в production');
   } else {

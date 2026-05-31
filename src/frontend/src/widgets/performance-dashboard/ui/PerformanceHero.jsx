@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { formatTournamentDate } from '@/entities/player';
+import { PlayerPlaque } from '@/entities/player';
 import './PerformanceHero.css';
 
 function getPlaceTone(placement) {
@@ -13,15 +12,6 @@ function getPlaceTone(placement) {
 function formatNumber(value, digits = 0) {
   if (value == null || Number.isNaN(value)) return '—';
   return value.toFixed(digits);
-}
-
-function getModeLabel(mode) {
-  const value = (mode || '').toLowerCase();
-  if (value === 'solo') return 'solo';
-  if (value === 'duo') return 'duo';
-  if (value === 'squad') return 'squad';
-  if (value === 'mixed') return 'mixed';
-  return value || null;
 }
 
 function buildSummaryText({ name, tournament, summary, highlights }) {
@@ -73,8 +63,6 @@ function PerformanceHero({
   onMatchHover,
   onMatchSelect
 }) {
-  const tournamentId = tournament?.id || tournament?._id;
-  const modeLabel = getModeLabel(tournament?.type);
   const [copied, setCopied] = useState(false);
 
   const handleCopySummary = () => {
@@ -126,56 +114,20 @@ function PerformanceHero({
   return (
     <div className="performance-hero">
       <div className="performance-hero-top">
-        <div className="performance-hero-left">
-          <Link
-            to={tournamentId ? `/tournament/${tournamentId}` : '#'}
-            className="back-link"
-          >
-            ← Назад к турниру
-          </Link>
-
-          <div className="performance-title-block">
-            <div className="performance-title-row">
-              {type === 'player' ? (
-                <h1>
-                  <Link
-                    to={name ? `/player/${encodeURIComponent(name)}` : '#'}
-                    className="performance-player-link"
-                  >
-                    {name}
-                  </Link>
-                </h1>
-              ) : (
-                <h1>{name}</h1>
-              )}
-            </div>
-            <div className="performance-subtitle-row">
-              {tournament && (
-                <>
-                  <span className="performance-subtitle-main">
-                    {tournament.name || 'Турнир'}
-                  </span>
-                  {modeLabel && (
-                    <>
-                      <span className="performance-dot">·</span>
-                      <span className="performance-subtitle-secondary">
-                        {modeLabel}
-                      </span>
-                    </>
-                  )}
-                  {tournament.date && (
-                    <>
-                      <span className="performance-dot">·</span>
-                      <span className="performance-subtitle-secondary">
-                        {formatTournamentDate(tournament.date)}
-                      </span>
-                    </>
-                  )}
-                </>
-              )}
-            </div>
+        {type === 'player' ? (
+          <div className="performance-hero-plaque-wrap">
+            <PlayerPlaque
+              playerId={name}
+              displayName={name}
+              size="hero"
+              to={name ? `/player/${encodeURIComponent(name)}` : undefined}
+            />
           </div>
-        </div>
+        ) : (
+          <div className="performance-hero-team-title">
+            <h1>{name}</h1>
+          </div>
+        )}
 
         <div className="performance-hero-right">
           <div className="performance-hero-summary">

@@ -5,7 +5,7 @@ import { useAuth } from '@/features/auth';
 import { useLayoutConfig } from '@/contexts/LayoutConfigContext';
 const RatingChart = lazy(() => import('../components/RatingChart'));
 import { MetricGrid, InsightsPanel } from '@/widgets/player-analytics';
-import { ChampionshipsAwardCard } from '@/entities/player';
+import { ChampionshipsAwardCard, PlayerPlaque } from '@/entities/player';
 import { EmptyState, Skeleton, StatusPill } from '@/shared/ui';
 import {
   getRatingSeries,
@@ -31,7 +31,7 @@ function Player() {
   const [selectedYear, setSelectedYear] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const { user } = useAuth();
+  const { user, isAuthenticated } = useAuth();
 
   const defaultAdmin = 'ivanchk';
   const adminUsers = (import.meta.env.VITE_ADMIN_USERS || defaultAdmin)
@@ -419,19 +419,38 @@ function Player() {
         {/* Profile Header */}
         <div className="profile-header">
           <div className="profile-header-left">
-            <div className="profile-avatar">{(profile.pubgNick || profile.username || '?').charAt(0).toUpperCase()}</div>
-            <div>
-              <h1 className="profile-header-title">
-                {profile.pubgNick || profile.username}
-                {championshipsTotal > 0 && (
-                  <span className="profile-header-champion-badge" title={t('playerPage.championTitle')}>
-                    🏆 {championshipsTotal}× Champion
-                  </span>
-                )}
-              </h1>
-              {profile.username && profile.pubgNick && profile.username !== profile.pubgNick && (
-                <div className="muted">{t('playerPage.loginLabel')}: {profile.username}</div>
+            <div className="profile-plaque-row">
+              <div className="profile-plaque-wrap">
+                <PlayerPlaque
+                  playerId={profile.pubgNick || profile.username}
+                  displayName={profile.pubgNick || profile.username}
+                  size="table"
+                  subtitle={
+                    championshipsTotal > 0
+                      ? `🏆 ${championshipsTotal}× ${t('playerPage.championTitle')}`
+                      : profile.username && profile.pubgNick && profile.username !== profile.pubgNick
+                        ? `${t('playerPage.loginLabel')}: ${profile.username}`
+                        : undefined
+                  }
+                  to={undefined}
+                  interactive={false}
+                />
+              </div>
+              {isAuthenticated && user && (user.pubgNick || user.username)?.toLowerCase() === (profile.pubgNick || profile.username || '').toLowerCase() && (
+                <Link
+                  to="/settings/plaque"
+                  className="profile-plaque-settings-btn"
+                  title={t('plaque.customizeLink')}
+                  aria-label={t('plaque.customizeLink')}
+                >
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                    <circle cx="12" cy="12" r="3" />
+                    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" />
+                  </svg>
+                </Link>
               )}
+            </div>
+            <div className="profile-header-meta">
               <div className="profile-badges">
                 {availableYears.length > 1 && (
                   <select

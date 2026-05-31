@@ -1,0 +1,119 @@
+.plaque-customizer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.plaque-customizer__hint {
+  margin: 0;
+  font-size: 13px;
+}
+
+.plaque-customizer__preview {
+  display: flex;
+  justify-content: flex-start;
+  padding: 12px 0;
+}
+
+.plaque-customizer__section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.plaque-customizer__label {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.plaque-customizer__grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.plaque-customizer__grid--bg .plaque-customizer__bg-option {
+  min-width: 88px;
+  height: 52px;
+  border-radius: var(--radius);
+  border: 2px solid transparent;
+  cursor: pointer;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+  padding: 6px 8px;
+}
+
+.plaque-customizer__bg-option.is-active {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent);
+}
+
+.plaque-customizer__bg-option.is-locked {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.plaque-customizer__badge-option {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  min-width: 72px;
+  padding: 8px 6px;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  background: var(--surface2);
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.plaque-customizer__badge-option.is-active {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 12%, var(--surface2));
+}
+
+.plaque-customizer__badge-option.is-disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.plaque-customizer__badge-icon {
+  font-size: 20px;
+  line-height: 1;
+}
+
+.plaque-customizer__badge-label {
+  font-size: 10px;
+  font-weight: 600;
+  text-align: center;
+  color: var(--muted);
+}
+
+.plaque-customizer__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  padding-top: 4px;
+}
+
+.plaque-customizer__status {
+  margin: 0;
+  flex: 1 1 100%;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 8px 12px;
+  border-radius: var(--radius);
+}
+
+.plaque-customizer__status--success {
+  color: var(--success, #16a34a);
+  background: color-mix(in srgb, var(--success, #16a34a) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--success, #16a34a) 35%, transparent);
+}

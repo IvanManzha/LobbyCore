@@ -10,15 +10,6 @@ const featureExtractor = require('./featureExtractor');
 
 const DEFAULT_SEASON = process.env.DNA_DEFAULT_SEASON || '2025';
 
-function dnaDebugIngest(body) {
-  if (process.env.DNA_DEBUG_INGEST !== 'true') return;
-  fetch('http://127.0.0.1:7242/ingest/f20934ed-d84f-4eb9-803c-4dd6dccc9729', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(body)
-  }).catch(() => {});
-}
-
 const DICTIONARY_PATH = path.join(__dirname, '..', '..', 'data', 'dna_dictionary.json');
 let dictionaryCache = null;
 
@@ -110,13 +101,6 @@ function buildStubProfile(playerId, seasonId) {
 }
 
 async function buildProfileFromDnaTestDbV3(playerId, seasonId = DEFAULT_SEASON) {
-  dnaDebugIngest({
-    location: 'DnaService.js:buildProfileFromDnaTestDbV3',
-    message: 'query start',
-    data: { playerId, seasonId },
-    timestamp: Date.now(),
-    hypothesisId: 'H2'
-  });
   let row;
   try {
     row = await dbDnaTest('dna_profiles')
@@ -124,39 +108,16 @@ async function buildProfileFromDnaTestDbV3(playerId, seasonId = DEFAULT_SEASON) 
       .whereRaw('LOWER(player_id) = LOWER(?)', [String(playerId)])
       .first('data', 'player_id');
   } catch (e) {
-    dnaDebugIngest({
-      location: 'DnaService.js:buildProfileFromDnaTestDbV3',
-      message: 'query error',
-      data: { code: e?.code, msg: e?.message },
-      timestamp: Date.now(),
-      hypothesisId: 'H5'
-    });
     // Тестовая БД может не иметь таблицы dna_profiles (миграции не запускали)
     if (e?.code === 'SQLITE_ERROR' || e?.message?.includes('no such table')) return null;
     throw e;
   }
-  const rowFound = !!row;
-  const dataLen = row && row.data != null ? (typeof row.data === 'string' ? row.data.length : 0) : 0;
-  dnaDebugIngest({
-    location: 'DnaService.js:buildProfileFromDnaTestDbV3',
-    message: 'query result',
-    data: { rowFound, dataLen },
-    timestamp: Date.now(),
-    hypothesisId: 'H1,H3'
-  });
   if (!row || !row.data) return null;
   try {
     const data = typeof row.data === 'string' ? JSON.parse(row.data) : row.data;
     const storedPlayerId = row.player_id != null ? row.player_id : playerId;
     return { ...data, playerId: data.playerId || storedPlayerId, seasonId: data.seasonId || seasonId };
-  } catch (parseErr) {
-    dnaDebugIngest({
-      location: 'DnaService.js:buildProfileFromDnaTestDbV3',
-      message: 'parse data failed',
-      data: { msg: parseErr?.message },
-      timestamp: Date.now(),
-      hypothesisId: 'H4'
-    });
+  } catch (_parseErr) {
     return null;
   }
 }
@@ -218,22 +179,6 @@ async function mapProfileToV2(profile, poolStatsData = null) {
       rawValues = lastMatch.geneValues;
     }
   }
-
-  const hasGenesV3 = !!(base.genesV3 && base.genesV3.value && typeof base.genesV3.value === 'object');
-  const hasGenesArr = Array.isArray(base.genes) && base.genes.length;
-  dnaDebugIngest({
-    location: 'DnaService.js:mapProfileToV2',
-    message: 'rawValues source',
-    data: {
-      hasGenesV3,
-      hasGenesArr,
-      baseKeys: Object.keys(base).filter((k) => k.includes('gene')),
-      rawValuesKeys: Object.keys(rawValues || {}),
-      usedLastMatch: !!(matchHistory.length && matchHistory[matchHistory.length - 1]?.geneValues)
-    },
-    timestamp: Date.now(),
-    hypothesisId: 'H6'
-  });
 
   const normalizedValues = poolStatsData ? poolStats.normalizeGeneValues(rawValues, poolStatsData) : { ...rawValues };
   const genes = mapToGenesArray(normalizedValues, dictByKey);

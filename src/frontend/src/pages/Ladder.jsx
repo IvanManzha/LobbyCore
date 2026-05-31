@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { ladderApi } from '@/services/api';
 import { useLayoutConfig } from '@/contexts/LayoutConfigContext';
 import { EmptyState, Skeleton } from '@/shared/ui';
+import { PlayerPlaque } from '@/entities/player';
 import { LadderRankBadge } from '@/entities/ladder';
 import './Ladder.css';
 
@@ -87,9 +88,14 @@ function Ladder() {
                 <tr key={row.player_id}>
                   <td>{row.place}</td>
                   <td>
-                    <Link to={`/player/${encodeURIComponent(row.player_id)}`} className="ladder-player-link">
-                      {row.player_id}
-                    </Link>
+                    <div className="player-plaque-cell">
+                      <PlayerPlaque
+                        playerId={row.player_id}
+                        displayName={row.player_id}
+                        size="xs"
+                        to={`/player/${encodeURIComponent(row.player_id)}`}
+                      />
+                    </div>
                   </td>
                   <td>{row.ladder_rating}</td>
                   <td>

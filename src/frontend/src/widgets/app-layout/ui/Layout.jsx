@@ -22,10 +22,14 @@ function LayoutInner() {
   const config = useLayoutConfigState();
   const {
     showInfoSidebar = false,
-    pageTitle: pageTitleOverride = '',
+    pageTitle: pageTitleFromConfig = '',
+    pageTitleOverride: pageTitleOverrideFromConfig = '',
+    pageTitleMeta = '',
+    pageTitleMetaHref = '',
     headerAction = null,
     asideContent = null,
   } = config;
+  const pageTitleOverride = pageTitleFromConfig || pageTitleOverrideFromConfig;
   const isMobile = useMediaQuery('(max-width: 900px)');
   const [sidebarCollapsed, setSidebarCollapsed] = useState(() => {
     if (typeof window === 'undefined') return false;
@@ -213,6 +217,8 @@ function LayoutInner() {
             <TopBar
               pageTitleOverride={pageTitleOverride ? String(pageTitleOverride) : undefined}
               pageTitle={pageTitle}
+              pageTitleMeta={pageTitleMeta ? String(pageTitleMeta) : undefined}
+              pageTitleMetaHref={pageTitleMetaHref ? String(pageTitleMetaHref) : undefined}
               isMobile={isMobile}
               onOpenDrawer={() => setMobileDrawerOpen(true)}
               headerAction={headerAction}

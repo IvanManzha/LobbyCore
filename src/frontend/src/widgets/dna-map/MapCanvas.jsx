@@ -126,8 +126,29 @@ const MapCanvas = forwardRef(function MapCanvas(props, ref) {
     session?.match?.map?.worldSize ??
     getMapInfo(session?.match?.mapName)?.sizeCm ??
     306000;
-  const mapImageUrl =
-    session?.match?.map?.imageUrl ?? getMapInfo(session?.match?.mapName)?.mapImage;
+  const mapImageUrls = useMemo(() => {
+    const info = getMapInfo(session?.match?.mapName);
+    const high = session?.match?.map?.imageUrl ?? info.mapImage ?? null;
+    const low = info.mapImagePreview || high;
+    return { low, high, canUpgrade: Boolean(low && high && low !== high) };
+  }, [session?.match?.mapName, session?.match?.map?.imageUrl]);
+
+  const mapZoomTier = useMemo(
+    () => getReplayZoomTier(zoom, minZoomRef.current, zoomInOnly ? ZOOM_MAX_REPLAY : 1),
+    [zoom, zoomInOnly]
+  );
+  const useHighResMap =
+    mapImageUrls.canUpgrade &&
+    (zoomInOnly
+      ? mapZoomTier === "mid" || mapZoomTier === "near"
+      : zoom >= 0.55);
+
+  useEffect(() => {
+    if (!mapImageUrls.high) return undefined;
+    const img = new Image();
+    img.src = `${mapImageUrls.high}${MAP_IMAGE_CACHE_BUST}`;
+    return undefined;
+  }, [mapImageUrls.high]);
 
   const expandBoundsWithZones = useCallback(
     (minX, minY, maxX, maxY) => {
@@ -638,20 +659,33 @@ const MapCanvas = forwardRef(function MapCanvas(props, ref) {
           </filter>
         </defs>
         <g transform={transform}>
-          {mapImageUrl && (
+          {mapImageUrls.low && (
             <g filter={zoomInOnly ? "url(#dnaMapCalm)" : undefined}>
               <image
-                href={`${mapImageUrl}${MAP_IMAGE_CACHE_BUST}`}
+                href={`${mapImageUrls.low}${MAP_IMAGE_CACHE_BUST}`}
                 x={0}
                 y={0}
                 width={worldSize}
                 height={worldSize}
                 preserveAspectRatio="xMidYMid meet"
-                opacity={zoomInOnly ? 0.92 : 1}
+                opacity={useHighResMap ? 0 : zoomInOnly ? 0.92 : 1}
+                style={{ transition: "opacity 0.35s ease" }}
               />
+              {mapImageUrls.canUpgrade ? (
+                <image
+                  href={`${mapImageUrls.high}${MAP_IMAGE_CACHE_BUST}`}
+                  x={0}
+                  y={0}
+                  width={worldSize}
+                  height={worldSize}
+                  preserveAspectRatio="xMidYMid meet"
+                  opacity={useHighResMap ? (zoomInOnly ? 0.92 : 1) : 0}
+                  style={{ transition: "opacity 0.35s ease" }}
+                />
+              ) : null}
             </g>
           )}
-          {!mapImageUrl && (
+          {!mapImageUrls.low && (
             <rect
               x={0}
               y={0}

@@ -17,6 +17,12 @@
   font-weight: 600;
 }
 
+.plaque-settings-intro {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
 .form-group {
   display: grid;
   gap: 8px;

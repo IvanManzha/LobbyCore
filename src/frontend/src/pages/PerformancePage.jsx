@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useLayoutConfig, useLayoutConfigSetter } from '@/contexts/LayoutConfigContext';
+import { useLayoutConfig } from '@/contexts/LayoutConfigContext';
 import { EmptyState, Skeleton } from '@/shared/ui';
 import {
   PerformanceHero,
@@ -19,6 +19,15 @@ import {
 } from '@/entities/player';
 import { useTranslation } from '@/contexts/LanguageContext';
 import './PerformancePage.css';
+
+function getModeLabel(mode) {
+  const value = (mode || '').toLowerCase();
+  if (value === 'solo') return 'solo';
+  if (value === 'duo') return 'duo';
+  if (value === 'squad') return 'squad';
+  if (value === 'mixed') return 'mixed';
+  return value || null;
+}
 
 function PerformancePage({ type }) {
   const { t } = useTranslation();
@@ -73,11 +82,23 @@ function PerformancePage({ type }) {
     }
   };
 
-  const setLayoutConfig = useLayoutConfigSetter();
-  useLayoutConfig({ pageTitleOverride: type === 'team' ? t('performance.team') : t('performance.player'), showInfoSidebar: false });
-  useEffect(() => {
-    if (setLayoutConfig && entityName) setLayoutConfig({ pageTitleOverride: entityName, showInfoSidebar: false });
-  }, [setLayoutConfig, entityName]);
+  const tournamentMeta = (() => {
+    const tournament = table?.tournament;
+    if (!tournament?.name) return undefined;
+    const modeLabel = getModeLabel(tournament.type);
+    return [tournament.name, modeLabel].filter(Boolean).join(' · ');
+  })();
+
+  useLayoutConfig(
+    {
+      pageTitle: entityName || (type === 'team' ? t('performance.team') : t('performance.player')),
+      pageTitleMeta: tournamentMeta,
+      pageTitleMetaHref: tournamentId ? `/tournament/${tournamentId}` : undefined,
+      showInfoSidebar: false,
+    },
+    [entityName, tournamentMeta, tournamentId, type, t]
+  );
+
   if (loading) {
     return (
       <div className="performance-page">

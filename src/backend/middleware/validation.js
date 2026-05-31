@@ -254,6 +254,44 @@ function validateUpdateProfile(req, res, next) {
 }
 
 /**
+ * Валидация loadout плашки (PUT /players/me/cosmetics)
+ */
+function validateCosmeticsLoadout(req, res, next) {
+  const { backgroundId, badgeIds } = req.body || {};
+
+  if (backgroundId != null && typeof backgroundId !== 'string') {
+    return res.status(400).json({
+      error: 'Validation Error',
+      message: 'backgroundId должен быть строкой',
+    });
+  }
+
+  if (badgeIds != null && !Array.isArray(badgeIds)) {
+    return res.status(400).json({
+      error: 'Validation Error',
+      message: 'badgeIds должен быть массивом',
+    });
+  }
+
+  if (Array.isArray(badgeIds)) {
+    if (badgeIds.length > 3) {
+      return res.status(400).json({
+        error: 'Validation Error',
+        message: 'Не более 3 бейджей на плашке',
+      });
+    }
+    if (badgeIds.some((id) => typeof id !== 'string')) {
+      return res.status(400).json({
+        error: 'Validation Error',
+        message: 'Каждый badgeId должен быть строкой',
+      });
+    }
+  }
+
+  next();
+}
+
+/**
  * Валидация регистрации на турнир (solo/team)
  */
 function validateRegisterTournament(req, res, next) {
@@ -287,5 +325,6 @@ module.exports = {
   validateRegister,
   validateLogin,
   validateUpdateProfile,
-  validateRegisterTournament
+  validateRegisterTournament,
+  validateCosmeticsLoadout,
 };

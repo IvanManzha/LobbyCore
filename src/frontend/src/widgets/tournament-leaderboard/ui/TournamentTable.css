@@ -1,18 +1,136 @@
 .tournament-table {
   margin-top: 0;
-  border: none;
-  border-radius: var(--radius-card);
+  --tournament-row-height: 100px;
+  --tournament-col-h-pad: 32px; /* 16px слева + 16px справа */
+}
+
+.tournament-table__col-rank {
+  width: calc(40px + var(--tournament-col-h-pad));
+}
+
+.tournament-table__col-action {
+  width: calc(40px + var(--tournament-col-h-pad));
+}
+
+.tournament-table__col-rating {
+  width: calc(90px + var(--tournament-col-h-pad));
+}
+
+.tournament-table__col-stat {
+  width: calc(70px + var(--tournament-col-h-pad));
+}
+
+.tournament-table__col-form {
+  width: calc(200px + var(--tournament-col-h-pad));
+}
+
+.tournament-table__col-remove {
+  width: 50px;
+}
+
+.players-table-view .form-timeline-label {
+  display: none;
+}
+
+/* Центр: узкие столбцы с фиксированной шириной */
+.tournament-table .table-premium th.tournament-table__col-rank,
+.tournament-table .table-premium td.tournament-table__col-rank,
+.players-table-view .table-premium th.tournament-table__col-rank,
+.players-table-view .table-premium td.tournament-table__col-rank,
+.tournament-table .table-premium th.tournament-table__col-action,
+.tournament-table .table-premium td.tournament-table__col-action,
+.tournament-table .table-premium th.tournament-table__col-rating,
+.tournament-table .table-premium td.tournament-table__col-rating,
+.tournament-table .table-premium th.tournament-table__col-stat,
+.tournament-table .table-premium td.tournament-table__col-stat,
+.tournament-table .table-premium th.tournament-table__col-paid,
+.tournament-table .table-premium td.tournament-table__col-paid,
+.players-table-view .table-premium th.tournament-table__col-stat,
+.players-table-view .table-premium td.tournament-table__col-stat,
+.players-table-view .table-premium th.tournament-table__col-form,
+.players-table-view .table-premium td.tournament-table__col-form {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.players-table-view .table-premium th.tournament-table__col-remove,
+.players-table-view .table-premium td.tournament-table__col-remove {
+  width: 50px;
+  max-width: 50px;
+  min-width: 50px;
+  padding: 14px 4px;
+  text-align: center;
+  vertical-align: middle;
+  box-sizing: border-box;
   overflow: hidden;
-  background: var(--surface);
+}
+
+.players-table-view col.tournament-table__col-remove {
+  width: 50px;
+}
+
+/* Участник: слева, без фиксированной ширины (как раньше) */
+.tournament-table .table-premium th.tournament-table__col-participant,
+.tournament-table .table-premium td.tournament-table__col-participant,
+.players-table-view .table-premium th.tournament-table__col-participant,
+.players-table-view .table-premium td.tournament-table__col-participant {
+  text-align: left;
+  vertical-align: middle;
+}
+
+.tournament-table .table-premium tbody td.tournament-table__player-cell,
+.players-table-view .table-premium tbody td.tournament-table__player-cell {
+  text-align: left;
+  vertical-align: top;
+}
+
+.players-table-view .table-premium td.tournament-table__col-form .form-timeline-wrapper {
+  align-items: center;
+}
+
+.players-table-view .form-timeline {
+  justify-content: center;
+}
+
+.players-table-view .form-column-header {
+  justify-content: center;
+}
+
+/* Матчи: центр везде, кроме столбца с именем */
+.matches-table-view .table-premium thead th:nth-child(1),
+.matches-table-view .table-premium tbody td:nth-child(1),
+.matches-table-view .table-premium thead th:nth-child(3),
+.matches-table-view .table-premium tbody td:nth-child(3),
+.match-details-table .table-premium thead th:nth-child(1),
+.match-details-table .table-premium tbody td:nth-child(1),
+.match-details-table .table-premium thead th:nth-child(3),
+.match-details-table .table-premium tbody td:nth-child(3),
+.match-details-table .table-premium thead th:nth-child(4),
+.match-details-table .table-premium tbody td:nth-child(4) {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.matches-table-view .table-premium thead th:nth-child(2),
+.matches-table-view .table-premium tbody td:nth-child(2),
+.match-details-table .table-premium thead th:nth-child(2),
+.match-details-table .table-premium tbody td:nth-child(2) {
+  text-align: left;
+  vertical-align: middle;
 }
 
 .tournament-table table {
   width: 100%;
+  table-layout: fixed;
 }
 
-.tournament-table .table-premium thead th,
-.tournament-table .table-premium tbody td {
-  border: none;
+.tournament-table .table-premium tbody tr:not(.tournament-table__roster-row) td:not(.tournament-table__player-cell) {
+  min-height: var(--tournament-row-height);
+}
+
+.tournament-table .table-premium tbody td.tournament-table__player-cell {
+  padding: 6px !important;
+  position: relative;
 }
 
 .tournament-table .name-cell {
@@ -152,6 +270,13 @@
   font-weight: 400;
 }
 
+.tournament-table__roster-list-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+
 /* Строка участника — без бордера */
 .tournament-table tbody tr.row--participant {
   border-left: none;
@@ -159,30 +284,6 @@
 
 .tournament-table tbody tr.row--participant:hover {
   border-left: none;
-}
-
-.tournament-table-archetype {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.tournament-table-dna-tier {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-  border: none;
-  background: transparent;
-  box-shadow: none;
-}
-
-.tournament-table-dna-tier .dnaTierBadgeImage {
-  width: clamp(22px, 3.75vw, 35px);
-}
-
-.tournament-table-dna-tier .dnaTierBadge--tier-4 .dnaTierBadgeImage {
-  width: clamp(20px, 3.25vw, 30px);
 }
 
 .tournament-table-rating-value {

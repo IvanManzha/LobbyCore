@@ -1,0 +1,351 @@
+.player-plaque {
+  position: relative;
+  display: inline-flex;
+  flex-shrink: 0;
+  max-width: 100%;
+  border-radius: var(--radius-card, 12px);
+  border: 1px solid color-mix(in srgb, var(--line) 85%, transparent);
+  overflow: hidden;
+  box-shadow: 0 1px 0 color-mix(in srgb, #fff 6%, transparent) inset;
+  text-decoration: none;
+  color: inherit;
+  vertical-align: middle;
+}
+
+.player-plaque--link {
+  transition: transform var(--motion-fast, 0.15s) var(--ease-out, ease),
+    box-shadow var(--motion-fast, 0.15s) var(--ease-out, ease);
+}
+
+.player-plaque--link:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px color-mix(in srgb, #000 25%, transparent);
+}
+
+.player-plaque__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.player-plaque__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    105deg,
+    color-mix(in srgb, #000 35%, transparent) 0%,
+    color-mix(in srgb, #000 12%, transparent) 45%,
+    color-mix(in srgb, #000 28%, transparent) 100%
+  );
+  pointer-events: none;
+}
+
+.player-plaque__body {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  min-width: 0;
+  padding: 0 12px;
+  box-sizing: border-box;
+}
+
+.player-plaque__text {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.player-plaque__name {
+  font-weight: 600;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-shadow: 0 1px 3px color-mix(in srgb, #000 55%, transparent);
+  line-height: 1.2;
+}
+
+.player-plaque__subtitle {
+  font-size: 10px;
+  font-weight: 500;
+  color: color-mix(in srgb, #fff 78%, transparent);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.2;
+}
+
+.player-plaque__badges {
+  position: absolute;
+  z-index: 3;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+  pointer-events: none;
+}
+
+.player-plaque__badges--single {
+  top: 50%;
+}
+
+.player-plaque__badges-pair {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 14px;
+}
+
+.player-plaque__badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  filter: drop-shadow(0 1px 2px color-mix(in srgb, #000 55%, transparent));
+}
+
+.player-plaque--has-badges .player-plaque__body {
+  padding-right: 62px;
+}
+
+.player-plaque__trailing {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+
+.player-plaque--xs {
+  width: 148px;
+  height: 36px;
+}
+
+.player-plaque--xs .player-plaque__name {
+  font-size: 12px;
+}
+
+.player-plaque--xs .player-plaque__badge {
+  font-size: 16px;
+}
+
+.player-plaque--sm {
+  width: 168px;
+  height: 44px;
+}
+
+.player-plaque--sm .player-plaque__name {
+  font-size: 13px;
+}
+
+.player-plaque--sm .player-plaque__badge {
+  font-size: 18px;
+}
+
+.player-plaque--md {
+  width: 240px;
+  height: 56px;
+}
+
+.player-plaque--md .player-plaque__name {
+  font-size: 15px;
+}
+
+.player-plaque--md .player-plaque__subtitle {
+  font-size: 11px;
+}
+
+.player-plaque--md .player-plaque__badge {
+  font-size: 20px;
+}
+
+.player-plaque--lg {
+  width: 280px;
+  height: 72px;
+}
+
+.player-plaque--lg .player-plaque__name {
+  font-size: 17px;
+}
+
+.player-plaque--lg .player-plaque__badge {
+  font-size: 22px;
+}
+
+.player-plaque--hero {
+  width: 100%;
+  height: 100%;
+  min-height: 108px;
+  max-width: none;
+}
+
+.player-plaque--hero .player-plaque__body {
+  padding: 16px 20px;
+  min-height: 100%;
+}
+
+.player-plaque--hero .player-plaque__name {
+  font-size: 22px;
+}
+
+.player-plaque--hero .player-plaque__badge {
+  font-size: 26px;
+}
+
+.player-plaque--hero .player-plaque__badges {
+  right: 16px;
+  top: 50%;
+  gap: 8px;
+}
+
+.player-plaque--hero .player-plaque__badges-pair {
+  gap: 16px;
+}
+
+.player-plaque-cell {
+  display: flex;
+  align-items: center;
+  min-height: 36px;
+}
+
+.player-plaque-cell--roster {
+  margin-bottom: 8px;
+}
+
+/* Full-width row in tournament tables */
+.player-plaque--row {
+  width: 100%;
+  height: 76px;
+  max-width: none;
+  border-radius: 0;
+}
+
+.player-plaque--row .player-plaque__body {
+  padding: 0 16px;
+  gap: 12px;
+}
+
+.player-plaque--row .player-plaque__name {
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.player-plaque--row .player-plaque__subtitle {
+  font-size: 12px;
+}
+
+.player-plaque--row .player-plaque__badge {
+  width: auto;
+  height: auto;
+  font-size: 20px;
+}
+
+.player-plaque--row .player-plaque__badges {
+  right: 14px;
+  top: 50%;
+  gap: 7px;
+}
+
+.player-plaque--row .player-plaque__badges-pair {
+  gap: 14px;
+}
+
+.player-plaque--row .player-plaque__overlay {
+  background: linear-gradient(
+    105deg,
+    color-mix(in srgb, #000 28%, transparent) 0%,
+    color-mix(in srgb, #000 8%, transparent) 50%,
+    color-mix(in srgb, #000 22%, transparent) 100%
+  );
+}
+
+/* Плашка на всю ячейку столбца «Команда / Игрок» в таблице */
+.table-premium tbody td.tournament-table__player-cell {
+  padding: 6px !important;
+  position: relative;
+  vertical-align: top;
+}
+
+.table-premium tbody td.tournament-table__player-cell::after {
+  content: '';
+  display: block;
+  min-height: var(--tournament-row-height, 100px);
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.table-premium tbody td.tournament-table__player-cell > .player-plaque--table {
+  position: absolute;
+  inset: 6px;
+  width: auto;
+  height: auto;
+  min-height: 0;
+}
+
+.player-plaque--table {
+  display: flex;
+  width: 100%;
+  max-width: none;
+  border-radius: var(--radius-card, 12px);
+  border: 1px solid color-mix(in srgb, var(--line) 85%, transparent);
+  box-shadow: 0 1px 0 color-mix(in srgb, #fff 6%, transparent) inset;
+}
+
+.player-plaque--table.player-plaque--link:hover {
+  transform: none;
+  box-shadow: none;
+  filter: brightness(1.06);
+}
+
+.player-plaque--table .player-plaque__body {
+  flex: 1;
+  height: 100%;
+  padding: 0 14px;
+  gap: 10px;
+  align-items: center;
+}
+
+.player-plaque--table.player-plaque--has-badges .player-plaque__body {
+  padding-right: 66px;
+}
+
+.player-plaque--table .player-plaque__badges {
+  right: 12px;
+  top: 50%;
+  gap: 8px;
+}
+
+.player-plaque--table .player-plaque__badges-pair {
+  gap: 16px;
+}
+
+.player-plaque--table .player-plaque__name {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.player-plaque--table .player-plaque__subtitle {
+  font-size: 12px;
+}
+
+.player-plaque--table .player-plaque__badge {
+  width: auto;
+  height: auto;
+  font-size: 24px;
+}
+
+.player-plaque--table .player-plaque__overlay {
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, #000 32%, transparent) 0%,
+    color-mix(in srgb, #000 10%, transparent) 70%,
+    color-mix(in srgb, #000 18%, transparent) 100%
+  );
+}

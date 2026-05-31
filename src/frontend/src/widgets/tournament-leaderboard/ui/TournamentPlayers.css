@@ -23,6 +23,17 @@
 
 .players-table-view {
   margin-top: 8px;
+  --tournament-row-height: 100px;
+  --tournament-col-h-pad: 32px;
+}
+
+.players-table-view .table-premium tbody tr:not(.player-row-expanded) td:not(.tournament-table__player-cell) {
+  min-height: var(--tournament-row-height);
+}
+
+.players-table-view .table-premium tbody td.tournament-table__player-cell {
+  padding: 6px !important;
+  position: relative;
 }
 
 .player-row {
@@ -44,9 +55,33 @@
 }
 
 .player-name-cell {
-  display: inline-flex;
+  display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 8px;
+}
+
+.tournament-remove-btn {
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid color-mix(in srgb, var(--bad, #ef4444) 35%, var(--line));
+  border-radius: var(--radius);
+  background: color-mix(in srgb, var(--bad, #ef4444) 10%, var(--surface));
+  color: var(--bad, #ef4444);
+  font-size: 18px;
+  line-height: 1;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background var(--motion-fast) var(--ease-out), border-color var(--motion-fast) var(--ease-out);
+}
+
+.tournament-remove-btn:hover {
+  background: color-mix(in srgb, var(--bad, #ef4444) 18%, var(--surface));
+  border-color: color-mix(in srgb, var(--bad, #ef4444) 55%, var(--line));
 }
 
 .team-paid-badge {
@@ -122,6 +157,10 @@
   gap: 16px;
 }
 
+.players-table-view .table-premium {
+  table-layout: fixed;
+}
+
 .roster-player {
   padding: 12px;
   border: 1px solid var(--line);
@@ -129,19 +168,11 @@
   background: var(--surface);
 }
 
-.roster-player-name {
-  font-weight: 600;
+.roster-player .roster-player-name {
+  display: block;
   margin-bottom: 8px;
-}
-
-.roster-player-name a {
-  color: var(--accent);
-  text-decoration: none;
-  transition: color var(--motion-fast) var(--ease-out);
-}
-
-.roster-player-name a:hover {
-  color: var(--accent2);
+  font-size: 15px;
+  font-weight: 600;
 }
 
 .roster-player-stats {

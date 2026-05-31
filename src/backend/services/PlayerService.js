@@ -1,5 +1,8 @@
 // src/backend/services/PlayerService.js
 const fs = require('fs');
+const {
+  DEFAULT_PLAQUE_LOADOUT,
+} = require('../../shared/achievement');
 const path = require('path');
 const bcrypt = require('bcrypt');
 const crypto = require('crypto');
@@ -255,7 +258,8 @@ class PlayerService {
       longAnchor: 0,
       effectiveRating: 0,
       ratingHistory: [],
-      rating: 0
+      rating: 0,
+      plaqueLoadout: { ...DEFAULT_PLAQUE_LOADOUT },
     };
 
     fs.writeFileSync(

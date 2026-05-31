@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import ChampionPill from './ChampionPill';
 import ProfileMenu from './ProfileMenu';
 import DcBalance from './DcBalance';
@@ -10,6 +10,8 @@ import './TopBar.css';
 function TopBar({
   pageTitleOverride,
   pageTitle: pageTitleFromLayout,
+  pageTitleMeta,
+  pageTitleMetaHref,
   isMobile,
   onOpenDrawer,
   headerAction,
@@ -41,7 +43,23 @@ function TopBar({
               <span className="topbar-hamburger-bar" />
             </button>
           )}
-          <h1 className="topbar-pagetitle">{pageTitle}</h1>
+          <div className="topbar-title-group">
+            <h1 className="topbar-pagetitle">{pageTitle}</h1>
+            {pageTitleMeta && (
+              <>
+                <span className="topbar-title-sep" aria-hidden>
+                  ·
+                </span>
+                {pageTitleMetaHref ? (
+                  <Link to={pageTitleMetaHref} className="topbar-pagemeta topbar-pagemeta-link">
+                    {pageTitleMeta}
+                  </Link>
+                ) : (
+                  <span className="topbar-pagemeta">{pageTitleMeta}</span>
+                )}
+              </>
+            )}
+          </div>
         </div>
         <div className="topbar-actions">
           {headerAction}

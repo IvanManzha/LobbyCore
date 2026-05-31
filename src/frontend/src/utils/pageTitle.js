@@ -12,6 +12,7 @@ const ROUTE_KEYS = {
   '/login': 'pageTitle.login',
   '/register': 'pageTitle.register',
   '/settings': 'pageTitle.settings',
+  '/settings/plaque': 'pageTitle.plaqueEditor',
   '/finance': 'pageTitle.finance',
   '/admin/studio': 'pageTitle.adminStudio',
   '/admin/finance': 'pageTitle.adminFinance',

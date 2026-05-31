@@ -30,19 +30,9 @@ api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
-      // Токен истек или невалиден
       removeToken();
       removeProfile();
-      // Перенаправляем на страницу логина только если не на публичной странице
-      const publicPaths = ['/login', '/register', '/', '/schedule', '/tournament'];
-      const isPublicPath = publicPaths.some(path =>
-        window.location.pathname === path ||
-        window.location.pathname.startsWith('/tournament/')
-      );
-
-      if (!isPublicPath && window.location.pathname !== '/login') {
-        window.location.href = '/login';
-      }
+      window.dispatchEvent(new Event('auth-updated'));
     }
     return Promise.reject(error);
   }
@@ -363,6 +353,21 @@ export const playerApi = {
     }
     const response = await api.get(`/players/${name}/championships`);
     cache.set(cacheKey, { data: response.data, timestamp: Date.now() });
+    return response.data;
+  },
+
+  getCosmetics: async (name) => {
+    const response = await api.get(`/players/${encodeURIComponent(name)}/cosmetics`);
+    return response.data;
+  },
+
+  getMyCosmetics: async () => {
+    const response = await api.get('/players/me/cosmetics');
+    return response.data;
+  },
+
+  updateMyCosmetics: async (loadout) => {
+    const response = await api.put('/players/me/cosmetics', loadout);
     return response.data;
   },
 

@@ -1,6 +1,9 @@
 /* Sidebar: всегда видим (expanded или collapsed rail), ширина через CSS var */
 .sidebar {
   --sidebar-width: var(--sidebar-width-expanded, 260px);
+  --sidebar-nav-inset-x: 10px;
+  --sidebar-item-pad-x: 14px;
+  --sidebar-icon-inset: calc(var(--sidebar-nav-inset-x) + var(--sidebar-item-pad-x));
   width: var(--sidebar-width);
   min-width: var(--sidebar-width);
   height: 100vh;
@@ -34,10 +37,13 @@
   justify-content: space-between;
   gap: 10px;
   flex-shrink: 0;
+  transition: padding var(--motion-medium, 200ms) var(--ease-out, ease);
 }
 
 .sidebar--collapsed .sidebar-header {
   justify-content: flex-start;
+  padding-left: 6px;
+  padding-right: var(--sidebar-nav-inset-x);
 }
 
 /* Блок с кнопкой свернуть — внизу сайдбара, без полоски сверху */
@@ -102,6 +108,11 @@
   gap: 10px;
   min-width: 0;
   margin-left: 14px;
+  transition: margin-left var(--motion-medium, 200ms) var(--ease-out, ease);
+}
+
+.sidebar--collapsed .sidebar-brand {
+  margin-left: 6px;
 }
 
 .sidebar-brand-icon-wrap {
@@ -195,7 +206,7 @@
 /* Nav */
 .sidebar-nav {
   flex: 1;
-  padding: 12px 10px;
+  padding: 12px var(--sidebar-nav-inset-x);
   min-height: 0;
   display: flex;
   flex-direction: column;
@@ -207,7 +218,7 @@ button.sidebar-item {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 10px 14px;
+  padding: 10px var(--sidebar-item-pad-x);
   color: var(--muted);
   border-radius: 10px;
   transition: background var(--motion-fast) var(--ease-out, ease),
@@ -255,7 +266,7 @@ button.sidebar-item {
 /* Collapsed: иконки на тех же местах, подпись скрыта, фиксированная высота строки */
 .sidebar--collapsed .sidebar-item {
   justify-content: flex-start;
-  padding: 10px 14px;
+  padding: 10px var(--sidebar-item-pad-x);
   min-height: 44px;
   max-height: 44px;
   align-items: center;
@@ -348,7 +359,7 @@ button.sidebar-item {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 10px 14px;
+  padding: 10px var(--sidebar-item-pad-x);
   color: var(--muted);
   border-radius: 10px;
   font-size: 14px;
@@ -481,7 +492,7 @@ button.sidebar-subitem {
 /* Collapsed: группы как обычные пункты — только иконки, без текста */
 .sidebar--collapsed .sidebar-group-header {
   justify-content: flex-start;
-  padding: 10px 14px;
+  padding: 10px var(--sidebar-item-pad-x);
   min-height: 44px;
   max-height: 44px;
 }
